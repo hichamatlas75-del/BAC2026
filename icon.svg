@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="50%" stop-color="#1e3a8a"/>
+      <stop offset="100%" stop-color="#2563eb"/>
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbbf24"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <!-- Background Squircle -->
+  <rect x="16" y="16" width="480" height="480" rx="100" fill="url(#bgGrad)" stroke="rgba(255,255,255,0.2)" stroke-width="4"/>
+
+  <!-- Glowing Aura -->
+  <circle cx="256" cy="220" r="140" fill="rgba(255,255,255,0.08)"/>
+
+  <!-- Graduation Cap Top Diamond -->
+  <polygon points="256,130 420,215 256,300 92,215" fill="#ffffff" filter="url(#shadow)"/>
+
+  <!-- Cap Lower Base -->
+  <path d="M165,255 L347,255 L347,300 Q256,340 165,300 Z" fill="#e2e8f0" filter="url(#shadow)"/>
+
+  <!-- Cap Button -->
+  <circle cx="256" cy="215" r="14" fill="url(#goldGrad)"/>
+
+  <!-- Cap Tassel Ribbon -->
+  <path d="M256,215 Q360,240 380,310" stroke="url(#goldGrad)" stroke-width="8" stroke-linecap="round" fill="none"/>
+  <!-- Tassel Brush -->
+  <polygon points="370,305 390,305 398,345 362,345" fill="url(#goldGrad)"/>
+
+  <!-- Badge Pill: 2BAC 2026 -->
+  <rect x="76" y="365" width="360" height="96" rx="48" fill="#10b981" stroke="#ffffff" stroke-width="4" filter="url(#shadow)"/>
+  <text x="256" y="428" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="52" font-weight="900" fill="#ffffff" text-anchor="middle" letter-spacing="2">2BAC 2026</text>
+</svg>

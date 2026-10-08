@@ -1,0 +1,1950 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>2BAC Maroc 2026 – Hub de révision (Sciences Physiques)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="Plateforme officielle de révision pour le Baccalauréat marocain 2026 (Sciences Physiques BIOF) : cours complets, fiches de formules, résumés, devoirs surveillés, annales 2008-2025 avec corrections détaillées et simulateur de mention.">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="2BAC SP 2026">
+  
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" type="image/svg+xml" href="icon.svg">
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --c: #ffffff;
+      --t: #0f172a;
+      --m: #64748b;
+      --a: #2563eb;
+      --a-hover: #1d4ed8;
+      --b: #e2e8f0;
+      --ok: #10b981;
+      --warn: #f59e0b;
+      --danger: #ef4444;
+      --card-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -2px rgba(0,0,0,0.03);
+      --font: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      box-sizing: border-box;
+      padding-top: env(safe-area-inset-top, 0px);
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #090d16;
+        --c: #131c2e;
+        --t: #f8fafc;
+        --m: #94a3b8;
+        --a: #3b82f6;
+        --a-hover: #60a5fa;
+        --b: #243048;
+        --card-shadow: 0 4px 10px rgba(0,0,0,0.4);
+      }
+    }
+    :root[data-theme="dark"] {
+      --bg: #090d16;
+      --c: #131c2e;
+      --t: #f8fafc;
+      --m: #94a3b8;
+      --a: #3b82f6;
+      --a-hover: #60a5fa;
+      --b: #243048;
+      --card-shadow: 0 4px 10px rgba(0,0,0,0.4);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--t);
+      font: 14.5px/1.55 var(--font);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    header {
+      background: var(--c);
+      border-bottom: 1px solid var(--b);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      padding: 10px 16px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+    }
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: inherit;
+    }
+    .brand h1 {
+      font-size: 17px;
+      font-weight: 800;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      letter-spacing: -0.3px;
+    }
+    .tag-sp {
+      background: #2563eb;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 12px;
+      text-transform: uppercase;
+    }
+    .top-actions {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-icon {
+      padding: 6px 10px;
+      border-radius: 8px;
+      border: 1px solid var(--b);
+      background: var(--bg);
+      color: var(--t);
+      cursor: pointer;
+      font-size: 12.5px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-weight: 600;
+      transition: all 0.15s ease;
+    }
+    .btn-icon:hover { border-color: var(--a); color: var(--a); }
+    .btn-install {
+      background: #10b981;
+      color: #fff;
+      border-color: #10b981;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.92; transform: scale(1.03); }
+    }
+
+    .row-search {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    select, input {
+      padding: 8px 12px;
+      border: 1px solid var(--b);
+      border-radius: 8px;
+      background: var(--bg);
+      color: var(--t);
+      font: inherit;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    select:focus, input:focus { border-color: var(--a); }
+    .search-wrap {
+      flex: 1;
+      min-width: 170px;
+      position: relative;
+    }
+    .search-wrap input { width: 100%; padding-right: 28px; }
+    .search-clear {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: var(--m);
+      cursor: pointer;
+      font-size: 14px;
+      display: none;
+    }
+
+    /* COUNTDOWN BANNER */
+    .cd-banner {
+      background: linear-gradient(135deg, rgba(37,99,235,0.08), rgba(16,185,129,0.08));
+      border-bottom: 1px solid var(--b);
+      padding: 9px 16px;
+      font-size: 13px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .cd-title {
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .cd-boxes {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+    .cd-unit {
+      background: var(--c);
+      border: 1px solid var(--b);
+      border-radius: 6px;
+      padding: 2px 7px;
+      text-align: center;
+      min-width: 42px;
+    }
+    .cd-val {
+      font-weight: 800;
+      font-size: 14.5px;
+      color: var(--a);
+      display: block;
+      line-height: 1.1;
+    }
+    .cd-lbl {
+      font-size: 9px;
+      text-transform: uppercase;
+      color: var(--m);
+      letter-spacing: 0.5px;
+    }
+
+    /* NAVIGATION TABS */
+    .tabs-wrapper {
+      background: var(--c);
+      border-bottom: 1px solid var(--b);
+    }
+    .tabs {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding: 9px 16px;
+      scrollbar-width: thin;
+      max-width: 1150px;
+      margin: 0 auto;
+    }
+    .tab {
+      white-space: nowrap;
+      padding: 7px 13px;
+      border-radius: 20px;
+      border: 1px solid var(--b);
+      background: var(--bg);
+      color: var(--t);
+      cursor: pointer;
+      font: inherit;
+      font-weight: 600;
+      font-size: 13px;
+      transition: all 0.15s;
+    }
+    .tab:hover { border-color: var(--a); }
+    .tab.on {
+      background: var(--a);
+      color: #fff;
+      border-color: var(--a);
+      box-shadow: 0 2px 8px rgba(37,99,235,0.25);
+    }
+
+    main {
+      max-width: 1150px;
+      margin: 0 auto;
+      padding: 16px 16px 60px;
+    }
+
+    .sub-bar {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .sub-group { display: flex; gap: 6px; flex-wrap: wrap; }
+    .sub-group .tab { padding: 5px 12px; font-size: 12.5px; border-radius: 12px; }
+
+    /* PROGRESS */
+    .progress-box {
+      background: var(--c);
+      border: 1px solid var(--b);
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-bottom: 14px;
+      box-shadow: var(--card-shadow);
+    }
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .bar {
+      height: 8px;
+      background: var(--b);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .bar i {
+      display: block;
+      height: 100%;
+      background: linear-gradient(90deg, #10b981, #059669);
+      border-radius: 6px;
+      transition: width 0.3s ease;
+    }
+
+    /* GRID & CARDS */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      gap: 12px;
+    }
+    .card {
+      background: var(--c);
+      border: 1px solid var(--b);
+      border-radius: 12px;
+      padding: 14px;
+      box-shadow: var(--card-shadow);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.15s, border-color 0.15s;
+    }
+    .card:hover { border-color: var(--a); }
+    .card.done {
+      border-color: var(--ok);
+      background: rgba(16,185,129,0.03);
+    }
+    .card-top {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .card-chk {
+      flex: none;
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+      accent-color: var(--ok);
+      margin-top: 2px;
+    }
+    .card-titles { flex: 1; }
+    .card h3 {
+      margin: 4px 0 0;
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.35;
+    }
+    .card .ar {
+      direction: rtl;
+      text-align: right;
+      display: block;
+      color: var(--m);
+      font-size: 13.5px;
+      line-height: 1.3;
+    }
+    .card.done h3, .card.done .ar {
+      text-decoration: line-through;
+      opacity: 0.75;
+    }
+
+    .lk {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+    .lk a, .lk button {
+      font-size: 12px;
+      padding: 4px 9px;
+      border-radius: 7px;
+      background: var(--bg);
+      border: 1px solid var(--b);
+      color: var(--a);
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      cursor: pointer;
+      transition: all 0.12s;
+    }
+    .lk a:hover, .lk button:hover {
+      background: var(--a);
+      color: #fff;
+      border-color: var(--a);
+    }
+    .btn-memo {
+      background: rgba(37,99,235,0.08) !important;
+      color: var(--a) !important;
+      border-color: rgba(37,99,235,0.2) !important;
+    }
+    .btn-memo:hover {
+      background: var(--a) !important;
+      color: #fff !important;
+    }
+    .yt { color: #dc2626 !important; }
+    .yt:hover { background: #dc2626 !important; color: #fff !important; }
+
+    .note {
+      font-size: 13px;
+      color: var(--m);
+      background: var(--c);
+      border: 1px dashed var(--b);
+      padding: 10px 12px;
+      border-radius: 10px;
+      margin: 12px 0;
+      line-height: 1.45;
+    }
+    h2 {
+      font-size: 16.5px;
+      font-weight: 800;
+      margin: 24px 0 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* TABLES */
+    .tw {
+      overflow-x: auto;
+      border-radius: 10px;
+      border: 1px solid var(--b);
+      margin: 10px 0;
+      box-shadow: var(--card-shadow);
+      background: var(--c);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: center;
+      font-size: 13px;
+    }
+    th {
+      background: var(--bg);
+      font-weight: 700;
+      padding: 9px 10px;
+      border-bottom: 2px solid var(--b);
+      color: var(--m);
+    }
+    td {
+      padding: 8px 10px;
+      border-bottom: 1px solid var(--b);
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(37,99,235,0.03); }
+
+    /* FORMULA MEMO BOX IN CARD / MODAL */
+    .memo-modal-body {
+      max-height: 75vh;
+      overflow-y: auto;
+      padding-right: 6px;
+    }
+    .memo-section {
+      background: var(--bg);
+      border: 1px solid var(--b);
+      border-radius: 10px;
+      padding: 12px;
+      margin-bottom: 12px;
+    }
+    .memo-title {
+      font-size: 13.5px;
+      font-weight: 800;
+      color: var(--a);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .formula-badge {
+      background: var(--c);
+      border-left: 3px solid var(--a);
+      padding: 6px 10px;
+      margin: 6px 0;
+      border-radius: 4px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 13px;
+      color: var(--t);
+    }
+    .piege-box {
+      border-left-color: var(--danger);
+      background: rgba(239,68,68,0.06);
+      color: var(--danger);
+      font-weight: 600;
+    }
+
+    /* SIMULATOR CARD */
+    .sim-card {
+      background: var(--c);
+      border: 1px solid var(--b);
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: var(--card-shadow);
+      margin-top: 14px;
+    }
+    .sim-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .sim-item label {
+      display: block;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--m);
+      margin-bottom: 4px;
+    }
+    .sim-item input {
+      width: 100%;
+    }
+    .sim-result {
+      background: linear-gradient(135deg, rgba(37,99,235,0.1), rgba(16,185,129,0.1));
+      border: 1px solid var(--b);
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+    }
+    .sim-score {
+      font-size: 32px;
+      font-weight: 900;
+      color: var(--a);
+      margin: 4px 0;
+    }
+    .sim-mention {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--ok);
+    }
+
+    /* POMODORO VIEW */
+    .pomo-container {
+      max-width: 480px;
+      margin: 20px auto;
+      background: var(--c);
+      border: 1px solid var(--b);
+      border-radius: 18px;
+      padding: 24px;
+      text-align: center;
+      box-shadow: var(--card-shadow);
+    }
+    .pomo-modes {
+      display: flex;
+      gap: 6px;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .pomo-modes button {
+      padding: 6px 14px;
+      border-radius: 20px;
+      border: 1px solid var(--b);
+      background: var(--bg);
+      color: var(--t);
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 13px;
+    }
+    .pomo-modes button.on {
+      background: var(--a);
+      color: #fff;
+      border-color: var(--a);
+    }
+    .pomo-display {
+      font-size: 64px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      margin: 16px 0;
+      font-variant-numeric: tabular-nums;
+      color: var(--t);
+    }
+    .pomo-controls {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+    .btn-main {
+      padding: 10px 24px;
+      border-radius: 12px;
+      border: none;
+      background: var(--a);
+      color: #fff;
+      font-weight: 800;
+      font-size: 15px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(37,99,235,0.3);
+      transition: transform 0.1s;
+    }
+    .btn-main:active { transform: scale(0.97); }
+    .btn-sec {
+      padding: 9px 16px;
+      border-radius: 10px;
+      border: 1px solid var(--b);
+      background: var(--bg);
+      color: var(--t);
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    /* MODAL */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(4px);
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .modal {
+      background: var(--c);
+      border: 1px solid var(--b);
+      border-radius: 16px;
+      max-width: 580px;
+      width: 100%;
+      padding: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+    }
+    .modal h3 { margin-top: 0; font-size: 17px; }
+    .modal-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 16px; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="top-bar">
+    <a href="#" class="brand" onclick="navigateTab('pc'); return false;">
+      <h1>🎓 2BAC Maroc <span class="tag-sp">Sciences Physiques</span></h1>
+    </a>
+    <div class="top-actions">
+      <button class="btn-icon" id="btn-pomo" title="Minuteur Pomodoro">🍅 <span id="pomo-mini">25:00</span></button>
+      <button class="btn-icon btn-install" id="btn-install" style="display:none">📲 Installer</button>
+      <button class="btn-icon" id="btn-settings" title="Sauvegarde & Paramètres">⚙️ Sauvegarde</button>
+      <button class="btn-icon" id="th" title="Changer le thème">🌓</button>
+    </div>
+  </div>
+
+  <div class="row-search">
+    <select id="fil" title="Choisir la filière">
+      <option value="sp" selected>🧪 Sciences Physiques (Principale)</option>
+      <option value="svt">🧬 SVT</option>
+      <option value="sma">📐 Sc. Maths A</option>
+    </select>
+    <div class="search-wrap">
+      <input id="q" placeholder="Rechercher une notion, formule, chapitre (ex: RLC, Newton, dosage, complexe)…">
+      <button class="search-clear" id="q-clear">✕</button>
+    </div>
+  </div>
+</header>
+
+<!-- COUNTDOWN BANNER -->
+<div class="cd-banner" id="countdown">
+  <div class="cd-title">
+    <span>⏳</span>
+    <span>Examen National Bac 2026 (Session Normale) :</span>
+  </div>
+  <div class="cd-boxes">
+    <div class="cd-unit"><span class="cd-val" id="cd-days">--</span><span class="cd-lbl">Jours</span></div>
+    <div class="cd-unit"><span class="cd-val" id="cd-hours">--</span><span class="cd-lbl">Heures</span></div>
+    <div class="cd-unit"><span class="cd-val" id="cd-mins">--</span><span class="cd-lbl">Min</span></div>
+    <div class="cd-unit"><span class="cd-val" id="cd-secs">--</span><span class="cd-lbl">Sec</span></div>
+  </div>
+</div>
+
+<div class="tabs-wrapper">
+  <div class="tabs" id="tabs"></div>
+</div>
+
+<main id="app"></main>
+
+<!-- MODAL FICHE MÉMO & FORMULES -->
+<div class="modal-overlay" id="modal-memo">
+  <div class="modal">
+    <h3 id="memo-title">💡 Fiche Mémo & Formules Incontournables</h3>
+    <div class="memo-modal-body" id="memo-content"></div>
+    <div class="modal-actions">
+      <button class="btn-sec" id="memo-close">Fermer</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL SAUVEGARDE & PARAMETRES -->
+<div class="modal-overlay" id="modal-settings">
+  <div class="modal">
+    <h3>⚙️ Sauvegarde & Paramètres</h3>
+    <p style="color:var(--m); font-size:13.5px">Exportez votre progression pour ne pas la perdre ou synchronisez-la sur un autre appareil.</p>
+    
+    <div style="display:flex; flex-direction:column; gap:10px; margin:16px 0">
+      <button class="btn-sec" style="text-align:left; padding:10px" id="btn-export">📥 Exporter ma progression (.JSON)</button>
+      <label class="btn-sec" style="text-align:left; padding:10px; cursor:pointer">
+        📤 Importer une sauvegarde (.JSON)
+        <input type="file" id="file-import" accept=".json" style="display:none">
+      </label>
+      <button class="btn-sec" style="text-align:left; padding:10px; color:var(--danger)" id="btn-reset">⚠️ Réinitialiser toute la progression</button>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn-sec" id="modal-close">Fermer</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// PWA Service Worker Registration
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js').catch(err => console.log('SW error:', err));
+  });
+}
+
+// PWA Install Prompt handling
+let deferredPrompt = null;
+const btnInstall = document.getElementById('btn-install');
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  btnInstall.style.display = 'inline-flex';
+});
+btnInstall.addEventListener('click', async () => {
+  if (!deferredPrompt) return;
+  deferredPrompt.prompt();
+  const { outcome } = await deferredPrompt.userChoice;
+  if (outcome === 'accepted') {
+    btnInstall.style.display = 'none';
+  }
+  deferredPrompt = null;
+});
+
+// BASE DATA & ALLOSCHOOL URL CONSTANTS
+const AS = "https://www.alloschool.com/", YT = "https://www.youtube.com/results?search_query=";
+const F = {
+  sp: { m: "alriadhiat-althania-bak-alom-fiziaiia", pc: "alfiziaa-oalkimiaa-althania-bak-alom-fiziaiia", svt: "alom-alhiaa-oalardh-althania-bak-alom-fiziaiia", en: "anglais-2eme-bac-sciences-physiques", ph: "alflsfa-althania-bak-alom-fiziaiia" },
+  svt: { m: "alriadhiat-althania-bak-alom-alhiaa-oalardh", pc: "alfiziaa-oalkimiaa-althania-bak-alom-alhiaa-oalardh", svt: "alom-alhiaa-oalardh-althania-bak-alom-alhiaa-oalardh", en: "anglais-2eme-bac-sciences-de-la-vie-et-de-la-terre", ph: "alflsfa-althania-bak-alom-alhiaa-oalardh" },
+  sma: { m: "alriadhiat-althania-bak-alom-riadhia-awa", pc: "alfiziaa-oalkimiaa-althania-bak-alom-riadhia-awa", svt: "alom-alhiaa-oalardh-althania-bak-alom-riadhia-awa", en: "anglais-2eme-bac-sciences-mathematiques-a", ph: "alflsfa-althania-bak-alom-riadhia-awa" }
+};
+
+const U = (s, t, fr, i) => [s, t, fr, 6545, "", [["Vocabulary", i[0]], ["Functions", i[1]], ["Grammar", i[2]], ["Comprehension", i[3]], ["Writing", i[4]], ["Quiz", i[5]]]];
+
+// CURRICULUM DATA: ENRICHED WITH PROGRAMMES & REFS
+const D = {
+  pc: {
+    n: "Physique-Chimie", ic: "⚗️", coeff: 7,
+    ch: [
+      // S1 PHYSIQUE
+      [1,"الموجات الميكانيكية المتوالية","Ondes mécaniques progressives",3303],
+      [1,"الموجات الميكانيكية المتوالية الدورية","Ondes mécaniques progressives périodiques",6024],
+      [1,"انتشار موجة ضوئية","Propagation d'une onde lumineuse",6027],
+      [1,"حيود الضوء بواسطة شبكة","Diffraction par un réseau",6030],
+      [1,"التناقص الإشعاعي","Décroissance radioactive",3304],
+      [1,"النوى والكتلة والطاقة","Noyaux, masse et énergie",6033],
+      [1,"ثنائي القطب RC","Dipôle RC",3305],
+      [1,"ثنائي القطب RL","Dipôle RL",6036],
+      [1,"التذبذبات الحرة في دارة RLC","Oscillations libres RLC",3306],
+      // S1 CHIMIE
+      [1,"التحولات السريعة والبطيئة","Chimie : transformations rapides et lentes",3307],
+      [1,"التتبع الزمني لتحول كيميائي","Suivi temporel, vitesse de réaction",3308],
+      [1,"التحولات في منحيين","Transformations dans les deux sens",3309],
+      [1,"حالة توازن مجموعة كيميائية","État d'équilibre d'un système",3310],
+      [1,"التفاعلات حمض-قاعدة","Réactions acide-base",3311],
+      [1,"المعايرة الحمضية القاعدية","Dosage acido-basique",6045],
+      [1,"فروض الدورة 1 (علوم فيزيائية)","Devoirs surveillés S1",3313,"d"],
+      // S2 PHYSIQUE
+      [2,"الموجات الكهرمغنطيسية وتضمين الوسع","Ondes électromagnétiques, modulation d'amplitude",3314],
+      [2,"قوانين نيوتن","Lois de Newton",3315],
+      [2,"السقوط الرأسي لجسم صلب","Chute verticale d'un solide",3316],
+      [2,"الحركات المستوية","Mouvements plans (projectile, particule)",3317],
+      [2,"الأقمار الصناعية والكواكب","Satellites et planètes",3318],
+      [2,"حركة دوران جسم صلب","Rotation autour d'un axe fixe",3319],
+      [2,"المجموعات الميكانيكية المتذبذبة","Systèmes mécaniques oscillants",3320],
+      [2,"المظاهر الطاقية للتذبذبات الميكانيكية","Aspects énergétiques des oscillations mécaniques",3321],
+      [2,"الذرة وميكانيك نيوتن","L'atome et la mécanique de Newton",3322],
+      // S2 CHIMIE
+      [2,"التطور التلقائي لمجموعة كيميائية","Chimie : évolution spontanée d'un système",3323],
+      [2,"التحولات التلقائية في الأعمدة","Piles et récupération d'énergie",3324],
+      [2,"التحولات القسرية والتحليل الكهربائي","Électrolyse",3325],
+      [2,"تفاعلات الأسترة والحلمأة","Estérification et hydrolyse",3326],
+      [2,"التحكم في تطور المجموعات الكيميائية","Contrôle de l'évolution (changement de réactif)",3327],
+      [2,"فروض الدورة 2 (علوم فيزيائية)","Devoirs surveillés S2",3329,"d"],
+      [2,"تمارين غير مصححة للاستعداد للامتحان الوطني","Exercices non corrigés pour l'examen national",4417]
+    ],
+    ex: [
+      ["البرنامج + الإطار المرجعي","Programme et cadre de référence officiel",3301],
+      ["جذاذات الفيزياء والكيمياء","Fiches pédagogiques",4177],
+      ["مقدمة وتذكير","Introduction et rappels mathématiques",3302]
+    ]
+  },
+  m: {
+    n: "Mathématiques", ic: "📐", coeff: 7,
+    ch: [
+      [1,"النهايات والاتصال","Limites et continuité",1027],
+      [1,"الاشتقاق","Dérivation",1029],
+      [1,"دراسة الدوال وتمثيلها المبياني","Étude des fonctions",1030],
+      [1,"الدوال الأصلية","Primitives",4418],
+      [1,"المتتاليات العددية","Suites numériques",1028],
+      [1,"الدوال اللوغاريتمية","Logarithme népérien",1032],
+      [1,"الأعداد العقدية 1","Nombres complexes (1)",1031],
+      [1,"فروض الدورة 1","Devoirs surveillés S1",3237,"d"],
+      [2,"الدوال الأسية","Fonction exponentielle",1034],
+      [2,"الأعداد العقدية 2","Nombres complexes (2)",1037],
+      [2,"المعادلات التفاضلية","Équations différentielles",1035],
+      [2,"الحساب التكاملي","Calcul intégral",1036],
+      [2,"الهندسة الفضائية","Géométrie dans l'espace",1038],
+      [2,"حساب الاحتمالات","Dénombrement et probabilités",1039],
+      [2,"فروض الدورة 2","Devoirs surveillés S2",1040,"d"]
+    ],
+    ex: [
+      ["امتحانات تجريبية مع التصحيح","Examens blancs corrigés",1041],
+      ["موحدات مع التصحيح","Examens nationaux corrigés (2008-2024)",1044],
+      ["البرنامج البيداغوجي","Programme + cadre de référence",2071]
+    ]
+  },
+  svt: {
+    n: "SVT", ic: "🧬", coeff: 5,
+    ch: [
+      [1,"استهلاك المادة العضوية وتدفق الطاقة","Consommation de matière organique et flux d'énergie",3100],
+      [1,"طبيعة الخبر الوراثي وآلية تعبيره","Nature de l'information génétique et son expression",4025],
+      [1,"نقل الخبر الوراثي عبر التوالد الجنسي","Transmission de l'information génétique (méiose, lois de Mendel)",4026],
+      [1,"فروض الدورة 1","Devoirs surveillés S1",1047,"d"],
+      [2,"استعمال المواد العضوية وغير العضوية","Utilisation des matières organiques et inorganiques (déchets, pollution)",1049],
+      [2,"الظواهر الجيولوجية: السلاسل الجبلية","Géologie : chaînes de montagnes, métamorphisme",3101],
+      [2,"فروض الدورة 2","Devoirs surveillés S2",1051,"d"],
+      [2,"امتحانات تجريبية","Examens blancs",1052]
+    ],
+    ex: [
+      ["البرنامج + الإطار المرجعي","Programme et cadre de référence",2097],
+      ["جذاذات","Fiches pédagogiques",4496]
+    ]
+  },
+  en: {
+    n: "Anglais", ic: "🇬🇧", coeff: 2,
+    ch: [
+      U(1,"Unit 1 – Youth: Potential and Challenges","Unit 1 – La jeunesse",[121561,121562,121563,121564,121565,121566]),
+      U(1,"Unit 2 – Humour","Unit 2 – L'humour",[121567,121568,121569,121570,121571,121572]),
+      U(1,"Unit 3 – Education","Unit 3 – L'éducation",[121573,121574,121575,121576,121577,121578]),
+      U(1,"Unit 4 – Sustainable development","Unit 4 – Développement durable",[121579,121580,121581,121582,121583,121584]),
+      U(1,"Unit 5 – Woman and Power","Unit 5 – Les femmes et le pouvoir",[121585,121586,121587,121588,121589,121590]),
+      [1,"Grammar (tenses, conditionals, modals, passive…)","Grammaire : quiz et corrigés",6048],
+      [1,"Functions","Fonctions langagières",6057],
+      [1,"First term tests","Devoirs surveillés S1 (tests 1 à 3)",1066,"d"],
+      U(2,"Unit 6 – Culture","Unit 6 – La culture",[122389,122400,122411,122422,122433,122444]),
+      U(2,"Unit 7 – Citizenship","Unit 7 – La citoyenneté",[123431,123442,123453,123464,123475,123486]),
+      U(2,"Unit 8 – International Organizations","Unit 8 – Organisations internationales",[124188,124199,124210,124258,124325,124336]),
+      U(2,"Unit 9 – Science and Technology","Unit 9 – Sciences et technologie",[125057,125068,125079,125126,125137,125148]),
+      U(2,"Unit 10 – Brain Drain","Unit 10 – La fuite des cerveaux",[125159,125170,125181,125192,125203,125214]),
+      [2,"Writing (guides, samples, 38 topics)","Writing : méthodes et exemples",1065],
+      [2,"Lessons & Summaries","Leçons de grammaire et résumés",1064],
+      [2,"Check your progress","Auto-évaluation",6109],
+      [2,"Second term tests","Devoirs surveillés S2 (tests 1 à 3)",1067,"d"]
+    ],
+    ex: [
+      ["Pedagogical program + Bridge","Programme et mock exams",2123],
+      ["Units (ancien manuel)","Anciennes unités : cours, exercices, corrigés",1063],
+      ["Summaries","Résumés",1068]
+    ]
+  },
+  ph: {
+    n: "Philosophie", ic: "🧠", coeff: 2,
+    ch: [
+      [1,"مجزوءة الوضع البشري (الشخص، الغير)","La condition humaine (la personne, autrui)",1077],
+      [1,"مجزوءة المعرفة (النظرية والتجربة، الحقيقة)","La connaissance (théorie et expérience, vérité)",1078],
+      [1,"فروض الدورة 1","Devoirs surveillés S1",1082,"d"],
+      [2,"مجزوءة السياسة (الدولة، الحق والعدالة)","La politique (l'État, droit et justice)",1080],
+      [2,"مجزوءة الأخلاق (الواجب، الحرية)","La morale (devoir, liberté)",1081],
+      [2,"فروض الدورة 2","Devoirs surveillés S2",1079,"d"],
+      [2,"تحليل النصوص","Analyse de textes philosophiques",1083],
+      [2,"منهجيات","Méthodologie de la dissertation",1084],
+      [2,"إمتحانات تجريبية","Examens blancs",1086],
+      [2,"ملخصات","Résumés des 4 modules",1087]
+    ],
+    ex: [
+      ["الاطار المرجعي + البرنامج","Programme et cadre de référence",2195],
+      ["موحدات مع التصحيح","Examens nationaux 2009-2025",1089]
+    ]
+  }
+};
+
+// COMPREHENSIVE REVISION MEMO CARDS (FORMULES & DEFINITIONS DU CADRE OFFICIEL)
+const MEMO_DB = {
+  // PHYSIQUE S1
+  "pc0": {
+    titre: "Ondes mécaniques progressives (الموجات الميكانيكية المتوالية)",
+    def: "Propagation d'une perturbation dans un milieu matériel élastique sans transport de matière mais avec transport d'énergie. Une onde est transversale si la perturbation est ⟂ à la direction de propagation, longitudinale si elle est parallèle.",
+    formules: [
+      "Célérité : v = d / Δt (en m/s, avec d en mètres et Δt en secondes)",
+      "Retard temporel : τ = SM / v = (xM - xS) / v",
+      "Élongation : yM(t) = yS(t - τ) pour t ≥ τ",
+      "Milieu dispersif : la célérité v dépend de la fréquence de l'onde N (ex: surface de l'eau)"
+    ],
+    pieges: "Attention aux unités : convertir les cm en m et les ms en s ! Ne pas confondre retard temporel τ et période T.",
+    pointsBac: "Question récurrente : calculer la célérité d'un son avec émetteur/récepteur ou onde le long d'une corde."
+  },
+  "pc1": {
+    titre: "Ondes mécaniques progressives périodiques (الموجات الدورية)",
+    def: "Onde dont l'évolution temporelle de chaque point du milieu est périodique. La période temporelle T est la plus petite durée pour qu'un point retrouve le même état de vibration. La longueur d'onde λ est la plus petite distance entre deux points vibrant en phase.",
+    formules: [
+      "Relation fondamentale : λ = v · T = v / N (λ en m, v en m/s, T en s, N en Hz)",
+      "Deux points en phase : d = k · λ (k ∈ ℕ*)",
+      "Deux points en opposition de phase : d = (2k + 1) · (λ / 2)",
+      "Diffraction : si une onde plane rencontre une ouverture a ≤ λ, l'onde diffractée conserve la même fréquence et la même longueur d'onde."
+    ],
+    pieges: "La fréquence N est imposée par la source et NE CHANGE JAMAIS même si l'onde change de milieu.",
+    pointsBac: "Identifier l'état de vibration de deux points (en phase ou opposition) et exploiter l'oscilloscope (sensibilité horizontale)."
+  },
+  "pc2": {
+    titre: "Propagation d'une onde lumineuse (انتشار موجة ضوئية)",
+    def: "La lumière est une onde électromagnétique qui se propage dans le vide et les milieux transparents. Elle est caractérisée dans le vide par sa célérité c ≈ 3×10⁸ m/s et sa longueur d'onde λ₀ = c / ν.",
+    formules: [
+      "Indice de réfraction : n = c / v (sans unité, n ≥ 1) ; λ = λ₀ / n",
+      "Écart angulaire de diffraction : θ = λ / a (θ en radians, a = largeur de la fente en m)",
+      "Largeur de la tache centrale sur écran à distance D : tan θ ≈ θ = L / (2D) ⟹ L = (2 · λ · D) / a",
+      "Dispersion par prisme : relation de Cauchy n = A + B / λ² (l'indice dépend de la longueur d'onde, la lumière bleue est plus déviée que la rouge)."
+    ],
+    pieges: "Pour un fil fin de diamètre a : la figure de diffraction est identique à celle d'une fente de largeur a (Principe de Babinet).",
+    pointsBac: "Exploiter la courbe θ = f(1/a) pour déterminer la longueur d'onde λ par la pente."
+  },
+  "pc4": {
+    titre: "Décroissance radioactive (التناقص الإشعاعي)",
+    def: "Transformation nucléaire spontanée et aléatoire d'un noyau instable (père) en un noyau plus stable (fils) avec émission de particules (α, β⁻, β⁺) et rayonnement γ.",
+    formules: [
+      "Loi de Soddy : conservation du nombre de masse A et de charge Z",
+      "Loi de décroissance : N(t) = N₀ · e^(-λt) où λ est la constante radioactive (s⁻¹)",
+      "Temps de demi-vie : t₁/₂ = ln(2) / λ ≈ 0,693 / λ",
+      "Activité : A(t) = -dN/dt = λ · N(t) = A₀ · e^(-λt) (en Becquerels Bq)",
+      "Datation : t = (1 / λ) · ln(A₀ / A(t))"
+    ],
+    pieges: "N(t) représente le nombre de noyaux NON DÉSINTÉGRÉS restants à l'instant t. Le nombre de noyaux désintégrés est Nd(t) = N₀ - N(t) = N₀(1 - e^(-λt)).",
+    pointsBac: "Déterminer t₁/₂ graphiquement sur la courbe A(t) à A₀/2, et calculer l'âge d'un échantillon."
+  },
+  "pc5": {
+    titre: "Noyaux, masse et énergie (النوى والكتلة والطاقة)",
+    def: "L'énergie de liaison El est l'énergie qu'il faut fournir à un noyau au repos pour le dissocier en ses nucléons séparés et immobiles.",
+    formules: [
+      "Équivalence masse-énergie d'Einstein : E = m · c² (1 u = 931,5 MeV/c²)",
+      "Défaut de masse : Δm = [Z·mp + (A - Z)·mn] - m(noyau) > 0",
+      "Énergie de liaison : El = Δm · c²",
+      "Énergie de liaison par nucléon : ℰ = El / A (plus ℰ est élevée, plus le noyau est stable)",
+      "Bilan énergétique d'une réaction nucléaire : ΔE = [∑ m(produits) - ∑ m(réactifs)] · c² ; Énergie libérée : Elib = |ΔE|"
+    ],
+    pieges: "Toujours utiliser au moins 4 à 5 chiffres significatifs pour les masses en u lors des calculs de défaut de masse !",
+    pointsBac: "Courbe d'Aston et calcul de l'énergie libérée lors d'une réaction de fission ou fusion."
+  },
+  "pc6": {
+    titre: "Dipôle RC (ثنائي القطب RC)",
+    def: "Association série d'un conducteur ohmique R et d'un condensateur de capacité C. Régit par l'accumulation et la libération de charges électriques q = C · uC.",
+    formules: [
+      "Courant : i(t) = dq/dt = C · (duC/dt)",
+      "Équation diff. (Charge) : uC + R·C·(duC/dt) = E ⟹ Solution : uC(t) = E · (1 - e^(-t/τ))",
+      "Équation diff. (Décharge) : uC + R·C·(duC/dt) = 0 ⟹ Solution : uC(t) = E · e^(-t/τ)",
+      "Constante de temps : τ = R · C (en secondes, vérifiable par analyse dimensionnelle [τ] = [R]·[C] = T)",
+      "Énergie emmagasinée : Ee = 1/2 · C · uC² = 1/2 · q² / C"
+    ],
+    pieges: "La méthode de la tangente à l'origine à t=0 coupe l'asymptote horizontale uC = E exactement à t = τ. À t = τ, uC ≈ 0,63 E (charge) ou 0,37 E (décharge).",
+    pointsBac: "Établir l'équation différentielle, vérifier la solution analytique, calculer la capacité C à partir de τ."
+  },
+  "pc7": {
+    titre: "Dipôle RL (ثنائي القطب RL)",
+    def: "Association d'un résistor R et d'une bobine d'inductance L et résistance interne r. La bobine s'oppose aux variations du courant qui la traverse (phénomène d'auto-induction).",
+    formules: [
+      "Tension bobine : uL = L · (di/dt) + r · i",
+      "Établissement du courant : L·(di/dt) + (R + r)·i = E ⟹ i(t) = Ip · (1 - e^(-t/τ)) où Ip = E / (R + r)",
+      "Constante de temps : τ = L / (R + r)",
+      "Rupture du courant : L·(di/dt) + (R + r)·i = 0 ⟹ i(t) = Ip · e^(-t/τ)",
+      "Énergie magnétique emmagasinée : Em = 1/2 · L · i²"
+    ],
+    pieges: "En régime permanent (t > 5τ), le courant est constant donc di/dt = 0 : la bobine se comporte comme un simple conducteur ohmique de résistance r.",
+    pointsBac: "Déterminer L et r à partir de l'oscillogramme ou de la constante de temps."
+  },
+  "pc8": {
+    titre: "Oscillations libres dans un circuit RLC série (دارة RLC)",
+    def: "Circuit constitué d'un condensateur chargé relié à une bobine et une résistance. L'énergie oscille entre forme électrique (dans C) et magnétique (dans L).",
+    formules: [
+      "Équation diff. en uC : d²uC/dt² + (Rtot/L)·(duC/dt) + (1/(LC))·uC = 0",
+      "Circuit idéal LC (R=0) : période propre T₀ = 2π√(L·C)",
+      "3 régimes : pseudo-périodique (R faible, pseudo-période T ≈ T₀), apériodique (R forte, pas d'oscillation), critique.",
+      "Énergie totale : ET = Ee + Em = 1/2·C·uC² + 1/2·L·i²",
+      "Dérivée de l'énergie : dET/dt = - Rtot · i² ≤ 0 (perte d'énergie par effet Joule)"
+    ],
+    pieges: "Dans un circuit réel RLC, l'énergie totale ET diminue au cours du temps à cause de la dissipation par effet Joule.",
+    pointsBac: "Exploiter les courbes d'énergies (Ee, Em, ET) en fonction du temps et retrouver T₀."
+  },
+  // CHIMIE S1
+  "pc10": {
+    titre: "Suivi temporel d'une transformation & Vitesse (التتبع الزمني)",
+    def: "L'avancement x(t) en mol permet de suivre l'évolution d'une réaction. La vitesse volumique mesure la rapidité de formation de produits ou de disparition des réactifs.",
+    formules: [
+      "Vitesse volumique de réaction : v(t) = (1 / V) · (dx / dt) (mol·L⁻¹·s⁻¹)",
+      "dx/dt est le coefficient directeur (pente) de la tangente à la courbe x(t) à la date t.",
+      "Temps de demi-réaction t₁/₂ : durée pour laquelle x(t₁/₂) = xf / 2 (ou xmax / 2 si totale).",
+      "Facteurs cinétiques : la température et les concentrations initiales augmentent la vitesse."
+    ],
+    pieges: "La vitesse volumique est maximale à t=0 et diminue progressivement au cours du temps car les concentrations des réactifs diminuent.",
+    pointsBac: "Déterminer v(t) par la méthode des tangentes et lire t₁/₂ sur le graphe x(t)."
+  },
+  "pc13": {
+    titre: "Réactions acido-basiques & pH (حمض-قاعدة)",
+    def: "Un acide selon Brönsted est une espèce capable de céder un proton H⁺. Une base peut capter un proton H⁺. Réaction acido-basique = transfert de proton.",
+    formules: [
+      "pH = -log[H₃O⁺] ⟺ [H₃O⁺] = 10^(-pH)",
+      "Produit ionique de l'eau : Ke = [H₃O⁺] · [HO⁻] = 10⁻¹⁴ à 25°C",
+      "Taux d'avancement final : τ = xf / xmax (si τ = 1 réaction totale, si τ < 1 réaction limitée en équilibre)",
+      "Constante d'acidité : Ka = ([A⁻]·[H₃O⁺]) / [HA] ⟹ pH = pKa + log([A⁻] / [HA])",
+      "Domaines de prédominance : si pH > pKa [A⁻] prédomine ; si pH < pKa [HA] prédomine."
+    ],
+    pieges: "L'eau est le solvant : son activité vaut 1 dans l'expression de Ka et du quotient de réaction Qr.",
+    pointsBac: "Calculer le taux d'avancement τ, vérifier la valeur de Ka et tracer le diagramme de prédominance."
+  },
+  "pc14": {
+    titre: "Dosage acido-basique (المعايرة الحمضية القاعدية)",
+    def: "Déterminer la concentration inconnue d'une solution par réaction totale, rapide et univoque avec une solution titrante de concentration connue.",
+    formules: [
+      "Relation à l'équivalence : n(acide initial) = n(base versée) ⟹ CA · VA = CB · VBE",
+      "Détermination graphique du point d'équivalence E(VBE, pHE) : méthode des tangentes parallèles ou extremum de la dérivée dpH/dVB.",
+      "Choix de l'indicateur coloré : sa zone de virage doit obligatoirement contenir le pH au point d'équivalence pHE."
+    ],
+    pieges: "Ne pas oublier de tenir compte des coefficients stœchiométriques si l'acide ou la base est polyacide/polybase !",
+    pointsBac: "Exploiter la courbe de dosage pH-métrique ou conductimétrique pour calculer CA."
+  },
+  // PHYSIQUE S2
+  "pc17": {
+    titre: "Les lois de Newton (قوانين نيوتن)",
+    def: "Fondements de la dynamique classique dans un référentiel galiléen. La résultante des forces appliquées à un solide est reliée à son accélération.",
+    formules: [
+      "1ère loi (Inertie) : si ∑ F_ext = 0 ⟹ vG = constante (repos ou MRU)",
+      "2ème loi fondamentale : ∑ F_ext = m · aG (avec m en kg, a en m/s², F en N)",
+      "3ème loi (Actions réciproques) : F_A/B = - F_B/A",
+      "Repère de Frénet (courbe) : a = a_t · u + a_n · n = (dv/dt)·u + (v² / ρ)·n"
+    ],
+    pieges: "Système + Bilan des forces + Référentiel galiléen doivent TOUJOURS être rédigés avant d'appliquer la 2ème loi !",
+    pointsBac: "Projeter la 2ème loi sur les axes (Ox, Oy) pour obtenir les équations différentielles du mouvement."
+  },
+  "pc18": {
+    titre: "Chute verticale d'un solide (السقوط الرأسي)",
+    def: "Mouvement sous l'action du poids et éventuellement des frottements fluides et poussée d'Archimède.",
+    formules: [
+      "Chute libre (poids seul) : a = g ⟹ v(t) = g·t + v₀ ⟹ z(t) = 1/2·g·t² + v₀·t + z₀",
+      "Frottement fluide f = -k·vⁿ et poussée d'Archimède FA = -ρ·V·g",
+      "Équation différentielle : dv/dt = A - B·vⁿ",
+      "Vitesse limite vl : atteinte quand dv/dt = 0 ⟹ vl = (A / B)^(1/n)",
+      "Méthode d'Euler : v(ti+1) = v(ti) + a(ti)·Δt avec pas de temps Δt."
+    ],
+    pieges: "En chute libre, le mouvement est indépendant de la masse du solide !",
+    pointsBac: "Calculer l'accélération initiale a₀, la vitesse limite vl et appliquer l'algorithme d'Euler."
+  },
+  "pc19": {
+    titre: "Mouvements plans : Projectile & Particule chargée (الحركات المستوية)",
+    def: "Mouvement d'un solide lancé dans le champ de pesanteur uniforme ou particule dans un champ magnétique B.",
+    formules: [
+      "Projectile : ax = 0 et ay = -g ⟹ vx = v₀·cos(α) et vy = -g·t + v₀·sin(α)",
+      "Équation de trajectoire parabolique : y(x) = - (g / (2·v₀²·cos²(α))) · x² + tan(α)·x + y₀",
+      "Flèche (sommet) : vy = 0 ⟹ ymax ; Portée (impact au sol) : y(xp) = 0",
+      "Particule chargée dans B : Force de Lorentz F = q·(v ∧ B) ⟹ F ⟂ v donc le travail est nul et la vitesse constante. Le mouvement est circulaire uniforme de rayon R = (m·v) / (|q|·B)."
+    ],
+    pieges: "Vérifier le sens de l'axe vertical : si l'axe (Oz) est orienté vers le haut, a_z = -g. Si orienté vers le bas, a_z = +g !",
+    pointsBac: "Calculer la flèche, la portée ou le rayon de courbure R de la trajectoire d'un ion dans un spectrographe de masse."
+  },
+  "pc20": {
+    titre: "Satellites et planètes (الأقمار الصناعية والكواكب)",
+    def: "Mouvement sous l'action exclusive de la force d'attraction gravitationnelle de Newton.",
+    formules: [
+      "Loi de gravitation universelle : F = G · (M · m) / r² (G = 6,67×10⁻¹¹ N·m²·kg⁻²)",
+      "Accélération normale : a = an = v² / r = G · M / r² ⟹ Vitesse orbitale : v = √(G · M / r)",
+      "Période de révolution : T = 2π·r / v = 2π · √(r³ / (G·M))",
+      "3ème loi de Kepler : T² / r³ = 4π² / (G · M) = constante",
+      "Satellite géostationnaire : fixe par rapport à la Terre (période T = 24h = 86400 s, orbite circulaire dans le plan équatorial, tourne dans le même sens que la Terre)."
+    ],
+    pieges: "r est la distance au centre de l'astre : r = R_Terre + h (altitude) !",
+    pointsBac: "Démontrer que le mouvement est circulaire uniforme et calculer la masse M de la planète."
+  },
+  "pc25": {
+    titre: "Piles et production d'énergie (التحولات في الأعمدة)",
+    def: "Dispositif permettant de convertir l'énergie chimique d'une réaction spontanée d'oxydoréduction en énergie électrique.",
+    formules: [
+      "Anode (pôle -) : siège de l'OXYDATION (libère des électrons)",
+      "Cathode (pôle +) : siège de la RÉDUCTION (consomme des électrons)",
+      "Quantité d'électricité débitée : Q = I · Δt = n(e⁻) · F",
+      "Constante de Faraday : 1 F = e · NA ≈ 96500 C/mol",
+      "Variation de masse d'une électrode : Δm = n(métal) · M(métal) reliée à n(e⁻) par le tableau d'avancement."
+    ],
+    pieges: "Moyen mnémotechnique : Anode = Oxydation (2 voyelles) ; Cathode = Réduction (2 consonnes). Les électrons ne circulent jamais dans le pont salin !",
+    pointsBac: "Déterminer la polarité de la pile, écrire les demi-équations et calculer la durée de fonctionnement Δt."
+  },
+  "pc27": {
+    titre: "Estérification et hydrolyse (تفاعلات الأسترة والحلمأة)",
+    def: "Réaction réversible entre un acide carboxylique et un alcool pour former un ester et de l'eau.",
+    formules: [
+      "Équation : R-COOH + R'-OH ⇌ R-COO-R' + H₂O",
+      "Caractéristiques : lente, athermique, réversible et limitée.",
+      "Rendement pour mélange équimolaire : r ≈ 67% (alcool primaire), 60% (secondaire), 5% (tertiaire).",
+      "Pour améliorer le rendement : introduire un réactif en excès ou éliminer un produit (distillation de l'ester ou déshydratation).",
+      "Remplacement de l'acide par l'anhydride d'acide : réaction TOTALE et RAPIDE."
+    ],
+    pieges: "Le catalyseur (acide sulfurique concentré) et le chauffage augmentent la vitesse de réaction mais NE MODIFIENT PAS le rendement final ni la composition d'équilibre !",
+    pointsBac: "Nomenclature des esters (ex: éthanoate de propyle), calcul du rendement et contrôle de la vitesse."
+  }
+};
+
+// EXAMS NATIONAUX & EXAMENS BLANCS
+const NAT = {
+  2015:[6860,6861,21070,21075],2016:[21091,21096,21101,21106],2017:[26344,26349,35301,35306],2018:[57035,57040,65516,65521],2019:[68510,68614,94480,106257],2020:[109776,109782,109787,109792],2021:[147717,147722],2022:[147732,147737,147742,147747],2023:[147757,147762,147767,147772],2024:[147782,147787,147792,147797]
+};
+for(let y=2008; y<=2014; y++){ const b = 6832 + 4 * (y - 2008); NAT[y] = [b, b+1, b+2, b+3]; }
+
+const NPH = {
+  2025:[146054,146063],2024:[146018,146027,146036,146045],2023:[142698,142707,142716,142725],2022:[136639,142680,136648,142689],2021:[127274,142743],2020:[110090,110107,110127,110136],2019:[94558,110145],2018:[65588,65602],2017:[35362,35371,35380,35389],2016:[22226,22237,22248,22259],2015:[22182,22193,22204,22215],2014:[7252,7253,22160,22171],2013:[7248,7249,7250,7251],2012:[7244,7245,7246,7247],2011:[7240,7241,7242,7243],2010:[7236,7237,7238,7239],2009:[7232,7233,7234,7235]
+};
+
+const NPC = {
+  2025:[147672,147675],2024:[147672,147675,147678,147681],2023:[142388,142393,142812,142815],2022:[142803,142806,142370,142373],2021:[142352,142355,142358,142361],2020:[109734,109737,109746,109752],2019:[68292,68295,94402,94405],2018:[45512,45509,45518,45515],2017:[39400,39401,39402,39403],2016:[39395,39396,39397,39398],2015:[39390,39391,39392,39393],2014:[39385,39386,39387,39388],2013:[39380,39381,39382,39383],2012:[39375,39376,39377,39378],2011:[39370,39371,39372,39373],2010:[39365,39366,39367,39368],2009:[39360,39361,39362,39363],2008:[39355,39356,39357,39358]
+};
+
+const NSV = {
+  2024:[147821,147822,147823,147824],2023:[147816,147817,147818,147819],2022:[147811,147812,147813,147814],2021:[147808,147809],2020:[109819,109820,109821,109823],2019:[68257,68258,94719,94720],2018:[57050,57051,65526,0],2017:[23706,23707,35933,57049],2016:[6988,6989,21087,21088],2015:[6984,6985,6986,6987],2014:[6982,6983,21089,21090],2013:[6978,6979,6980,6981],2012:[6974,6975,6976,6977],2011:[6970,6971,6972,6973],2010:[6966,6967,6968,6969],2009:[6962,6963,6964,6965],2008:[6958,6959,6960,6961]
+};
+
+const NEN = {
+  2025:[145978,145989],2024:[145934,145945,145956,145967],2023:[142510,142521,142532,142543],2022:[136449,137007,136471,137018],2021:[127245,136996,127261,0],2020:[109891,109902],2019:[94558,110034,94576,110056],2018:[65557,65566,65584,65605],2017:[35398,65620,35407,89877],2016:[21598,21609,21620,89868],2015:[21554,21565,21576,21587],2014:[21510,21521,21532,21543],2013:[21466,21477,21488,21499],2012:[21422,21433,21444,21455],2011:[21378,21389,21400,21411],2010:[21334,21345,21356,21367],2009:[21290,21301,21312,21323],2008:[21246,21257,21268,21279]
+};
+
+const NATS = {
+  pc: [NPC, "Physique-Chimie (Sciences Physiques)"],
+  m: [NAT, "Mathématiques (Sciences Expérimentales)"],
+  svt: [NSV, "SVT (Sciences Expérimentales)"],
+  en: [NEN, "Anglais (Séries Scientifiques)"],
+  ph: [NPH, "Philosophie (Séries Scientifiques)"]
+};
+
+// EXAMENS BLANCS D'EXCELLENCE RECOMMANDÉS
+const EXAM_BLANCS = [
+  { titre: "Examen Blanc PC 2024 – Lycée d'Excellence Benguerir (Sujet & Corrigé)", url: "https://www.google.com/search?q=" + encodeURIComponent("examen blanc physique chimie 2 bac sp lycee excellence benguerir pdf correction") },
+  { titre: "Examen Blanc PC 2024 – Direction Rabat-Salé-Kénitra (Corrigé détaillé)", url: "https://www.google.com/search?q=" + encodeURIComponent("examen blanc physique chimie 2 bac sciences physiques rabat sale avec corrige") },
+  { titre: "Examen Blanc Maths 2024 – Option BIOF avec barème officiel", url: "https://www.google.com/search?q=" + encodeURIComponent("examen blanc mathematiques 2 bac biof sciences physiques corrige") },
+  { titre: "Examen Blanc SVT 2024 – Spécial Sciences Physiques", url: "https://www.google.com/search?q=" + encodeURIComponent("examen blanc svt 2 bac sciences physiques corrige pdf") }
+];
+
+const EXQ = {
+  pc: "امتحان وطني الفيزياء والكيمياء 2 باك علوم فيزيائية خيار فرنسية مع التصحيح",
+  svt: "امتحان وطني علوم الحياة والأرض 2 باك علوم فيزيائية",
+  en: "2 bac national exam English Morocco scientific streams with key answer",
+  ph: "امتحان وطني الفلسفة 2 باك علوم فيزيائية مع عناصر الإجابة",
+  m: "امتحان وطني الرياضيات 2 باك علوم تجريبية خيار فرنسية مع التصحيح"
+};
+
+const SITES = [
+  ["AlloSchool (Section 2BAC SP)", "https://www.alloschool.com/course/alfiziaa-oalkimiaa-althania-bak-alom-fiziaiia"],
+  ["Moutamadris (Devoirs & Nationaux)", "https://www.moutamadris.ma"],
+  ["9rayti (Cours et fiches)", "https://www.9rayti.com/doros/lycee/b-sciences-physiques"],
+  ["Ency-Education Maroc", "https://www.ency-education.com"],
+  ["9alami", "https://www.9alami.com"]
+];
+
+// STATE MANAGEMENT
+const S = localStorage;
+const st = (k, v) => {
+  try {
+    if (v === undefined) return S.getItem(k);
+    S.setItem(k, v);
+  } catch (e) { return null; }
+};
+
+let cur = st("cur_tab") || "pc"; // Default to Physique-Chimie
+let sem = +(st("sem") || 1);
+let fil = st("fil") || "sp";
+let filterStatus = st("filter_status") || "all";
+let done = {};
+try { done = JSON.parse(st("done") || "{}"); } catch(e) { done = {}; }
+
+const $ = s => document.querySelector(s);
+const h = s => String(s).replace(/[&<>"]/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;" }[c]));
+
+// THEME TOGGLE
+const applyTheme = (theme) => {
+  document.documentElement.dataset.theme = theme;
+  st("theme", theme);
+};
+const savedTheme = st("theme");
+if (savedTheme) applyTheme(savedTheme);
+$("#th").onclick = () => {
+  const current = document.documentElement.dataset.theme || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+  applyTheme(current === "dark" ? "light" : "dark");
+};
+
+// COUNTDOWN BAC 2026
+const targetBacDate = new Date("2026-06-08T08:00:00").getTime();
+function updateCountdown() {
+  const now = new Date().getTime();
+  const diff = targetBacDate - now;
+  if (diff <= 0) {
+    $("#cd-days").textContent = "0";
+    $("#cd-hours").textContent = "0";
+    $("#cd-mins").textContent = "0";
+    $("#cd-secs").textContent = "0";
+    return;
+  }
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+  const secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+  $("#cd-days").textContent = days;
+  $("#cd-hours").textContent = String(hours).padStart(2, '0');
+  $("#cd-mins").textContent = String(mins).padStart(2, '0');
+  $("#cd-secs").textContent = String(secs).padStart(2, '0');
+}
+setInterval(updateCountdown, 1000);
+updateCountdown();
+
+// POMODORO TIMER
+let pomoMode = "focus";
+let pomoTimeLeft = 25 * 60;
+let pomoTimer = null;
+let pomoRunning = false;
+let pomoCountToday = +(st("pomo_count_" + new Date().toISOString().slice(0,10)) || 0);
+
+function playBeep() {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = "sine";
+    osc.frequency.setValueAtTime(587.33, ctx.currentTime);
+    osc.frequency.setValueAtTime(880, ctx.currentTime + 0.15);
+    gain.gain.setValueAtTime(0.3, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.6);
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start();
+    osc.stop(ctx.currentTime + 0.6);
+  } catch(e) {}
+  if ("vibrate" in navigator) navigator.vibrate([200, 100, 200]);
+}
+
+function updatePomoDisplay() {
+  const m = String(Math.floor(pomoTimeLeft / 60)).padStart(2, '0');
+  const s = String(pomoTimeLeft % 60).padStart(2, '0');
+  const str = `${m}:${s}`;
+  $("#pomo-mini").textContent = str;
+  const bigDisp = document.getElementById("pomo-big-disp");
+  if (bigDisp) bigDisp.textContent = str;
+}
+
+function startPomo() {
+  if (pomoRunning) return;
+  pomoRunning = true;
+  pomoTimer = setInterval(() => {
+    if (pomoTimeLeft > 0) {
+      pomoTimeLeft--;
+      updatePomoDisplay();
+    } else {
+      clearInterval(pomoTimer);
+      pomoRunning = false;
+      playBeep();
+      if (pomoMode === "focus") {
+        pomoCountToday++;
+        st("pomo_count_" + new Date().toISOString().slice(0,10), pomoCountToday);
+        alert("🎉 Bravo ! Session Pomodoro terminée. Prenez 5 minutes de pause.");
+        setPomoMode("break");
+      } else {
+        alert("🔔 La pause est finie ! C'est l'heure de replonger dans vos révisions.");
+        setPomoMode("focus");
+      }
+      render();
+    }
+  }, 1000);
+  const btnStart = document.getElementById("pomo-btn-start");
+  if (btnStart) btnStart.textContent = "⏸️ Pause";
+}
+
+function pausePomo() {
+  clearInterval(pomoTimer);
+  pomoRunning = false;
+  const btnStart = document.getElementById("pomo-btn-start");
+  if (btnStart) btnStart.textContent = "▶️ Reprendre";
+}
+
+function resetPomo() {
+  pausePomo();
+  if (pomoMode === "focus") pomoTimeLeft = 25 * 60;
+  else if (pomoMode === "break") pomoTimeLeft = 5 * 60;
+  else pomoTimeLeft = 15 * 60;
+  updatePomoDisplay();
+  const btnStart = document.getElementById("pomo-btn-start");
+  if (btnStart) btnStart.textContent = "▶️ Démarrer";
+}
+
+function setPomoMode(mode) {
+  pomoMode = mode;
+  resetPomo();
+  if (cur === "pomo") render();
+}
+
+$("#btn-pomo").onclick = () => navigateTab("pomo");
+
+// TABS NAVIGATION
+function navigateTab(tabKey) {
+  cur = tabKey;
+  st("cur_tab", cur);
+  render();
+}
+
+function tabs() {
+  const tabsContainer = $("#tabs");
+  let html = `
+    <button class="tab ${cur === 'pc' ? 'on' : ''}" data-k="pc">⚗️ Physique-Chimie (Coeff 7)</button>
+    <button class="tab ${cur === 'm' ? 'on' : ''}" data-k="m">📐 Maths (Coeff 7)</button>
+    <button class="tab ${cur === 'svt' ? 'on' : ''}" data-k="svt">🧬 SVT (Coeff 5)</button>
+    <button class="tab ${cur === 'en' ? 'on' : ''}" data-k="en">🇬🇧 Anglais (Coeff 2)</button>
+    <button class="tab ${cur === 'ph' ? 'on' : ''}" data-k="ph">🧠 Philo (Coeff 2)</button>
+    <button class="tab ${cur === 'cadre' ? 'on' : ''}" data-k="cadre">🎯 Simulateur & Cadre SP</button>
+    <button class="tab ${cur === 'pdf' ? 'on' : ''}" data-k="pdf">📂 Mes PDF Locaux</button>
+    <button class="tab ${cur === 'pomo' ? 'on' : ''}" data-k="pomo">⏱️ Pomodoro</button>
+    <button class="tab ${cur === 'stats' ? 'on' : ''}" data-k="stats">📊 Bilan</button>
+    <button class="tab ${cur === 'x' ? 'on' : ''}" data-k="x">🌐 Sources</button>
+  `;
+  tabsContainer.innerHTML = html;
+}
+
+function yt(q) {
+  return `
+    <a class="yt" target="_blank" rel="noopener" href="${YT}${encodeURIComponent(q)}">▶ Vidéos</a>
+    <a class="yt" target="_blank" rel="noopener" href="${YT}${encodeURIComponent(q)}&sp=CAMSAhAB">🔥 Plus vues</a>
+  `;
+}
+
+// OPEN MEMO MODAL
+function openMemo(k) {
+  const memo = MEMO_DB[k];
+  if (!memo) {
+    alert("Fiche de synthèse en cours de rédaction pour ce chapitre.");
+    return;
+  }
+  $("#memo-title").textContent = "💡 Fiche : " + memo.titre;
+  let body = `
+    <div class="memo-section">
+      <div class="memo-title">📌 Définition & Concept clé</div>
+      <div style="font-size:13px; line-height:1.4">${memo.def}</div>
+    </div>
+    <div class="memo-section">
+      <div class="memo-title">⚡ Formules indispensables du Cadre de Référence</div>
+      ${memo.formules.map(f => `<div class="formula-badge">${f}</div>`).join("")}
+    </div>
+    <div class="memo-section">
+      <div class="memo-title" style="color:var(--danger)">⚠️ Pièges fréquents au National</div>
+      <div class="formula-badge piege-box">${memo.pieges}</div>
+    </div>
+    <div class="memo-section" style="margin-bottom:0">
+      <div class="memo-title" style="color:var(--ok)">🎯 Conseils pour l'épreuve du Bac</div>
+      <div style="font-size:13px">${memo.pointsBac}</div>
+    </div>
+  `;
+  $("#memo-content").innerHTML = body;
+  $("#modal-memo").style.display = "flex";
+}
+$("#memo-close").onclick = () => $("#modal-memo").style.display = "none";
+$("#modal-memo").onclick = e => { if (e.target === $("#modal-memo")) $("#modal-memo").style.display = "none"; };
+
+// SIMULATOR CALCULATION
+function calcSimScore() {
+  const r = parseFloat($("#sim-reg").value) || 0;
+  const cc = parseFloat($("#sim-cc").value) || 0;
+  const pc = parseFloat($("#sim-pc").value) || 0;
+  const m = parseFloat($("#sim-m").value) || 0;
+  const svt = parseFloat($("#sim-svt").value) || 0;
+  const en = parseFloat($("#sim-en").value) || 0;
+  const ph = parseFloat($("#sim-ph").value) || 0;
+
+  // National total coeff = 7 + 7 + 5 + 2 + 2 = 23
+  const natScore = (pc * 7 + m * 7 + svt * 5 + en * 2 + ph * 2) / 23;
+  // Bac final = 25% Régional + 25% CC + 50% National
+  const total = (r * 0.25) + (cc * 0.25) + (natScore * 0.50);
+
+  const totalEl = $("#sim-total");
+  const natEl = $("#sim-nat");
+  const mentionEl = $("#sim-mention");
+
+  if (totalEl) totalEl.textContent = total.toFixed(2) + " / 20";
+  if (natEl) natEl.textContent = natScore.toFixed(2) + " / 20";
+
+  let mention = "Ajourné (Rattrapage)";
+  let color = "var(--danger)";
+  if (total >= 16) { mention = "Mention Très Bien 🎖️"; color = "var(--ok)"; }
+  else if (total >= 14) { mention = "Mention Bien 🥈"; color = "var(--a)"; }
+  else if (total >= 12) { mention = "Mention Assez Bien 🥉"; color = "var(--warn)"; }
+  else if (total >= 10) { mention = "Mention Passable 👍"; color = "var(--t)"; }
+
+  if (mentionEl) {
+    mentionEl.textContent = mention;
+    mentionEl.style.color = color;
+  }
+}
+
+// MAIN RENDER FUNCTION
+function render() {
+  tabs();
+  const A = $("#app");
+
+  // VIEW: CADRE SP & SIMULATEUR
+  if (cur === "cadre") {
+    A.innerHTML = `
+      <h2>🎯 Cadre de référence officiel & Simulateur de Note (Filière Sciences Physiques)</h2>
+      
+      <div class="note">
+        <b>Répartition officielle des coefficients 2BAC SP :</b> Physique-Chimie (<b>7</b>), Mathématiques (<b>7</b>), SVT (<b>5</b>), Anglais (<b>2</b>), Philosophie (<b>2</b>).<br>
+        Le National représente <b>50%</b> de la note globale du Baccalauréat, le Régional <b>25%</b> et le Contrôle Continu <b>25%</b>.
+      </div>
+
+      <div class="sim-card">
+        <h3 style="margin-top:0">🧮 Simulateur de Moyenne & Mention Bac 2026</h3>
+        <p style="color:var(--m); font-size:13px">Saisissez vos notes réelles ou prévisionnelles pour tester vos chances de décrocher une mention :</p>
+        
+        <div class="sim-grid">
+          <div class="sim-item">
+            <label>Régional 1BAC (25%)</label>
+            <input type="number" id="sim-reg" value="14.00" min="0" max="20" step="0.25" oninput="calcSimScore()">
+          </div>
+          <div class="sim-item">
+            <label>Contrôle Continu 2BAC (25%)</label>
+            <input type="number" id="sim-cc" value="15.00" min="0" max="20" step="0.25" oninput="calcSimScore()">
+          </div>
+          <div class="sim-item">
+            <label>Physique-Chimie (Coeff 7)</label>
+            <input type="number" id="sim-pc" value="16.00" min="0" max="20" step="0.25" oninput="calcSimScore()">
+          </div>
+          <div class="sim-item">
+            <label>Mathématiques (Coeff 7)</label>
+            <input type="number" id="sim-m" value="15.50" min="0" max="20" step="0.25" oninput="calcSimScore()">
+          </div>
+          <div class="sim-item">
+            <label>SVT (Coeff 5)</label>
+            <input type="number" id="sim-svt" value="14.50" min="0" max="20" step="0.25" oninput="calcSimScore()">
+          </div>
+          <div class="sim-item">
+            <label>Anglais (Coeff 2)</label>
+            <input type="number" id="sim-en" value="16.00" min="0" max="20" step="0.25" oninput="calcSimScore()">
+          </div>
+          <div class="sim-item">
+            <label>Philosophie (Coeff 2)</label>
+            <input type="number" id="sim-ph" value="13.00" min="0" max="20" step="0.25" oninput="calcSimScore()">
+          </div>
+        </div>
+
+        <div class="sim-result">
+          <div style="font-size:13px; color:var(--m)">Moyenne prévisionnelle à l'Examen National : <b id="sim-nat">--</b></div>
+          <div class="sim-score" id="sim-total">--</div>
+          <div class="sim-mention" id="sim-mention">--</div>
+        </div>
+      </div>
+
+      <h2>🏛️ Examens Blancs d'Excellence avec Corrections (Maroc)</h2>
+      <div class="grid">
+        ${EXAM_BLANCS.map(eb => `
+          <div class="card">
+            <h3>${eb.titre}</h3>
+            <div class="lk">
+              <a target="_blank" rel="noopener" href="${eb.url}">📄 Ouvrir le sujet & corrigé ↗</a>
+            </div>
+          </div>
+        `).join("")}
+      </div>
+
+      <h2>📋 Répartition des points au National en Physique-Chimie (20 points)</h2>
+      <div class="tw">
+        <table>
+          <tr>
+            <th>Domaine</th>
+            <th>Chapitres inclus</th>
+            <th>Poids moyen</th>
+            <th>Durée conseillée</th>
+          </tr>
+          <tr>
+            <td><b>Chimie Générale & Organique</b></td>
+            <td>Cinétique, Équilibres, Acide-Base, Piles, Électrolyse, Estérification</td>
+            <td><b>7 points</b> (35%)</td>
+            <td>~65 minutes</td>
+          </tr>
+          <tr>
+            <td><b>Physique : Ondes</b></td>
+            <td>Ondes mécaniques, lumineuses, diffraction, dispersion</td>
+            <td><b>2,5 à 3 points</b></td>
+            <td>~25 minutes</td>
+          </tr>
+          <tr>
+            <td><b>Physique : Nucléaire</b></td>
+            <td>Décroissance radioactive, énergie de liaison, fission/fusion</td>
+            <td><b>2 à 2,5 points</b></td>
+            <td>~25 minutes</td>
+          </tr>
+          <tr>
+            <td><b>Physique : Électricité</b></td>
+            <td>Dipôles RC, RL, RLC libre, Modulation d'amplitude</td>
+            <td><b>4,5 à 5 points</b></td>
+            <td>~45 minutes</td>
+          </tr>
+          <tr>
+            <td><b>Physique : Mécanique</b></td>
+            <td>Lois de Newton, Chute, Projectile, Satellites, Oscillations, Énergie</td>
+            <td><b>5 à 5,5 points</b></td>
+            <td>~50 minutes</td>
+          </tr>
+        </table>
+      </div>
+    `;
+    calcSimScore();
+    return;
+  }
+
+  // VIEW: LOCAL PDF LIBRARY
+  if (cur === "pdf") {
+    A.innerHTML = `
+      <h2>📂 Bibliothèque Locale de PDF (100% Hors-Ligne)</h2>
+      <div class="note">
+        <b>💡 Comment fonctionne ce dossier ?</b><br>
+        Tous les fichiers PDF d'examens et devoirs placés dans le dossier <code>BAC- MAROC- 2026/pdf/</code> sont consultables instantanément, même sans connexion Internet !<br>
+        Vous pouvez glisser-déposer vos propres fiches et annales à tout moment dans les sous-dossiers correspondants.
+      </div>
+
+      <div class="sub-bar" style="margin-top:16px">
+        <div class="sub-group">
+          <span style="font-weight:700">Dossier actif :</span>
+          <span style="background:var(--c); border:1px solid var(--b); padding:4px 10px; border-radius:8px; font-size:12.5px; font-family:monospace">./pdf/</span>
+        </div>
+        <div class="sub-group">
+          <a class="tab" style="text-decoration:none" href="./pdf/README.md" target="_blank">📄 Guide du dossier PDF ↗</a>
+        </div>
+      </div>
+
+      <h2>⚗️ Physique-Chimie (Devoirs & Nationaux en local)</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>📝 Devoir Surveillé 1 (S1) – Modèle 1 (BIOF)</h3>
+          <small style="color:var(--m)">Emplacement : <code>./pdf/physique_chimie/devoirs/PC_Devoir1_S1_Modele1.pdf</code></small>
+          <div class="lk">
+            <a target="_blank" href="./pdf/physique_chimie/devoirs/PC_Devoir1_S1_Modele1.pdf">📖 Ouvrir le PDF</a>
+            <a download href="./pdf/physique_chimie/devoirs/PC_Devoir1_S1_Modele1.pdf">💾 Télécharger</a>
+          </div>
+        </div>
+        <div class="card">
+          <h3>🏛️ Dossier Annales Nationales PC</h3>
+          <small style="color:var(--m)">Déposez vos PDF de sujets & corrigés dans : <code>./pdf/physique_chimie/national/</code></small>
+          <div class="lk">
+            <a target="_blank" href="./pdf/physique_chimie/national/">📁 Ouvrir le dossier</a>
+          </div>
+        </div>
+      </div>
+
+      <h2>📐 Mathématiques (Devoirs & Nationaux en local)</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>📝 Devoir Surveillé 1 (S1) – Modèle 1 (BIOF)</h3>
+          <small style="color:var(--m)">Emplacement : <code>./pdf/mathematiques/devoirs/Maths_Devoir1_S1_Modele1.pdf</code></small>
+          <div class="lk">
+            <a target="_blank" href="./pdf/mathematiques/devoirs/Maths_Devoir1_S1_Modele1.pdf">📖 Ouvrir le PDF</a>
+            <a download href="./pdf/mathematiques/devoirs/Maths_Devoir1_S1_Modele1.pdf">💾 Télécharger</a>
+          </div>
+        </div>
+        <div class="card">
+          <h3>🏛️ Dossier Annales Nationales Maths</h3>
+          <small style="color:var(--m)">Déposez vos PDF de sujets & corrigés dans : <code>./pdf/mathematiques/national/</code></small>
+          <div class="lk">
+            <a target="_blank" href="./pdf/mathematiques/national/">📁 Ouvrir le dossier</a>
+          </div>
+        </div>
+      </div>
+
+      <h2>🧬 Sciences de la Vie et de la Terre (SVT en local)</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>📝 Devoir Surveillé 1 (S1) – Modèle 1 (BIOF)</h3>
+          <small style="color:var(--m)">Emplacement : <code>./pdf/svt/national/SVT_Devoir1_S1_Modele1.pdf</code></small>
+          <div class="lk">
+            <a target="_blank" href="./pdf/svt/national/SVT_Devoir1_S1_Modele1.pdf">📖 Ouvrir le PDF</a>
+            <a download href="./pdf/svt/national/SVT_Devoir1_S1_Modele1.pdf">💾 Télécharger</a>
+          </div>
+        </div>
+        <div class="card">
+          <h3>🏛️ Dossier Annales Nationales SVT</h3>
+          <small style="color:var(--m)">Déposez vos PDF de sujets & corrigés dans : <code>./pdf/svt/national/</code></small>
+          <div class="lk">
+            <a target="_blank" href="./pdf/svt/national/">📁 Ouvrir le dossier</a>
+          </div>
+        </div>
+      </div>
+
+      <h2>🤖 Automatisation & Téléchargement rapide</h2>
+      <div class="stats-card">
+        <h3 style="margin-top:0">Script de téléchargement inclus</h3>
+        <p style="font-size:13px; color:var(--m); line-height:1.45">
+          Un script automatique <code>telecharger_examens.py</code> a été placé à la racine du projet. 
+          Pour télécharger automatiquement d'autres devoirs et annales en un clic, ouvrez votre terminal dans le dossier et exécutez :
+        </p>
+        <div class="formula-badge">python telecharger_examens.py</div>
+      </div>
+    `;
+    return;
+  }
+
+  // VIEW: SOURCES
+  if (cur === "x") {
+    A.innerHTML = `
+      <h2>🌐 Sources officielles & Bibliothèques de ressources</h2>
+      <div class="note">
+        AlloSchool propose l'intégralité du programme officiel marocain en accès libre : 
+        <a target="_blank" rel="noopener" href="https://www.youtube.com/channel/UCikh5nvI5z5AHmtsYq2XwBQ/playlists">chaîne YouTube AlloSchool</a>.
+      </div>
+      <h2>Portails éducatifs pour le Bac Maroc</h2>
+      <div class="lk" style="margin-bottom:16px">
+        ${SITES.map(s => `<a target="_blank" rel="noopener" href="${s[1]}">${s[0]} ↗</a>`).join("")}
+      </div>
+      <h2>Recherches d'annales corrigées par matière</h2>
+      <div class="lk">
+        ${Object.entries(EXQ).map(([k, q]) => `<a target="_blank" rel="noopener" href="https://www.google.com/search?q=${encodeURIComponent(q + " pdf")}">${D[k].ic} ${D[k].n}</a>`).join("")}
+      </div>
+    `;
+    return;
+  }
+
+  // VIEW: POMODORO
+  if (cur === "pomo") {
+    const m = String(Math.floor(pomoTimeLeft / 60)).padStart(2, '0');
+    const s = String(pomoTimeLeft % 60).padStart(2, '0');
+    A.innerHTML = `
+      <div class="pomo-container">
+        <h2>⏱️ Chronomètre Focus Pomodoro</h2>
+        <p style="color:var(--m); font-size:13.5px">25 minutes de révision intense sans distraction, suivies de 5 minutes de pause.</p>
+        <div class="pomo-modes">
+          <button class="${pomoMode === 'focus' ? 'on' : ''}" onclick="setPomoMode('focus')">🍅 Travail (25m)</button>
+          <button class="${pomoMode === 'break' ? 'on' : ''}" onclick="setPomoMode('break')">☕ Pause (5m)</button>
+          <button class="${pomoMode === 'long' ? 'on' : ''}" onclick="setPomoMode('long')">🌴 Grande pause (15m)</button>
+        </div>
+        <div class="pomo-display" id="pomo-big-disp">${m}:${s}</div>
+        <div class="pomo-controls">
+          <button class="btn-main" id="pomo-btn-start" onclick="${pomoRunning ? 'pausePomo()' : 'startPomo()'}">${pomoRunning ? '⏸️ Pause' : '▶️ Démarrer'}</button>
+          <button class="btn-sec" onclick="resetPomo()">🔄 Réinitialiser</button>
+        </div>
+        <div class="pomo-stats">
+          Sessions terminées aujourd'hui : <b>${pomoCountToday}</b> 🍅 (${pomoCountToday * 25} minutes de révision active)
+        </div>
+      </div>
+    `;
+    return;
+  }
+
+  // VIEW: STATS & BILAN
+  if (cur === "stats") {
+    let grandTot = 0, grandDone = 0;
+    const subStats = Object.entries(D).map(([k, v]) => {
+      const tot = v.ch.filter(c => c[4] !== "d").length;
+      const dn = v.ch.filter((c, i) => c[4] !== "d" && done[k + i]).length;
+      grandTot += tot;
+      grandDone += dn;
+      const pct = tot ? Math.round((dn / tot) * 100) : 0;
+      return { k, name: v.n, ic: v.ic, coeff: v.coeff, tot, dn, pct };
+    });
+    const grandPct = grandTot ? Math.round((grandDone / grandTot) * 100) : 0;
+
+    A.innerHTML = `
+      <h2>📊 Tableau de bord & Bilan de révision 2BAC SP</h2>
+      <div class="stats-card">
+        <div class="progress-header">
+          <span>Progression globale du programme</span>
+          <span style="color:var(--ok)">${grandDone} / ${grandTot} chapitres (${grandPct}%)</span>
+        </div>
+        <div class="bar" style="height:12px; margin-bottom:12px">
+          <i style="width:${grandPct}%"></i>
+        </div>
+        <div class="note" style="margin:0">💡 En Sciences Physiques, priorisez <b>Physique-Chimie (Coeff 7)</b> et <b>Mathématiques (Coeff 7)</b> qui représentent à elles deux plus de 60% de votre note !</div>
+      </div>
+
+      <h2>Progression détaillée par matière</h2>
+      <div class="stats-card">
+        ${subStats.map(s => `
+          <div class="subject-row">
+            <div class="subject-name">${s.ic} ${s.name} <span style="font-size:11px; color:var(--m)">(C${s.coeff})</span></div>
+            <div class="subject-bar">
+              <div class="bar"><i style="width:${s.pct}%"></i></div>
+            </div>
+            <div class="subject-count">${s.dn}/${s.tot} (${s.pct}%)</div>
+          </div>
+        `).join("")}
+      </div>
+    `;
+    return;
+  }
+
+  // VIEW: SUBJECT LESSONS & EXAMS (PC, Maths, SVT, Anglais, Philo)
+  const d = D[cur];
+  const q = ($("#q").value || "").trim().toLowerCase();
+  const f = F[fil] || F.sp;
+  const cu = AS + "course/" + (f[cur] || f.pc);
+
+  // Filter chapters
+  let all = d.ch.map((c, i) => ({ c, i }));
+  all = all.filter(o => o.c[0] === sem);
+  if (q) {
+    all = all.filter(o => {
+      const matchTitle = (o.c[1] + " " + o.c[2]).toLowerCase().includes(q);
+      const memo = MEMO_DB[cur + o.i];
+      const matchMemo = memo && (memo.def + " " + memo.formules.join(" ")).toLowerCase().includes(q);
+      return matchTitle || matchMemo;
+    });
+  }
+  if (filterStatus === "pending") {
+    all = all.filter(o => !done[cur + o.i]);
+  } else if (filterStatus === "done") {
+    all = all.filter(o => done[cur + o.i]);
+  }
+
+  const tot = d.ch.filter(c => c[4] !== "d").length;
+  const dn = d.ch.filter((c, i) => c[4] !== "d" && done[cur + i]).length;
+  const pct = tot ? Math.round((dn / tot) * 100) : 0;
+
+  let html = `
+    <div class="sub-bar">
+      <div class="sub-group">
+        <button class="tab ${sem === 1 ? "on" : ""}" data-s="1">Semestre 1</button>
+        <button class="tab ${sem === 2 ? "on" : ""}" data-s="2">Semestre 2</button>
+        <a class="tab" style="text-decoration:none" target="_blank" rel="noopener" href="${cu}">Cours complet AlloSchool ↗</a>
+      </div>
+      <div class="sub-group">
+        <button class="tab ${filterStatus === 'all' ? 'on' : ''}" data-f="all">Tous</button>
+        <button class="tab ${filterStatus === 'pending' ? 'on' : ''}" data-f="pending">À réviser</button>
+        <button class="tab ${filterStatus === 'done' ? 'on' : ''}" data-f="done">Validés</button>
+      </div>
+    </div>
+
+    <div class="progress-box">
+      <div class="progress-header">
+        <span>Avancement : ${d.n} (Coeff ${d.coeff})</span>
+        <span><b>${dn} / ${tot}</b> chapitres révisés (${pct}%)</span>
+      </div>
+      <div class="bar"><i style="width:${pct}%"></i></div>
+    </div>
+  `;
+
+  // Chapters grid
+  if (all.length === 0) {
+    html += `<div class="note" style="text-align:center; padding:24px">Aucun chapitre ne correspond à votre recherche.</div>`;
+  } else {
+    html += `<div class="grid">` + all.map(({ c, i }) => {
+      const isDone = !!done[cur + i];
+      const id = (c[3] && fil === "sp") ? (AS + "section/" + c[3]) : cu;
+      const k = cur + i;
+      const hasMemo = !!MEMO_DB[k];
+      return `
+        <div class="card ${isDone ? "done" : ""}">
+          <div>
+            <div class="card-top">
+              <input type="checkbox" class="card-chk" data-d="${k}" ${isDone ? "checked" : ""} title="Marquer comme révisé">
+              <div class="card-titles">
+                <span class="ar">${h(c[1])}</span>
+                <h3>${h(c[2])}</h3>
+              </div>
+            </div>
+            ${c[5] ? `
+              <div class="lk" style="margin-top:6px">
+                ${c[5].map(x => `<a target="_blank" rel="noopener" href="${AS}element/${x[1]}">📄 ${x[0]}</a>`).join("")}
+              </div>
+            ` : ""}
+          </div>
+          <div class="lk">
+            ${hasMemo ? `<button class="btn-memo" onclick="openMemo('${k}')">💡 Fiche & Formules</button>` : ""}
+            <a target="_blank" rel="noopener" href="${id}">📘 Cours & Exos</a>
+            ${yt(d.n + " " + c[2] + " 2 bac maroc " + c[1])}
+          </div>
+        </div>
+      `;
+    }).join("") + `</div>`;
+  }
+
+  // Devoirs surveillés Moutamadris (Option BIOF)
+  if (cur === "pc" && fil === "sp") {
+    const B = "https://moutamadris.ma/wp-content/uploads/";
+    const u = (n, m) => sem === 1 
+      ? `${B}${n==3&&m==1?"2023/10":"2022/05"}/devoir-${n}-Physique-et-Chimie-2eme-BAC-Sciences-Physiques-1er-semestre-sections-internationales-option-francais-modele-${m}${n==3&&m==2?"-1":""}.pdf`
+      : `${B}2022/05/devoir-${n}-Physique-et-Chimie-2bac-sciences-physiques-BIOF-2nd-semestre-modele-${m}.pdf`;
+    const C = sem === 1 ? { 1: 15, 2: 9, 3: 3 } : { 1: 7, 2: 9, 3: 4 };
+    html += `
+      <h2>📝 Devoirs surveillés BIOF (Physique-Chimie) – Modèles & Corrigés</h2>
+      <div class="note">Modèles d'annales de devoirs surveillés hébergés par Moutamadris pour s'entraîner aux contrôles de classe :</div>
+      <div class="lk">
+        ${Object.entries(C).map(([n, k]) => Array.from({ length: k }, (_, i) => `
+          <a target="_blank" rel="noopener" href="${u(n, i+1)}">Devoir ${n} · Modèle ${i+1} ↗</a>
+        `).join("")).join("")}
+      </div>
+    `;
+  }
+
+  if (cur === "m") {
+    const P = "https://moutamadris.ma/wp-content/uploads/2022/05/devoir-";
+    const sm = sem === 1 ? "1er" : "2nd";
+    const MM = sem === 1 ? { 1: [1,2,3,4,5], 2: [1,2,3,4,5], 3: [1,2,3,4,5] } : { 1: [1,2,3], 2: [1,2], 3: [1] };
+    html += `
+      <h2>📝 Devoirs surveillés BIOF (Mathématiques) – Moutamadris</h2>
+      <div class="lk">
+        ${Object.entries(MM).map(([n, ms]) => ms.map(m => `
+          <a target="_blank" rel="noopener" href="${P}${n}-maths-2bac-sciences-physiques-BIOF-${sm}-semestre-modele-${m}.pdf">Devoir ${n} · Modèle ${m} ↗</a>
+        `).join("")).join("")}
+      </div>
+    `;
+  }
+
+  // EXAMENS NATIONAUX AVEC CORRECTIONS (2008 à 2025)
+  if (NATS[cur]) {
+    const [T, tt] = NATS[cur];
+    html += `
+      <h2>🏛️ Examens Nationaux Corrigés (2008 – 2025) : ${tt}</h2>
+      <div class="note">Tous les sujets officiels du Ministère de l'Éducation Nationale avec leurs corrigés détaillés :</div>
+      <div class="tw">
+        <table>
+          <tr>
+            <th>Année</th>
+            <th>Session Normale</th>
+            <th>Corrigé Détaillé</th>
+            <th>Session Rattrapage</th>
+            <th>Corrigé Détaillé</th>
+          </tr>
+          ${Object.keys(T).sort((a,b) => b - a).map(y => {
+            const r = T[y];
+            const L = (x, t, isCorr) => x ? `<a target="_blank" rel="noopener" href="${AS}element/${x}" style="${isCorr ? 'color:var(--ok); font-weight:700' : ''}">${t}</a>` : "–";
+            return `
+              <tr>
+                <td><b>${y}</b></td>
+                <td>${L(r[0], "📄 Sujet", false)}</td>
+                <td>${L(r[1], "✅ Corrigé", true)}</td>
+                <td>${L(r[2], "📄 Sujet", false)}</td>
+                <td>${L(r[3], "✅ Corrigé", true)}</td>
+              </tr>
+            `;
+          }).join("")}
+        </table>
+      </div>
+    `;
+  }
+
+  A.innerHTML = html;
+}
+
+// EVENTS HANDLING
+document.addEventListener("click", e => {
+  const t = e.target.closest("[data-k],[data-s],[data-f]");
+  if (!t) return;
+  if (t.dataset.k) {
+    navigateTab(t.dataset.k);
+  } else if (t.dataset.s) {
+    sem = +t.dataset.s;
+    st("sem", sem);
+    render();
+  } else if (t.dataset.f) {
+    filterStatus = t.dataset.f;
+    st("filter_status", filterStatus);
+    render();
+  }
+});
+
+document.addEventListener("change", e => {
+  const d = e.target.dataset.d;
+  if (d) {
+    done[d] = e.target.checked;
+    st("done", JSON.stringify(done));
+    render();
+  }
+});
+
+// SEARCH BAR
+const inputQ = $("#q");
+const clearQ = $("#q-clear");
+inputQ.oninput = () => {
+  clearQ.style.display = inputQ.value ? "block" : "none";
+  render();
+};
+clearQ.onclick = () => {
+  inputQ.value = "";
+  clearQ.style.display = "none";
+  render();
+};
+
+// FILIERE SELECTOR
+$("#fil").value = fil;
+$("#fil").onchange = e => {
+  fil = e.target.value;
+  st("fil", fil);
+  render();
+};
+
+// SETTINGS & BACKUP MODAL
+const modal = $("#modal-settings");
+$("#btn-settings").onclick = () => modal.style.display = "flex";
+$("#modal-close").onclick = () => modal.style.display = "none";
+modal.onclick = e => { if (e.target === modal) modal.style.display = "none"; };
+
+// EXPORT JSON
+$("#btn-export").onclick = () => {
+  const data = {
+    version: "2026.2",
+    exportDate: new Date().toISOString(),
+    fil,
+    done,
+    pomoCountToday
+  };
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `progression_bac_sp_2026_${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+};
+
+// IMPORT JSON
+$("#file-import").onchange = e => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    try {
+      const parsed = JSON.parse(ev.target.result);
+      if (parsed.done && typeof parsed.done === "object") {
+        done = { ...done, ...parsed.done };
+        st("done", JSON.stringify(done));
+        if (parsed.fil) { fil = parsed.fil; st("fil", fil); $("#fil").value = fil; }
+        alert("✅ Progression importée avec succès !");
+        modal.style.display = "none";
+        render();
+      } else {
+        alert("❌ Fichier de sauvegarde invalide.");
+      }
+    } catch(err) {
+      alert("❌ Erreur lors de la lecture du fichier JSON.");
+    }
+  };
+  reader.readAsText(file);
+};
+
+// RESET
+$("#btn-reset").onclick = () => {
+  if (confirm("⚠️ Êtes-vous sûr de vouloir réinitialiser toute votre progression de révision ?")) {
+    done = {};
+    st("done", JSON.stringify(done));
+    modal.style.display = "none";
+    render();
+  }
+};
+
+// INITIAL RENDER
+render();
+</script>
+</body>
+</html>
