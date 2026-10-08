@@ -3018,16 +3018,24 @@ function filterPdfCatalogue() {
   const selMat = ($("#pdf-filter-matiere") ? $("#pdf-filter-matiere").value : "all");
   const selType = ($("#pdf-filter-type") ? $("#pdf-filter-type").value : "all");
 
-  const moutamadrisList = (window.MOUTAMADRIS_CATALOG || []).map(item => ({
+  const catalogList = (window.FULL_PDF_CATALOG || window.MOUTAMADRIS_CATALOG || []).map(item => ({
     matiere: item.matiere,
     categorie: item.categorie,
     titre: item.titre,
     fichier: item.fichier.startsWith("./") ? item.fichier : "./" + item.fichier,
     taille_ko: item.taille_ko,
-    url: item.url
+    year: item.year || ""
   }));
 
-  const allPdfs = [...NATIONAL_EXAMS_PDF, ...moutamadrisList];
+  const seenFiles = new Set();
+  const allPdfs = [];
+  for (const item of [...catalogList, ...NATIONAL_EXAMS_PDF]) {
+    const norm = item.fichier.replace(/^\.\//, "");
+    if (!seenFiles.has(norm)) {
+      seenFiles.add(norm);
+      allPdfs.push(item);
+    }
+  }
 
   currentFilteredPdfs = allPdfs.filter(doc => {
     if (selMat !== "all" && doc.matiere !== selMat) return false;
@@ -3037,6 +3045,13 @@ function filterPdfCatalogue() {
       if (!targetStr.includes(query)) return false;
     }
     return true;
+  });
+
+  currentFilteredPdfs.sort((a, b) => {
+    const ya = parseInt(a.year || (a.titre.match(/\b(20[0-2][0-9])\b/) || [0, 0])[1] || 0, 10);
+    const yb = parseInt(b.year || (b.titre.match(/\b(20[0-2][0-9])\b/) || [0, 0])[1] || 0, 10);
+    if (ya !== yb) return yb - ya;
+    return a.titre.localeCompare(b.titre);
   });
 
   renderPdfCatalogueGrid();
@@ -3120,8 +3135,8 @@ function renderPdfCatalogueGrid() {
     A.innerHTML = `
       <h2>📂 Base de Données & Bibliothèque PDF (100% Hors-Ligne)</h2>
       <div class="note">
-        <b>🎉 Base enrichie : 365+ Fichiers PDF de Cours, Résumés et Examens enregistrés en local !</b><br>
-        Tous les cours officiels, fiches de résumés et séries d'exercices issus de <b>Moutamadris.ma</b> ainsi que les <b>annales nationales 2023-2024</b> sont stockés en local.<br>
+        <b>🎉 Base enrichie : 625+ Fichiers PDF de Cours, Résumés, Exercices et Annales Officielles (2008 à 2024) !</b><br>
+        Tous les cours officiels, fiches de résumés et séries d'exercices issus de <b>Moutamadris.ma</b> ainsi que la collection complète des <b>épreuves et corrigés officiels du Baccalauréat (2008-2024)</b> issus de <b>AlloSchool</b> sont stockés en local.<br>
         Ouvrez n'importe quel document en 1 clic <b>sans connexion Internet</b> ou transformez-le en <b>QCM IA interactif</b> !
       </div>
 
@@ -3138,27 +3153,27 @@ function renderPdfCatalogueGrid() {
       <!-- BARRE DE RECHERCHE ET FILTRES DYNAMIQUES -->
       <div class="progress-box" style="margin:20px 0 16px; padding:18px 20px">
         <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px">
-          <span style="font-size:14px; font-weight:800; color:var(--t)">🔍 Rechercher parmi les 365+ Documents par Notion ou Chapitre :</span>
+          <span style="font-size:14px; font-weight:800; color:var(--t)">🔍 Rechercher parmi les 625+ Documents par Notion, Session ou Chapitre :</span>
           <span id="pdf-counter-badge" class="badge" style="background:var(--a-subtle); color:var(--a); font-size:12px">Chargement...</span>
         </div>
         <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center">
-          <input type="text" id="pdf-search-input" placeholder="Ex: Ondes, Dérivation, Logarithme, Complexes, ATP, Education, الشخص..." 
+          <input type="text" id="pdf-search-input" placeholder="Ex: 2024, Rattrapage, Ondes, Dérivation, Logarithme, Complexes, ATP, Education, الشخص..." 
                  style="flex:2; min-width:240px; padding:10px 16px; border-radius:12px; border:1.5px solid var(--b); background:var(--bg); color:var(--t); font-family:var(--font); font-size:13.5px; font-weight:600"
                  oninput="filterPdfCatalogue()">
           <select id="pdf-filter-matiere" style="flex:1; min-width:180px; padding:10px 14px; border-radius:12px; border:1.5px solid var(--b); background:var(--bg); color:var(--t); font-weight:700; font-size:13px" onchange="filterPdfCatalogue()">
-            <option value="all">📚 Toutes les Matières (365+)</option>
-            <option value="physique_chimie">⚗️ Physique-Chimie (70)</option>
-            <option value="mathematiques">📐 Mathématiques (141)</option>
-            <option value="svt">🧬 SVT (43)</option>
-            <option value="anglais">🇬🇧 Anglais (97)</option>
-            <option value="philosophie">🧠 Philosophie (18)</option>
+            <option value="all">📚 Toutes les Matières (625+)</option>
+            <option value="physique_chimie">⚗️ Physique-Chimie (124)</option>
+            <option value="mathematiques">📐 Mathématiques (194)</option>
+            <option value="svt">🧬 SVT (86)</option>
+            <option value="anglais">🇬🇧 Anglais (157)</option>
+            <option value="philosophie">🧠 Philosophie (64)</option>
           </select>
           <select id="pdf-filter-type" style="flex:1; min-width:160px; padding:10px 14px; border-radius:12px; border:1.5px solid var(--b); background:var(--bg); color:var(--t); font-weight:700; font-size:13px" onchange="filterPdfCatalogue()">
             <option value="all">📂 Tous les Types de Fichiers</option>
             <option value="cours">📖 Cours Complets</option>
             <option value="resumes">📝 Résumés & Synthèses</option>
             <option value="exercices">✍️ Exercices & Séries</option>
-            <option value="national">🏛️ Examens Nationaux</option>
+            <option value="national">🏛️ Examens Nationaux (2008-2024)</option>
           </select>
         </div>
       </div>

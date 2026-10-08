@@ -1,9 +1,9 @@
 /**
- * 2BAC Maroc 2026 - Service Worker PWA (v2.4.0)
+ * 2BAC Maroc 2026 - Service Worker PWA (v2.6.0)
  * Support 100% Hors-Ligne, Cache résilient & Compatibilité Cloudflare Pages
  */
 
-const CACHE_NAME = 'bac-maroc-v2.5.0';
+const CACHE_NAME = 'bac-maroc-v2.6.0';
 
 const ASSETS_TO_CACHE = [
   './',
