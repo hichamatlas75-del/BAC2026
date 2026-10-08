@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bac-maroc-v1.0.0';
+const CACHE_NAME = 'bac-maroc-v1.1.0';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -7,7 +7,10 @@ const ASSETS_TO_CACHE = [
   './icon-512.png',
   './apple-touch-icon.png',
   './favicon.ico',
-  './icon.svg'
+  './icon.svg',
+  './js/pdf.min.js',
+  './js/pdf.worker.min.js',
+  './js/qcm_engine.js'
 ];
 
 self.addEventListener('install', (event) => {

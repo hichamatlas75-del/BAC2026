@@ -610,6 +610,224 @@
       cursor: pointer;
     }
 
+    /* QCM IA VIEW & PLAYER */
+    .qcm-hero {
+      background: linear-gradient(135deg, rgba(37,99,235,0.08), rgba(16,185,129,0.08));
+      border: 1px solid var(--b);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .qcm-dropzone {
+      border: 2px dashed var(--a);
+      border-radius: 16px;
+      padding: 30px 20px;
+      text-align: center;
+      background: var(--c);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      margin: 16px 0;
+    }
+    .qcm-dropzone:hover, .qcm-dropzone.dragover {
+      background: rgba(37,99,235,0.05);
+      border-color: var(--a-hover);
+      transform: translateY(-2px);
+    }
+    .qcm-exam-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 14px;
+      margin: 16px 0;
+    }
+    .qcm-exam-card {
+      background: var(--c);
+      border: 1px solid var(--b);
+      border-radius: 14px;
+      padding: 16px;
+      box-shadow: var(--card-shadow);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 12px;
+      transition: transform 0.15s ease, border-color 0.15s ease;
+    }
+    .qcm-exam-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--a);
+    }
+    .qcm-quiz-box {
+      max-width: 820px;
+      margin: 0 auto;
+      background: var(--c);
+      border: 1px solid var(--b);
+      border-radius: 18px;
+      padding: 24px;
+      box-shadow: var(--card-shadow);
+    }
+    .qcm-header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .qcm-stat-badge {
+      background: var(--bg);
+      border: 1px solid var(--b);
+      padding: 4px 10px;
+      border-radius: 10px;
+      font-size: 13px;
+    }
+    .qcm-question-card {
+      margin-top: 10px;
+    }
+    .qcm-q-num {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--a);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+    .qcm-q-text {
+      font-size: 16.5px;
+      font-weight: 700;
+      line-height: 1.5;
+      margin: 0 0 20px 0;
+    }
+    .qcm-options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .qcm-opt-btn {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+      text-align: left;
+      padding: 12px 16px;
+      border-radius: 12px;
+      border: 1.5px solid var(--b);
+      background: var(--bg);
+      color: var(--t);
+      font-size: 14px;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .qcm-opt-btn:hover:not(.disabled) {
+      border-color: var(--a);
+      background: rgba(37,99,235,0.04);
+      transform: translateX(4px);
+    }
+    .qcm-opt-letter {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: var(--c);
+      border: 1px solid var(--b);
+      font-weight: 800;
+      font-size: 13px;
+      flex-shrink: 0;
+    }
+    .qcm-opt-label {
+      flex: 1;
+    }
+    .qcm-opt-btn.correct {
+      border-color: var(--ok) !important;
+      background: rgba(16,185,129,0.12) !important;
+      color: var(--ok) !important;
+      font-weight: 700;
+    }
+    .qcm-opt-btn.correct .qcm-opt-letter {
+      background: var(--ok);
+      color: #fff;
+      border-color: var(--ok);
+    }
+    .qcm-opt-btn.incorrect {
+      border-color: var(--danger) !important;
+      background: rgba(239,68,68,0.12) !important;
+      color: var(--danger) !important;
+      font-weight: 700;
+    }
+    .qcm-opt-btn.incorrect .qcm-opt-letter {
+      background: var(--danger);
+      color: #fff;
+      border-color: var(--danger);
+    }
+    .qcm-opt-btn.disabled {
+      cursor: default;
+    }
+    .qcm-explanation-box {
+      background: var(--bg);
+      border: 1px solid var(--b);
+      border-left: 4px solid var(--a);
+      border-radius: 12px;
+      padding: 16px;
+      margin: 16px 0;
+      animation: fadeIn 0.25s ease;
+    }
+    .qcm-exp-title {
+      font-size: 13px;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+    .qcm-exp-content {
+      font-size: 13.5px;
+      line-height: 1.5;
+      color: var(--t);
+    }
+    .qcm-result-card {
+      max-width: 650px;
+      margin: 0 auto;
+      text-align: center;
+      background: var(--c);
+      border: 1px solid var(--b);
+      border-radius: 20px;
+      padding: 30px 20px;
+      box-shadow: var(--card-shadow);
+    }
+    .qcm-score-circle {
+      background: linear-gradient(135deg, rgba(37,99,235,0.08), rgba(16,185,129,0.08));
+      border: 1px solid var(--b);
+      border-radius: 16px;
+      padding: 20px;
+      margin: 20px auto;
+      max-width: 320px;
+    }
+    .qcm-score-number {
+      font-size: 44px;
+      font-weight: 900;
+      color: var(--a);
+      line-height: 1.1;
+    }
+    .qcm-mention-badge {
+      display: inline-block;
+      font-size: 15px;
+      font-weight: 800;
+      padding: 6px 16px;
+      border-radius: 20px;
+      border: 2px solid;
+      margin-top: 10px;
+    }
+    .qcm-api-box {
+      background: var(--bg);
+      border: 1px solid var(--b);
+      border-radius: 12px;
+      padding: 14px;
+      margin-top: 14px;
+      font-size: 13px;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     /* MODAL */
     .modal-overlay {
       position: fixed;
@@ -643,6 +861,7 @@
       <h1>🎓 2BAC Maroc <span class="tag-sp">Sciences Physiques</span></h1>
     </a>
     <div class="top-actions">
+      <button class="btn-icon" style="background:linear-gradient(135deg, rgba(37,99,235,0.1), rgba(16,185,129,0.1)); border-color:var(--a); color:var(--a); font-weight:700" onclick="navigateTab('qcm')" title="Convertisseur et Quiz QCM IA">🤖 QCM IA</button>
       <button class="btn-icon" id="btn-pomo" title="Minuteur Pomodoro">🍅 <span id="pomo-mini">25:00</span></button>
       <button class="btn-icon btn-install" id="btn-install" style="display:none">📲 Installer</button>
       <button class="btn-icon" id="btn-settings" title="Sauvegarde & Paramètres">⚙️ Sauvegarde</button>
@@ -714,6 +933,10 @@
     </div>
   </div>
 </div>
+
+<!-- Scripts PDF.js & Moteur QCM IA -->
+<script src="./js/pdf.min.js"></script>
+<script src="./js/qcm_engine.js"></script>
 
 <script>
 // PWA Service Worker Registration
@@ -1494,6 +1717,7 @@ function tabs() {
     <button class="tab ${cur === 'ei' ? 'on' : ''}" data-k="ei">🕌 Éduc. Islamique (CC)</button>
     <button class="tab ${cur === 'cadre' ? 'on' : ''}" data-k="cadre">🎯 Simulateur & Cadre SP</button>
     <button class="tab ${cur === 'pdf' ? 'on' : ''}" data-k="pdf">📂 Mes PDF Locaux</button>
+    <button class="tab ${cur === 'qcm' ? 'on' : ''}" data-k="qcm" style="font-weight:800; border-color:var(--a); color:${cur === 'qcm' ? '#fff' : 'var(--a)'}">🤖 QCM IA</button>
     <button class="tab ${cur === 'pomo' ? 'on' : ''}" data-k="pomo">⏱️ Pomodoro</button>
     <button class="tab ${cur === 'stats' ? 'on' : ''}" data-k="stats">📊 Bilan</button>
     <button class="tab ${cur === 'x' ? 'on' : ''}" data-k="x">🌐 Sources</button>
@@ -1718,6 +1942,7 @@ function render() {
           <div class="lk">
             <a target="_blank" href="./pdf/physique_chimie/national/PC_National_2024_Normale_Sujet_BIOF.pdf">📄 Sujet (1,5 Mo)</a>
             <a target="_blank" href="./pdf/physique_chimie/national/PC_National_2024_Normale_Corrige_BIOF.pdf" style="color:var(--ok); font-weight:700">✅ Corrigé Officiel (1,5 Mo)</a>
+            <button class="btn-icon" style="background:linear-gradient(135deg, rgba(37,99,235,0.08), rgba(16,185,129,0.08)); border-color:var(--a); color:var(--a); font-weight:700" onclick="launchPdfQcm('pc_2024_n')">🤖 S'entraîner en QCM IA</button>
           </div>
         </div>
         <div class="card">
@@ -1726,6 +1951,7 @@ function render() {
           <div class="lk">
             <a target="_blank" href="./pdf/physique_chimie/national/PC_National_2024_Rattrapage_Sujet_BIOF.pdf">📄 Sujet (1,7 Mo)</a>
             <a target="_blank" href="./pdf/physique_chimie/national/PC_National_2024_Rattrapage_Corrige_BIOF.pdf" style="color:var(--ok); font-weight:700">✅ Corrigé Officiel (1,3 Mo)</a>
+            <button class="btn-icon" style="border-color:var(--a); color:var(--a); font-weight:600" onclick="convertLocalPdfToQcm('./pdf/physique_chimie/national/PC_National_2024_Rattrapage_Sujet_BIOF.pdf', 'PC 2024 Rattrapage')">🤖 Convertir en QCM IA</button>
           </div>
         </div>
         <div class="card">
@@ -1734,6 +1960,7 @@ function render() {
           <div class="lk">
             <a target="_blank" href="./pdf/physique_chimie/national/PC_National_2023_Normale_Sujet_BIOF.pdf">📄 Sujet (1,4 Mo)</a>
             <a target="_blank" href="./pdf/physique_chimie/national/PC_National_2023_Normale_Corrige_BIOF.pdf" style="color:var(--ok); font-weight:700">✅ Corrigé Officiel (1,1 Mo)</a>
+            <button class="btn-icon" style="background:linear-gradient(135deg, rgba(37,99,235,0.08), rgba(16,185,129,0.08)); border-color:var(--a); color:var(--a); font-weight:700" onclick="launchPdfQcm('pc_2023_n')">🤖 S'entraîner en QCM IA</button>
           </div>
         </div>
         <div class="card">
@@ -1741,6 +1968,7 @@ function render() {
           <small style="color:var(--m)">Ondes mécaniques, lumineuses, décroissance radioactive, cinétique</small>
           <div class="lk">
             <a target="_blank" href="./pdf/physique_chimie/devoirs/PC_Devoir1_S1_Modele1.pdf">📖 Ouvrir le Devoir (776 Ko)</a>
+            <button class="btn-icon" style="border-color:var(--a); color:var(--a); font-weight:600" onclick="convertLocalPdfToQcm('./pdf/physique_chimie/devoirs/PC_Devoir1_S1_Modele1.pdf', 'Devoir 1 PC S1')">🤖 Convertir en QCM IA</button>
           </div>
         </div>
       </div>
@@ -1753,6 +1981,7 @@ function render() {
           <div class="lk">
             <a target="_blank" href="./pdf/mathematiques/national/Maths_National_2024_Normale_Sujet_BIOF.pdf">📄 Sujet (464 Ko)</a>
             <a target="_blank" href="./pdf/mathematiques/national/Maths_National_2024_Normale_Corrige_BIOF.pdf" style="color:var(--ok); font-weight:700">✅ Corrigé Officiel (293 Ko)</a>
+            <button class="btn-icon" style="background:linear-gradient(135deg, rgba(37,99,235,0.08), rgba(16,185,129,0.08)); border-color:var(--a); color:var(--a); font-weight:700" onclick="launchPdfQcm('maths_2024_n')">🤖 S'entraîner en QCM IA</button>
           </div>
         </div>
         <div class="card">
@@ -1761,6 +1990,7 @@ function render() {
           <div class="lk">
             <a target="_blank" href="./pdf/mathematiques/national/Maths_National_2024_Rattrapage_Sujet_BIOF.pdf">📄 Sujet (423 Ko)</a>
             <a target="_blank" href="./pdf/mathematiques/national/Maths_National_2024_Rattrapage_Corrige_BIOF.pdf" style="color:var(--ok); font-weight:700">✅ Corrigé Officiel (316 Ko)</a>
+            <button class="btn-icon" style="border-color:var(--a); color:var(--a); font-weight:600" onclick="convertLocalPdfToQcm('./pdf/mathematiques/national/Maths_National_2024_Rattrapage_Sujet_BIOF.pdf', 'Maths 2024 Rattrapage')">🤖 Convertir en QCM IA</button>
           </div>
         </div>
         <div class="card">
@@ -1769,6 +1999,7 @@ function render() {
           <div class="lk">
             <a target="_blank" href="./pdf/mathematiques/national/Maths_National_2023_Normale_Sujet_BIOF.pdf">📄 Sujet (519 Ko)</a>
             <a target="_blank" href="./pdf/mathematiques/national/Maths_National_2023_Normale_Corrige_BIOF.pdf" style="color:var(--ok); font-weight:700">✅ Corrigé Officiel (355 Ko)</a>
+            <button class="btn-icon" style="background:linear-gradient(135deg, rgba(37,99,235,0.08), rgba(16,185,129,0.08)); border-color:var(--a); color:var(--a); font-weight:700" onclick="launchPdfQcm('maths_2023_n')">🤖 S'entraîner en QCM IA</button>
           </div>
         </div>
         <div class="card">
@@ -1776,6 +2007,7 @@ function render() {
           <small style="color:var(--m)">Limites, continuité, dérivation, branches infinies, suites</small>
           <div class="lk">
             <a target="_blank" href="./pdf/mathematiques/devoirs/Maths_Devoir1_S1_Modele1.pdf">📖 Ouvrir le Devoir (82 Ko)</a>
+            <button class="btn-icon" style="border-color:var(--a); color:var(--a); font-weight:600" onclick="convertLocalPdfToQcm('./pdf/mathematiques/devoirs/Maths_Devoir1_S1_Modele1.pdf', 'Devoir 1 Maths S1')">🤖 Convertir en QCM IA</button>
           </div>
         </div>
       </div>
@@ -1788,6 +2020,7 @@ function render() {
           <div class="lk">
             <a target="_blank" href="./pdf/svt/national/SVT_National_2024_Normale_Sujet_BIOF.pdf">📄 Sujet (1,2 Mo)</a>
             <a target="_blank" href="./pdf/svt/national/SVT_National_2024_Normale_Corrige_BIOF.pdf" style="color:var(--ok); font-weight:700">✅ Corrigé Officiel (1,1 Mo)</a>
+            <button class="btn-icon" style="background:linear-gradient(135deg, rgba(37,99,235,0.08), rgba(16,185,129,0.08)); border-color:var(--a); color:var(--a); font-weight:700" onclick="launchPdfQcm('svt_2024_n')">🤖 S'entraîner en QCM IA</button>
           </div>
         </div>
         <div class="card">
@@ -1796,6 +2029,7 @@ function render() {
           <div class="lk">
             <a target="_blank" href="./pdf/svt/national/SVT_National_2024_Rattrapage_Sujet_BIOF.pdf">📄 Sujet (1,2 Mo)</a>
             <a target="_blank" href="./pdf/svt/national/SVT_National_2024_Rattrapage_Corrige_BIOF.pdf" style="color:var(--ok); font-weight:700">✅ Corrigé Officiel (1,2 Mo)</a>
+            <button class="btn-icon" style="border-color:var(--a); color:var(--a); font-weight:600" onclick="convertLocalPdfToQcm('./pdf/svt/national/SVT_National_2024_Rattrapage_Sujet_BIOF.pdf', 'SVT 2024 Rattrapage')">🤖 Convertir en QCM IA</button>
           </div>
         </div>
         <div class="card">
@@ -1804,6 +2038,7 @@ function render() {
           <div class="lk">
             <a target="_blank" href="./pdf/svt/national/SVT_National_2023_Normale_Sujet_BIOF.pdf">📄 Sujet (1,5 Mo)</a>
             <a target="_blank" href="./pdf/svt/national/SVT_National_2023_Normale_Corrige_BIOF.pdf" style="color:var(--ok); font-weight:700">✅ Corrigé Officiel (1,0 Mo)</a>
+            <button class="btn-icon" style="border-color:var(--a); color:var(--a); font-weight:600" onclick="convertLocalPdfToQcm('./pdf/svt/national/SVT_National_2023_Normale_Sujet_BIOF.pdf', 'SVT 2023 Normale')">🤖 Convertir en QCM IA</button>
           </div>
         </div>
         <div class="card">
@@ -1811,6 +2046,7 @@ function render() {
           <small style="color:var(--m)">Restitution des connaissances et raisonnement scientifique</small>
           <div class="lk">
             <a target="_blank" href="./pdf/svt/national/SVT_Devoir1_S1_Modele1.pdf">📖 Ouvrir le Devoir (159 Ko)</a>
+            <button class="btn-icon" style="border-color:var(--a); color:var(--a); font-weight:600" onclick="convertLocalPdfToQcm('./pdf/svt/national/SVT_Devoir1_S1_Modele1.pdf', 'Devoir 1 SVT S1')">🤖 Convertir en QCM IA</button>
           </div>
         </div>
       </div>
@@ -1823,6 +2059,7 @@ function render() {
           <div class="lk">
             <a target="_blank" href="./pdf/anglais/national/Anglais_National_2024_Normale_Sujet.pdf">📄 Sujet (1,6 Mo)</a>
             <a target="_blank" href="./pdf/anglais/national/Anglais_National_2024_Normale_Corrige.pdf" style="color:var(--ok); font-weight:700">✅ Corrigé Officiel (815 Ko)</a>
+            <button class="btn-icon" style="background:linear-gradient(135deg, rgba(37,99,235,0.08), rgba(16,185,129,0.08)); border-color:var(--a); color:var(--a); font-weight:700" onclick="launchPdfQcm('anglais_2024_n')">🤖 S'entraîner en QCM IA</button>
           </div>
         </div>
         <div class="card">
@@ -1831,6 +2068,7 @@ function render() {
           <div class="lk">
             <a target="_blank" href="./pdf/anglais/national/Anglais_National_2023_Normale_Sujet.pdf">📄 Sujet (459 Ko)</a>
             <a target="_blank" href="./pdf/anglais/national/Anglais_National_2023_Normale_Corrige.pdf" style="color:var(--ok); font-weight:700">✅ Corrigé Officiel (204 Ko)</a>
+            <button class="btn-icon" style="border-color:var(--a); color:var(--a); font-weight:600" onclick="convertLocalPdfToQcm('./pdf/anglais/national/Anglais_National_2023_Normale_Sujet.pdf', 'Anglais 2023 Normale')">🤖 Convertir en QCM IA</button>
           </div>
         </div>
       </div>
@@ -1843,6 +2081,7 @@ function render() {
           <div class="lk">
             <a target="_blank" href="./pdf/philosophie/national/Philo_National_2024_Normale_Sujet_AR.pdf">📄 الموضوع (910 Ko)</a>
             <a target="_blank" href="./pdf/philosophie/national/Philo_National_2024_Normale_Corrige_AR.pdf" style="color:var(--ok); font-weight:700">✅ عناصر الإجابة (2,1 Mo)</a>
+            <button class="btn-icon" style="background:linear-gradient(135deg, rgba(37,99,235,0.08), rgba(16,185,129,0.08)); border-color:var(--a); color:var(--a); font-weight:700" onclick="launchPdfQcm('philo_2024_n')">🤖 التدرب بـ QCM IA</button>
           </div>
         </div>
         <div class="card">
@@ -1851,6 +2090,7 @@ function render() {
           <div class="lk">
             <a target="_blank" href="./pdf/philosophie/national/Philo_National_2023_Normale_Sujet_AR.pdf">📄 الموضوع (377 Ko)</a>
             <a target="_blank" href="./pdf/philosophie/national/Philo_National_2023_Normale_Corrige_AR.pdf" style="color:var(--ok); font-weight:700">✅ عناصر الإجابة (1,4 Mo)</a>
+            <button class="btn-icon" style="border-color:var(--a); color:var(--a); font-weight:600" onclick="convertLocalPdfToQcm('./pdf/philosophie/national/Philo_National_2023_Normale_Sujet_AR.pdf', 'Philo 2023 Normale')">🤖 Convertir en QCM IA</button>
           </div>
         </div>
       </div>
@@ -1864,6 +2104,96 @@ function render() {
         <div class="formula-badge">python telecharger_tous_examens.py</div>
       </div>
     `;
+    return;
+  }
+
+  // VIEW: QCM IA (CONVERTISSEUR ET ENTRAINEMENT INTERACTIF)
+  if (cur === "qcm") {
+    if (typeof QcmPlayerState !== 'undefined' && QcmPlayerState.activeQuiz) {
+      A.innerHTML = `<div id="qcm-player-wrapper"></div>`;
+      renderQcmPlayer();
+      return;
+    }
+
+    const savedKey = localStorage.getItem("gemini_api_key") || "";
+    const presets = (typeof PRESET_QCM_DB !== 'undefined') ? Object.values(PRESET_QCM_DB) : [];
+
+    A.innerHTML = `
+      <h2>🤖 QCM IA – Entraînement Interactif & Convertisseur de PDF</h2>
+      <div class="qcm-hero">
+        <div style="font-weight:800; font-size:16px; margin-bottom:6px">🧠 Révisez les examens officiels du Bac Maroc en mode interactif instantané</div>
+        <p style="margin:0; font-size:13.5px; color:var(--m); line-height:1.5">
+          Sélectionnez une épreuve officielle certifiée ci-dessous pour lancer un QCM corrigé en temps réel avec justifications, ou <b>glissez-déposez n'importe quel sujet PDF</b> (examen national, devoir surveillé, résumé) pour le convertir automatiquement en quiz d'entraînement avec chronomètre et score officiel !
+        </p>
+      </div>
+
+      <!-- SECTION 1 : EXAMENS PRESETS -->
+      <h2>🏛️ Examens Officiels Certifiés – Prêts à Jouer (1 Clic)</h2>
+      <div class="qcm-exam-grid">
+        ${presets.map(p => `
+          <div class="qcm-exam-card">
+            <div>
+              <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px">
+                <span class="tag-sp" style="font-size:10.5px">${p.subject}</span>
+                <span style="font-size:12px; color:var(--m); font-weight:700">${p.questions.length} questions</span>
+              </div>
+              <h3 style="margin:0 0 6px 0; font-size:15px">${p.title}</h3>
+              <small style="color:var(--m)">Questions d'examen conformes au Cadre de référence, corrections pas à pas et formules indispensables.</small>
+            </div>
+            <div style="display:flex; gap:8px; align-items:center; margin-top:8px">
+              <button class="btn-main" style="flex:1; padding:8px 12px; font-size:13px" onclick="launchPdfQcm('${p.id}')">▶️ Lancer le QCM</button>
+              <a href="${p.pdfPath}" target="_blank" class="btn-sec" style="padding:8px 10px; font-size:12px; text-decoration:none" title="Consulter le PDF original">📄 PDF</a>
+            </div>
+          </div>
+        `).join("")}
+      </div>
+
+      <!-- SECTION 2 : CONVERTISSEUR PDF DRAG & DROP -->
+      <h2>📤 Convertisseur Intelligent : Glissez n'importe quel PDF d'Examen</h2>
+      <div class="qcm-dropzone" id="qcm-drop-zone" onclick="document.getElementById('qcm-file-input').click()">
+        <input type="file" id="qcm-file-input" accept=".pdf" style="display:none" onchange="handlePdfUpload(event)">
+        <div style="font-size:42px; margin-bottom:8px">📁</div>
+        <div style="font-weight:800; font-size:16px">Glissez-déposez votre sujet PDF ici</div>
+        <div style="color:var(--m); font-size:13px; margin-top:4px">ou cliquez pour sélectionner un fichier (Examens, Devoirs, Séries)</div>
+        <div style="margin-top:12px; display:inline-block; background:rgba(37,99,235,0.08); color:var(--a); padding:4px 12px; border-radius:20px; font-size:12px; font-weight:700">
+          Extraction PDF.js 100% Hors-Ligne & Locale garantie
+        </div>
+      </div>
+
+      <!-- ÉTAT DE CONVERSION / LOADER -->
+      <div id="qcm-upload-status" style="display:none; margin:16px 0; padding:16px; background:var(--c); border:1px solid var(--b); border-radius:12px; text-align:center">
+        <div style="font-size:28px">⏳</div>
+        <div id="qcm-status-msg" style="font-weight:700; margin-top:8px">Extraction du texte du PDF en cours...</div>
+        <div class="bar" style="height:8px; max-width:300px; margin:10px auto 0 auto">
+          <i id="qcm-status-bar" style="width:30%"></i>
+        </div>
+      </div>
+
+      <!-- SECTION 3 : PARAMETRES IA & CLE GEMINI -->
+      <h2>⚙️ Paramètres IA & Génération Avancée</h2>
+      <div class="qcm-api-box">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px">
+          <div>
+            <b>Moteur IA Hors-Ligne par défaut :</b>
+            <span style="color:var(--ok); font-weight:700"> Actif (Ne nécessite aucune clé ni connexion Internet)</span>
+          </div>
+        </div>
+        <div style="margin-top:10px; border-top:1px solid var(--b); padding-top:10px">
+          <label style="font-size:12.5px; font-weight:700; color:var(--m); display:block; margin-bottom:4px">
+            ✨ Clé API Google Gemini Flash (Optionnel – pour des questions sur-mesure sur n'importe quel PDF complexe) :
+          </label>
+          <div style="display:flex; gap:8px">
+            <input type="password" id="gemini-key-input" value="${savedKey}" placeholder="Collez votre clé API Gemini gratuite (AIzaSy...)" style="flex:1">
+            <button class="btn-sec" onclick="saveGeminiKey()">💾 Enregistrer</button>
+          </div>
+          <div style="font-size:11.5px; color:var(--m); margin-top:6px">
+            Clé 100% gratuite disponible sur <a href="https://aistudio.google.com/app/apikey" target="_blank" style="color:var(--a)">Google AI Studio ↗</a>. La clé reste strictement stockée dans votre navigateur local.
+          </div>
+        </div>
+      </div>
+    `;
+
+    setupDropzone();
     return;
   }
 
@@ -2302,6 +2632,143 @@ $("#btn-reset").onclick = () => {
     render();
   }
 };
+
+// QCM IA & PDF HELPERS
+function setupDropzone() {
+  const dz = document.getElementById("qcm-drop-zone");
+  if (!dz) return;
+  dz.ondragover = e => { e.preventDefault(); dz.classList.add("dragover"); };
+  dz.ondragleave = e => { e.preventDefault(); dz.classList.remove("dragover"); };
+  dz.ondrop = e => {
+    e.preventDefault();
+    dz.classList.remove("dragover");
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+      processUploadedPdf(e.dataTransfer.files[0]);
+    }
+  };
+}
+
+function handlePdfUpload(e) {
+  if (e.target.files && e.target.files[0]) {
+    processUploadedPdf(e.target.files[0]);
+  }
+}
+
+async function processUploadedPdf(file) {
+  if (!file.name.toLowerCase().endsWith('.pdf')) {
+    alert("Veuillez sélectionner un fichier au format PDF.");
+    return;
+  }
+
+  const statusEl = document.getElementById("qcm-upload-status");
+  const msgEl = document.getElementById("qcm-status-msg");
+  const barEl = document.getElementById("qcm-status-bar");
+  if (statusEl) statusEl.style.display = "block";
+
+  try {
+    if (msgEl) msgEl.textContent = `Lecture et extraction de "${file.name}"...`;
+    if (barEl) barEl.style.width = "40%";
+
+    const extractedText = await extractTextFromPdf(file, (page, total) => {
+      if (msgEl) msgEl.textContent = `Extraction des pages : ${page} / ${total}...`;
+      if (barEl) barEl.style.width = `${Math.round((page / total) * 50)}%`;
+    });
+
+    if (msgEl) msgEl.textContent = "Génération du QCM pédagogique par l'IA...";
+    if (barEl) barEl.style.width = "75%";
+
+    let questions = [];
+    const apiKey = localStorage.getItem("gemini_api_key");
+
+    if (apiKey && apiKey.trim().length > 10) {
+      try {
+        questions = await generateQuestionsWithGemini(extractedText, apiKey.trim());
+      } catch (geminiErr) {
+        console.warn("Échec Gemini, repli sur le moteur hors-ligne :", geminiErr);
+        questions = generateQuestionsFromKeywords(extractedText, file.name);
+      }
+    } else {
+      questions = generateQuestionsFromKeywords(extractedText, file.name);
+    }
+
+    if (barEl) barEl.style.width = "100%";
+    if (statusEl) statusEl.style.display = "none";
+
+    const customQuiz = {
+      id: "custom_" + Date.now(),
+      title: "QCM IA : " + file.name.replace(".pdf", ""),
+      subject: "Document Personnel",
+      matiereKey: "custom",
+      pdfPath: "",
+      questions: questions
+    };
+
+    startQuiz(customQuiz);
+  } catch (err) {
+    if (statusEl) statusEl.style.display = "none";
+    alert("Erreur lors de la conversion du PDF : " + err.message);
+  }
+}
+
+async function convertLocalPdfToQcm(pdfUrl, title) {
+  navigateTab('qcm');
+  const statusEl = document.getElementById("qcm-upload-status");
+  const msgEl = document.getElementById("qcm-status-msg");
+  const barEl = document.getElementById("qcm-status-bar");
+  if (statusEl) statusEl.style.display = "block";
+
+  try {
+    if (msgEl) msgEl.textContent = `Extraction du fichier "${title || pdfUrl}"...`;
+    if (barEl) barEl.style.width = "40%";
+
+    const extractedText = await extractTextFromPdf(pdfUrl, (page, total) => {
+      if (msgEl) msgEl.textContent = `Extraction des pages : ${page} / ${total}...`;
+      if (barEl) barEl.style.width = `${Math.round((page / total) * 60)}%`;
+    });
+
+    if (msgEl) msgEl.textContent = "Génération du QCM par l'IA...";
+    if (barEl) barEl.style.width = "85%";
+
+    let questions = [];
+    const apiKey = localStorage.getItem("gemini_api_key");
+    if (apiKey && apiKey.trim().length > 10) {
+      try {
+        questions = await generateQuestionsWithGemini(extractedText, apiKey.trim());
+      } catch (err) {
+        questions = generateQuestionsFromKeywords(extractedText, pdfUrl);
+      }
+    } else {
+      questions = generateQuestionsFromKeywords(extractedText, pdfUrl);
+    }
+
+    if (statusEl) statusEl.style.display = "none";
+    startQuiz({
+      id: "auto_" + Date.now(),
+      title: "QCM IA : " + (title || "Examen"),
+      subject: "Examen Officiel",
+      matiereKey: "custom",
+      pdfPath: pdfUrl,
+      questions: questions
+    });
+  } catch (err) {
+    if (statusEl) statusEl.style.display = "none";
+    alert("Impossible de convertir ce PDF : " + err.message);
+  }
+}
+
+function saveGeminiKey() {
+  const input = document.getElementById("gemini-key-input");
+  if (input) {
+    const val = input.value.trim();
+    if (val) {
+      localStorage.setItem("gemini_api_key", val);
+      alert("✅ Clé API Google Gemini enregistrée avec succès !");
+    } else {
+      localStorage.removeItem("gemini_api_key");
+      alert("Clé API effacée. Le moteur hors-ligne sera utilisé.");
+    }
+  }
+}
 
 // INITIAL RENDER
 render();
