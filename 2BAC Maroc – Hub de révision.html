@@ -732,101 +732,99 @@ btnInstall.addEventListener('click', async () => {
 // BASE DATA & ALLOSCHOOL URL CONSTANTS
 const AS = "https://www.alloschool.com/", YT = "https://www.youtube.com/results?search_query=";
 const F = {
-  sp: { m: "alriadhiat-althania-bak-alom-fiziaiia", pc: "alfiziaa-oalkimiaa-althania-bak-alom-fiziaiia", svt: "alom-alhiaa-oalardh-althania-bak-alom-fiziaiia", en: "anglais-2eme-bac-sciences-physiques", ph: "alflsfa-althania-bak-alom-fiziaiia" },
-  svt: { m: "alriadhiat-althania-bak-alom-alhiaa-oalardh", pc: "alfiziaa-oalkimiaa-althania-bak-alom-alhiaa-oalardh", svt: "alom-alhiaa-oalardh-althania-bak-alom-alhiaa-oalardh", en: "anglais-2eme-bac-sciences-de-la-vie-et-de-la-terre", ph: "alflsfa-althania-bak-alom-alhiaa-oalardh" },
-  sma: { m: "alriadhiat-althania-bak-alom-riadhia-awa", pc: "alfiziaa-oalkimiaa-althania-bak-alom-riadhia-awa", svt: "alom-alhiaa-oalardh-althania-bak-alom-riadhia-awa", en: "anglais-2eme-bac-sciences-mathematiques-a", ph: "alflsfa-althania-bak-alom-riadhia-awa" }
+  sp: { m: "mathematiques-2eme-bac-sciences-physiques-biof", pc: "physique-et-chimie-2eme-bac-sciences-physiques-biof", svt: "sciences-de-la-vie-et-de-la-terre-svt-2eme-bac-sciences-physiques-biof", en: "anglais-2eme-bac-sciences-physiques", ph: "alflsfa-althania-bak-alom-fiziaiia" },
+  svt: { m: "mathematiques-2eme-bac-sciences-de-la-vie-et-de-la-terre-biof", pc: "physique-et-chimie-2eme-bac-sciences-de-la-vie-et-de-la-terre-biof", svt: "sciences-de-la-vie-et-de-la-terre-svt-2eme-bac-sciences-de-la-vie-et-de-la-terre-biof", en: "anglais-2eme-bac-sciences-de-la-vie-et-de-la-terre", ph: "alflsfa-althania-bak-alom-alhiaa-oalardh" },
+  sma: { m: "mathematiques-2eme-bac-sciences-mathematiques-a-biof", pc: "physique-et-chimie-2eme-bac-sciences-mathematiques-a-biof", svt: "sciences-de-la-vie-et-de-la-terre-svt-2eme-bac-sciences-mathematiques-a-biof", en: "anglais-2eme-bac-sciences-mathematiques-a", ph: "alflsfa-althania-bak-alom-riadhia-awa" }
 };
 
 const U = (s, t, fr, i) => [s, t, fr, 6545, "", [["Vocabulary", i[0]], ["Functions", i[1]], ["Grammar", i[2]], ["Comprehension", i[3]], ["Writing", i[4]], ["Quiz", i[5]]]];
 
-// CURRICULUM DATA: ENRICHED WITH PROGRAMMES & REFS
+// CURRICULUM DATA: ENRICHED WITH PROGRAMMES & REFS (OPTION BIOF FRANÇAIS)
 const D = {
   pc: {
     n: "Physique-Chimie", ic: "⚗️", coeff: 7,
     ch: [
-      // S1 PHYSIQUE
-      [1,"الموجات الميكانيكية المتوالية","Ondes mécaniques progressives",3303],
-      [1,"الموجات الميكانيكية المتوالية الدورية","Ondes mécaniques progressives périodiques",6024],
-      [1,"انتشار موجة ضوئية","Propagation d'une onde lumineuse",6027],
-      [1,"حيود الضوء بواسطة شبكة","Diffraction par un réseau",6030],
-      [1,"التناقص الإشعاعي","Décroissance radioactive",3304],
-      [1,"النوى والكتلة والطاقة","Noyaux, masse et énergie",6033],
-      [1,"ثنائي القطب RC","Dipôle RC",3305],
-      [1,"ثنائي القطب RL","Dipôle RL",6036],
-      [1,"التذبذبات الحرة في دارة RLC","Oscillations libres RLC",3306],
-      // S1 CHIMIE
-      [1,"التحولات السريعة والبطيئة","Chimie : transformations rapides et lentes",3307],
-      [1,"التتبع الزمني لتحول كيميائي","Suivi temporel, vitesse de réaction",3308],
-      [1,"التحولات في منحيين","Transformations dans les deux sens",3309],
-      [1,"حالة توازن مجموعة كيميائية","État d'équilibre d'un système",3310],
-      [1,"التفاعلات حمض-قاعدة","Réactions acide-base",3311],
-      [1,"المعايرة الحمضية القاعدية","Dosage acido-basique",6045],
-      [1,"فروض الدورة 1 (علوم فيزيائية)","Devoirs surveillés S1",3313,"d"],
-      // S2 PHYSIQUE
-      [2,"الموجات الكهرمغنطيسية وتضمين الوسع","Ondes électromagnétiques, modulation d'amplitude",3314],
-      [2,"قوانين نيوتن","Lois de Newton",3315],
-      [2,"السقوط الرأسي لجسم صلب","Chute verticale d'un solide",3316],
-      [2,"الحركات المستوية","Mouvements plans (projectile, particule)",3317],
-      [2,"الأقمار الصناعية والكواكب","Satellites et planètes",3318],
-      [2,"حركة دوران جسم صلب","Rotation autour d'un axe fixe",3319],
-      [2,"المجموعات الميكانيكية المتذبذبة","Systèmes mécaniques oscillants",3320],
-      [2,"المظاهر الطاقية للتذبذبات الميكانيكية","Aspects énergétiques des oscillations mécaniques",3321],
-      [2,"الذرة وميكانيك نيوتن","L'atome et la mécanique de Newton",3322],
-      // S2 CHIMIE
-      [2,"التطور التلقائي لمجموعة كيميائية","Chimie : évolution spontanée d'un système",3323],
-      [2,"التحولات التلقائية في الأعمدة","Piles et récupération d'énergie",3324],
-      [2,"التحولات القسرية والتحليل الكهربائي","Électrolyse",3325],
-      [2,"تفاعلات الأسترة والحلمأة","Estérification et hydrolyse",3326],
-      [2,"التحكم في تطور المجموعات الكيميائية","Contrôle de l'évolution (changement de réactif)",3327],
-      [2,"فروض الدورة 2 (علوم فيزيائية)","Devoirs surveillés S2",3329,"d"],
-      [2,"تمارين غير مصححة للاستعداد للامتحان الوطني","Exercices non corrigés pour l'examen national",4417]
+      // S1 PHYSIQUE (BIOF)
+      [1,"الموجات الميكانيكية المتوالية","Ondes mécaniques progressives",4398],
+      [1,"الموجات الميكانيكية المتوالية الدورية","Ondes mécaniques progressives périodiques",4399],
+      [1,"انتشار موجة ضوئية","Propagation des ondes lumineuses",4400],
+      [1,"حيود الضوء بواسطة شبكة","Diffraction de la lumière",4400],
+      [1,"التناقص الإشعاعي","Décroissance radioactive",4401],
+      [1,"النوى والكتلة والطاقة","Noyaux, masse et énergie",4402],
+      [1,"ثنائي القطب RC","Dipôle RC",4403],
+      [1,"ثنائي القطب RL","Dipôle RL",4404],
+      [1,"التذبذبات الحرة في دارة RLC","Oscillations libres d'un circuit RLC série",4405],
+      // S1 CHIMIE (BIOF)
+      [1,"التحولات السريعة والبطيئة","Transformations lentes et transformations rapides",4409],
+      [1,"التتبع الزمني لتحول كيميائي","Suivi temporel d'une transformation - Vitesse",4410],
+      [1,"التحولات في منحيين","Transformations chimiques dans les 2 sens",4411],
+      [1,"حالة توازن مجموعة كيميائية","État d'équilibre d'un système chimique",4412],
+      [1,"التفاعلات حمض-قاعدة","Transformations acide-base",4413],
+      [1,"المعايرة الحمضية القاعدية","Dosage acido-basique",4535],
+      [1,"فروض الدورة 1 (علوم فيزيائية)","Devoirs surveillés 1er Semestre (SPC BIOF)",4414,"d"],
+      // S2 PHYSIQUE (BIOF)
+      [2,"الموجات الكهرمغنطيسية وتضمين الوسع","Modulation d'amplitude",4408],
+      [2,"قوانين نيوتن","Lois de Newton",4538],
+      [2,"السقوط الرأسي لجسم صلب","Chute libre verticale d’un solide",4541],
+      [2,"الحركات المستوية","Mouvements plans",4544],
+      [2,"الأقمار الصناعية والكواكب","Mouvement des satellites et des planètes",4550],
+      [2,"حركة دوران جسم صلب","Rotation d’un solide autour d’un axe fixe",4553],
+      [2,"المجموعات الميكانيكية المتذبذبة","Systèmes mécaniques oscillants",4556],
+      [2,"المظاهر الطاقية للتذبذبات الميكانيكية","Aspects énergétiques des oscillations mécaniques",4559],
+      [2,"الذرة وميكانيك نيوتن","Atome et mécanique de Newton",4562],
+      // S2 CHIMIE (BIOF)
+      [2,"التطور التلقائي لمجموعة كيميائية","Évolution spontanée d'un système chimique",4565],
+      [2,"التحولات التلقائية في الأعمدة","Transformations dans les piles & production d'énergie",4568],
+      [2,"التحولات القسرية والتحليل الكهربائي","Transformations forcées (Électrolyse)",4571],
+      [2,"تفاعلات الأسترة والحلمأة","Réactions d'estérification et d'hydrolyse",4574],
+      [2,"التحكم في تطور المجموعات الكيميائية","Contrôle de l'évolution d'un système chimique",4577],
+      [2,"فروض الدورة 2 (علوم فيزيائية)","Devoirs surveillés 2nd Semestre (SPC BIOF)",4580,"d"],
+      [2,"امتحانات وطنية خيار فرنسية","Examens Nationaux (SPC BIOF)",4586]
     ],
     ex: [
-      ["البرنامج + الإطار المرجعي","Programme et cadre de référence officiel",3301],
-      ["جذاذات الفيزياء والكيمياء","Fiches pédagogiques",4177],
-      ["مقدمة وتذكير","Introduction et rappels mathématiques",3302]
+      ["البرنامج البيداغوجي","Programme pédagogique officiel (PC BIOF)",4397],
+      ["الامتحانات الوطنية مع التصحيح","Examens Nationaux BIOF (SPC) avec corrigés",4586],
+      ["محتوى متميز","Contenu Premium (PC 2Bac BIOF)",6450]
     ]
   },
   m: {
     n: "Mathématiques", ic: "📐", coeff: 7,
     ch: [
-      [1,"النهايات والاتصال","Limites et continuité",1027],
-      [1,"الاشتقاق","Dérivation",1029],
-      [1,"دراسة الدوال وتمثيلها المبياني","Étude des fonctions",1030],
-      [1,"الدوال الأصلية","Primitives",4418],
-      [1,"المتتاليات العددية","Suites numériques",1028],
-      [1,"الدوال اللوغاريتمية","Logarithme népérien",1032],
-      [1,"الأعداد العقدية 1","Nombres complexes (1)",1031],
-      [1,"فروض الدورة 1","Devoirs surveillés S1",3237,"d"],
-      [2,"الدوال الأسية","Fonction exponentielle",1034],
-      [2,"الأعداد العقدية 2","Nombres complexes (2)",1037],
-      [2,"المعادلات التفاضلية","Équations différentielles",1035],
-      [2,"الحساب التكاملي","Calcul intégral",1036],
-      [2,"الهندسة الفضائية","Géométrie dans l'espace",1038],
-      [2,"حساب الاحتمالات","Dénombrement et probabilités",1039],
-      [2,"فروض الدورة 2","Devoirs surveillés S2",1040,"d"]
+      [1,"النهايات والاتصال","Limites et continuité",4726],
+      [1,"الاشتقاق ودراسة الدوال","Dérivation et étude des fonctions",4731],
+      [1,"المتتاليات العددية","Suites numériques",4736],
+      [1,"الدوال الأصلية","Fonctions primitives",6007],
+      [1,"الدوال اللوغاريتمية","Fonctions logarithmiques",4741],
+      [1,"الأعداد العقدية 1","Nombres complexes (Partie 1)",4746],
+      [1,"فروض الدورة 1","Devoirs surveillés 1er Semestre (BIOF)",4692,"d"],
+      [2,"الدوال الأسية","Fonctions exponentielles",5791],
+      [2,"الأعداد العقدية 2","Nombres complexes (Partie 2)",6012],
+      [2,"الحساب التكاملي","Calcul intégral",4751],
+      [2,"المعادلات التفاضلية","Équations différentielles",4766],
+      [2,"الهندسة الفضائية","Géométrie dans l’espace",4756],
+      [2,"حساب الاحتمالات","Dénombrement et probabilités",4761],
+      [2,"فروض الدورة 2","Devoirs surveillés 2nd Semestre (BIOF)",4697,"d"]
     ],
     ex: [
-      ["امتحانات تجريبية مع التصحيح","Examens blancs corrigés",1041],
-      ["موحدات مع التصحيح","Examens nationaux corrigés (2008-2024)",1044],
-      ["البرنامج البيداغوجي","Programme + cadre de référence",2071]
+      ["البرنامج البيداغوجي","Programme pédagogique officiel (Maths BIOF)",4687],
+      ["امتحانات تجريبية (بيضاء)","Examens Simili (blancs) corrigés BIOF",6017],
+      ["الامتحانات الوطنية مع التصحيح","Examens Nationaux Maths BIOF corrigés",5321]
     ]
   },
   svt: {
     n: "SVT", ic: "🧬", coeff: 5,
     ch: [
-      [1,"استهلاك المادة العضوية وتدفق الطاقة","Consommation de matière organique et flux d'énergie",3100],
-      [1,"طبيعة الخبر الوراثي وآلية تعبيره","Nature de l'information génétique et son expression",4025],
-      [1,"نقل الخبر الوراثي عبر التوالد الجنسي","Transmission de l'information génétique (méiose, lois de Mendel)",4026],
-      [1,"فروض الدورة 1","Devoirs surveillés S1",1047,"d"],
-      [2,"استعمال المواد العضوية وغير العضوية","Utilisation des matières organiques et inorganiques (déchets, pollution)",1049],
-      [2,"الظواهر الجيولوجية: السلاسل الجبلية","Géologie : chaînes de montagnes, métamorphisme",3101],
-      [2,"فروض الدورة 2","Devoirs surveillés S2",1051,"d"],
-      [2,"امتحانات تجريبية","Examens blancs",1052]
+      [1,"استهلاك المادة العضوية وتدفق الطاقة","Consommation de la matière organique et flux d’énergie",4010],
+      [1,"الخبر الوراثي والتوالد الجنسي","Information génétique & reproduction sexuée",4011],
+      [1,"فروض الدورة 1","Devoirs surveillés 1er Semestre (BIOF)",4021,"d"],
+      [2,"استعمال المواد العضوية وغير العضوية","Utilisation des matières organiques et inorganiques",4009],
+      [2,"الظواهر الجيولوجية وحركية الصفائح","Phénomènes géologiques et tectonique des plaques",4012],
+      [2,"فروض الدورة 2","Devoirs surveillés 2nd Semestre (BIOF)",4022,"d"]
     ],
     ex: [
-      ["البرنامج + الإطار المرجعي","Programme et cadre de référence",2097],
-      ["جذاذات","Fiches pédagogiques",4496]
+      ["البرنامج البيداغوجي","Programme pédagogique officiel (SVT BIOF)",4008],
+      ["الامتحانات الوطنية مع التصحيح","Examens Nationaux SVT BIOF corrigés",5192],
+      ["محتوى متميز","Contenu Premium (SVT 2Bac BIOF)",6466]
     ]
   },
   en: {
@@ -1097,22 +1095,66 @@ const MEMO_DB = {
   }
 };
 
-// EXAMS NATIONAUX & EXAMENS BLANCS
+MEMO_DB.pc26 = MEMO_DB.pc25;
+MEMO_DB.pc28 = MEMO_DB.pc27;
+
+// EXAMS NATIONAUX & EXAMENS BLANCS (BIOF FRANÇAIS POUR MATIÈRES SCIENTIFIQUES)
 const NAT = {
-  2015:[6860,6861,21070,21075],2016:[21091,21096,21101,21106],2017:[26344,26349,35301,35306],2018:[57035,57040,65516,65521],2019:[68510,68614,94480,106257],2020:[109776,109782,109787,109792],2021:[147717,147722],2022:[147732,147737,147742,147747],2023:[147757,147762,147767,147772],2024:[147782,147787,147792,147797]
+  2025:[145826,0,145831,0],
+  2024:[144505,144510,145811,145816],
+  2023:[137482,137472,142250,142255],
+  2022:[136586,136803,136591,136808],
+  2021:[127180,136793,127185,136798],
+  2020:[109797,109803,109808,109814],
+  2019:[68527,100965,106247,106252],
+  2018:[94699,94704,94709,94714],
+  2017:[94525,94530,94535,94540],
+  2016:[94485,94490,94502,94520],
+  2015:[136578,136566,0,0],
+  2014:[136551,137467,136561,0],
+  2013:[136545,137173,0,0],
+  2012:[136538,137431,0,0],
+  2011:[106884,106917,106828,106834],
+  2010:[136529,137477,0,0],
+  2009:[136523,0,0,0]
 };
-for(let y=2008; y<=2014; y++){ const b = 6832 + 4 * (y - 2008); NAT[y] = [b, b+1, b+2, b+3]; }
 
 const NPH = {
   2025:[146054,146063],2024:[146018,146027,146036,146045],2023:[142698,142707,142716,142725],2022:[136639,142680,136648,142689],2021:[127274,142743],2020:[110090,110107,110127,110136],2019:[94558,110145],2018:[65588,65602],2017:[35362,35371,35380,35389],2016:[22226,22237,22248,22259],2015:[22182,22193,22204,22215],2014:[7252,7253,22160,22171],2013:[7248,7249,7250,7251],2012:[7244,7245,7246,7247],2011:[7240,7241,7242,7243],2010:[7236,7237,7238,7239],2009:[7232,7233,7234,7235]
 };
 
 const NPC = {
-  2025:[147672,147675],2024:[147672,147675,147678,147681],2023:[142388,142393,142812,142815],2022:[142803,142806,142370,142373],2021:[142352,142355,142358,142361],2020:[109734,109737,109746,109752],2019:[68292,68295,94402,94405],2018:[45512,45509,45518,45515],2017:[39400,39401,39402,39403],2016:[39395,39396,39397,39398],2015:[39390,39391,39392,39393],2014:[39385,39386,39387,39388],2013:[39380,39381,39382,39383],2012:[39375,39376,39377,39378],2011:[39370,39371,39372,39373],2010:[39365,39366,39367,39368],2009:[39360,39361,39362,39363],2008:[39355,39356,39357,39358]
+  2025:[145797,0,145800,0],
+  2024:[145764,145767,145770,145773],
+  2023:[142477,142482,142485,142488],
+  2022:[136622,136830,136625,136833],
+  2021:[127285,136824,127288,136827],
+  2020:[109738,109743,109749,109755],
+  2019:[68301,68304,94420,94423],
+  2018:[57727,57730,57733,57736],
+  2017:[57712,57715,57718,57721],
+  2016:[57700,57703,57706,57709],
+  2015:[94474,0,94477,0],
+  2014:[94466,0,94470,0],
+  2013:[94459,0,94462,0],
+  2012:[94453,0,94456,0],
+  2011:[94447,0,94450,0],
+  2010:[94444,0,57724,0],
+  2009:[57697,0,94431,0],
+  2008:[57691,0,57694,0]
 };
 
 const NSV = {
-  2024:[147821,147822,147823,147824],2023:[147816,147817,147818,147819],2022:[147811,147812,147813,147814],2021:[147808,147809],2020:[109819,109820,109821,109823],2019:[68257,68258,94719,94720],2018:[57050,57051,65526,0],2017:[23706,23707,35933,57049],2016:[6988,6989,21087,21088],2015:[6984,6985,6986,6987],2014:[6982,6983,21089,21090],2013:[6978,6979,6980,6981],2012:[6974,6975,6976,6977],2011:[6970,6971,6972,6973],2010:[6966,6967,6968,6969],2009:[6962,6963,6964,6965],2008:[6958,6959,6960,6961]
+  2025:[145634,145841,145842,145843],
+  2024:[145837,145838,145839,145840],
+  2023:[142310,142311,142313,142314],
+  2022:[136762,136760,136767,136765],
+  2021:[127292,136757,136759,136758],
+  2020:[109824,109825,109826,109827],
+  2019:[68265,68266,94721,94722],
+  2018:[65629,65630,65631,65632],
+  2017:[65637,65638,65639,65640],
+  2016:[65649,65650,65651,65652]
 };
 
 const NEN = {
@@ -1120,11 +1162,11 @@ const NEN = {
 };
 
 const NATS = {
-  pc: [NPC, "Physique-Chimie (Sciences Physiques)"],
-  m: [NAT, "Mathématiques (Sciences Expérimentales)"],
-  svt: [NSV, "SVT (Sciences Expérimentales)"],
+  pc: [NPC, "Physique-Chimie BIOF (Sciences Physiques)"],
+  m: [NAT, "Mathématiques BIOF (Sciences Expérimentales)"],
+  svt: [NSV, "SVT BIOF (Sciences Physiques)"],
   en: [NEN, "Anglais (Séries Scientifiques)"],
-  ph: [NPH, "Philosophie (Séries Scientifiques)"]
+  ph: [NPH, "Philosophie (Séries Scientifiques - en Arabe)"]
 };
 
 // EXAMENS BLANCS D'EXCELLENCE RECOMMANDÉS
@@ -1132,19 +1174,19 @@ const EXAM_BLANCS = [
   { titre: "Examen Blanc PC 2024 – Lycée d'Excellence Benguerir (Sujet & Corrigé)", url: "https://www.google.com/search?q=" + encodeURIComponent("examen blanc physique chimie 2 bac sp lycee excellence benguerir pdf correction") },
   { titre: "Examen Blanc PC 2024 – Direction Rabat-Salé-Kénitra (Corrigé détaillé)", url: "https://www.google.com/search?q=" + encodeURIComponent("examen blanc physique chimie 2 bac sciences physiques rabat sale avec corrige") },
   { titre: "Examen Blanc Maths 2024 – Option BIOF avec barème officiel", url: "https://www.google.com/search?q=" + encodeURIComponent("examen blanc mathematiques 2 bac biof sciences physiques corrige") },
-  { titre: "Examen Blanc SVT 2024 – Spécial Sciences Physiques", url: "https://www.google.com/search?q=" + encodeURIComponent("examen blanc svt 2 bac sciences physiques corrige pdf") }
+  { titre: "Examen Blanc SVT 2024 – Spécial Sciences Physiques BIOF", url: "https://www.google.com/search?q=" + encodeURIComponent("examen blanc svt 2 bac sciences physiques biof corrige pdf") }
 ];
 
 const EXQ = {
-  pc: "امتحان وطني الفيزياء والكيمياء 2 باك علوم فيزيائية خيار فرنسية مع التصحيح",
-  svt: "امتحان وطني علوم الحياة والأرض 2 باك علوم فيزيائية",
+  pc: "examen national physique chimie 2 bac sciences physiques biof avec corrige",
+  svt: "examen national svt 2 bac sciences physiques biof avec corrige",
   en: "2 bac national exam English Morocco scientific streams with key answer",
   ph: "امتحان وطني الفلسفة 2 باك علوم فيزيائية مع عناصر الإجابة",
-  m: "امتحان وطني الرياضيات 2 باك علوم تجريبية خيار فرنسية مع التصحيح"
+  m: "examen national mathematiques 2 bac biof sciences physiques avec corrige"
 };
 
 const SITES = [
-  ["AlloSchool (Section 2BAC SP)", "https://www.alloschool.com/course/alfiziaa-oalkimiaa-althania-bak-alom-fiziaiia"],
+  ["AlloSchool (Section 2BAC SP BIOF)", "https://www.alloschool.com/course/physique-et-chimie-2eme-bac-sciences-physiques-biof"],
   ["Moutamadris (Devoirs & Nationaux)", "https://www.moutamadris.ma"],
   ["9rayti (Cours et fiches)", "https://www.9rayti.com/doros/lycee/b-sciences-physiques"],
   ["Ency-Education Maroc", "https://www.ency-education.com"],
@@ -1830,6 +1872,11 @@ function render() {
       const id = (c[3] && fil === "sp") ? (AS + "section/" + c[3]) : cu;
       const k = cur + i;
       const hasMemo = !!MEMO_DB[k];
+      const ytQuery = (cur === "ph")
+        ? (c[1] + " الثانية باك فلسفة")
+        : (cur === "en")
+          ? (c[2] + " 2 bac english morocco")
+          : (c[2] + " 2 bac biof maroc " + d.n);
       return `
         <div class="card ${isDone ? "done" : ""}">
           <div>
@@ -1849,11 +1896,22 @@ function render() {
           <div class="lk">
             ${hasMemo ? `<button class="btn-memo" onclick="openMemo('${k}')">💡 Fiche & Formules</button>` : ""}
             <a target="_blank" rel="noopener" href="${id}">📘 Cours & Exos</a>
-            ${yt(d.n + " " + c[2] + " 2 bac maroc " + c[1])}
+            ${yt(ytQuery)}
           </div>
         </div>
       `;
     }).join("") + `</div>`;
+  }
+
+  // Cadre de référence & ressources officielles (Sections BIOF)
+  if (d.ex && d.ex.length > 0) {
+    html += `
+      <h2>📚 Ressources officielles & Cadre de référence (${d.n})</h2>
+      <div class="note">Documents officiels, cadre de référence ministériel et sections de révision :</div>
+      <div class="lk">
+        ${d.ex.map(x => `<a target="_blank" rel="noopener" href="${AS}section/${x[2]}">📌 ${x[1]} (${x[0]}) ↗</a>`).join("")}
+      </div>
+    `;
   }
 
   // Devoirs surveillés Moutamadris (Option BIOF)
