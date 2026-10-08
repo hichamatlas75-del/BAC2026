@@ -16,6 +16,9 @@ Plateforme web progressive (PWA) complète et autonome conçue pour la préparat
   * 🧬 **SVT** (Coeff 5) : Énergie & ATP, Génétique humaine & méiose, Géologie.
   * 🇬🇧 **Anglais** (Coeff 2) & 🧠 **Philosophie** (Coeff 2).
 * 💡 **Fiches Mémo & Formules Clés** : Toutes les définitions et formules officielles accessibles directement sur chaque chapitre.
+* 🎓 **Simulateur Concours Post-Bac & CursusSup** : Calcul en temps réel de votre score de présélection officiel ((National × 0,75) + (Régional × 0,25)) avec jauges d'admissibilité pour Médecine (FMP), ENSA, ENSAM, ENA, APESA, CPGE, ENCG, FST, EST, ISPITS.
+* 🎬 **Annuaire des Meilleurs Profs YouTube BIOF** : Accès direct en 1 clic aux cours et playlists des sommités marocaines (Noureddine Physique, Prof Moustakim, Prof Ezzahraoui, Prof Youssef Mouhib, English with Simo, Philo Facile, Kezakoo).
+* 🤖 **Entraînement QCM IA & Convertisseur PDF** : Résolution de QCM avec explications détaillées et conversion instantanée de devoirs PDF en quiz d'entraînement (100% hors-ligne ou via Gemini API).
 * 🏛️ **Annales Nationales Corrigées (2008 – 2025)** : Liens officiels vers les sujets et corrigés détaillés (Session Normale & Rattrapage).
 * 📂 **Bibliothèque Locale de PDF** : Dossier `./pdf/` intégré pour stocker et consulter tous ses sujets et devoirs 100% hors-ligne.
 * 🎯 **Simulateur de Note & Mention Bac** : Calcule en temps réel votre moyenne générale selon les coefficients officiels du Baccalauréat marocain.

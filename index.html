@@ -1814,6 +1814,176 @@ const EXAM_BLANCS = [
   { titre: "Examen Blanc SVT 2024 – Spécial Sciences Physiques BIOF", url: "https://www.google.com/search?q=" + encodeURIComponent("examen blanc svt 2 bac sciences physiques biof corrige pdf") }
 ];
 
+// LISTE OFFICIELLE DES CONCOURS POST-BAC & SEUILS DE PRÉSÉLECTION (FILIÈRE SCIENCES PHYSIQUES)
+const CONCOURS_LIST = [
+  {
+    nom: "Facultés de Médecine, Pharmacie et Dentaire (FMP / FMD)",
+    sigle: "FMP / FMD",
+    type: "Santé & Médecine",
+    seuil: 12.00,
+    epreuves: "4 QCM (45 min chacun) : SVT (Coeff 1), Chimie (Coeff 1), Physique (Coeff 1), Maths (Coeff 1)",
+    portail: "https://www.cursussup.gov.ma",
+    desc: "Seuil national unifié fixé à 12,00. Concours écrit commun sous forme de QCM."
+  },
+  {
+    nom: "Écoles Nationales des Sciences Appliquées (ENSA - 11 Villes)",
+    sigle: "ENSA",
+    type: "Ingénierie & Technologie",
+    seuil: 14.00,
+    epreuves: "QCM en Mathématiques (Coeff 3) et Physique-Chimie (Coeff 3)",
+    portail: "https://www.cursussup.gov.ma",
+    desc: "11 écoles d'ingénieurs au Maroc (Tanger, Agadir, Oujda, Marrakech, Safi, Fès, Khouribga, Kénitra, Tétouan, El Jadida, Al Hoceima). Cycle préparatoire intégré de 2 ans."
+  },
+  {
+    nom: "Écoles Nationales Supérieures des Arts et Métiers (ENSAM)",
+    sigle: "ENSAM",
+    type: "Ingénierie & Génie Industriel",
+    seuil: 16.00,
+    epreuves: "QCM en Mathématiques (Coeff 3) et Physique (Coeff 3)",
+    portail: "https://www.cursussup.gov.ma",
+    desc: "Très sélective pour les Sciences Physiques (seuil souvent > 16/20). Campus à Meknès, Casablanca et Rabat. Formation d'ingénieurs d'État d'élite."
+  },
+  {
+    nom: "École Nationale d'Architecture (ENA)",
+    sigle: "ENA",
+    type: "Architecture & Urbanisme",
+    seuil: 14.75,
+    epreuves: "QCM Culture générale & Aptitude artistique, épreuve graphique puis entretien",
+    portail: "https://concoursena.ma",
+    desc: "Campus à Rabat, Fès, Tétouan, Marrakech, Agadir et Oujda. Présélection basée sur la formule 75% National + 25% Régional."
+  },
+  {
+    nom: "Institut Agronomique et Vétérinaire Hassan II (APESA / IAV)",
+    sigle: "APESA / IAV",
+    type: "Agronomie, Vétérinaire & Topographie",
+    seuil: 14.25,
+    epreuves: "Sélection sur dossier académique via CursusSup",
+    portail: "https://www.cursussup.gov.ma",
+    desc: "Année Préparatoire aux Études Supérieures Agronomiques (Rabat). Forme des ingénieurs agronomes, vétérinaires et géomètres."
+  },
+  {
+    nom: "Écoles Nationales de Commerce et de Gestion (ENCG - 12 Villes)",
+    sigle: "ENCG",
+    type: "Management, Finance & Marketing",
+    seuil: 12.75,
+    epreuves: "Test TAFEM (QCM Maths, Français, Anglais, Culture générale)",
+    portail: "https://www.cursussup.gov.ma",
+    desc: "Réseau national des écoles de commerce en 5 ans. Présélection via la formule standard CursusSup."
+  },
+  {
+    nom: "Classes Préparatoires aux Grandes Écoles (CPGE - MPSI & PCSI)",
+    sigle: "CPGE",
+    type: "Filières d'Excellence Scientifique",
+    seuil: 14.50,
+    epreuves: "Sélection sur dossier scolaire (Notes Maths, PC, Français, Anglais + Assiduité)",
+    portail: "https://www.cpge.ac.ma",
+    desc: "2 ans de préparation intensive aux concours d'ingénieurs marocains (CNC) et français (Polytechnique, Mines, Centrale)."
+  },
+  {
+    nom: "Facultés des Sciences et Techniques (FST - Licences LST)",
+    sigle: "FST (MIP / BCG)",
+    type: "Sciences Appliquées & Technologies",
+    seuil: 13.00,
+    epreuves: "Sélection directe sur moyenne pondérée via CursusSup",
+    portail: "https://www.cursussup.gov.ma",
+    desc: "Troncs communs Mathématiques-Informatique-Physique (MIP) ou Biologie-Chimie-Géologie (BCG)."
+  },
+  {
+    nom: "Écoles Supérieures de Technologie (EST - Diplôme DUT)",
+    sigle: "EST (DUT)",
+    type: "Technologie & Métiers Pratiques (Bac+2)",
+    seuil: 12.50,
+    epreuves: "Sélection directe sur moyenne pondérée via CursusSup",
+    portail: "https://www.cursussup.gov.ma",
+    desc: "Formation professionnelle courte et efficace en 2 ans (Génie informatique, Génie civil, Électrique, Gestion)."
+  },
+  {
+    nom: "Instituts Supérieurs des Professions Infirmières (ISPITS)",
+    sigle: "ISPITS",
+    type: "Santé, Soins & Paramédical",
+    seuil: 13.50,
+    epreuves: "Épreuve écrite (QCM en SVT/Chimie et Français) puis entretien d'aptitude",
+    portail: "https://ispits.sante.gov.ma",
+    desc: "Accès aux métiers de la santé (infirmiers polyvalents, anesthésie-réanimation, radiologie, kinésithérapie, laboratoire)."
+  }
+];
+
+// LES MEILLEURS PROFESSEURS & CHAINES YOUTUBE CERTIFIÉS (SPÉCIAL 2BAC BIOF MAROC)
+const PROFS_YOUTUBE = [
+  {
+    nom: "Noureddine Physique",
+    matiere: "Physique-Chimie (BIOF)",
+    badge: "⚗️ Incontournable PC",
+    specialite: "Cours magistraux complets, résolution méthodique de tous les examens nationaux récents, astuces pour gratter des points au Bac.",
+    url: "https://www.youtube.com/results?search_query=Noureddine+Physique+2BAC+BIOF",
+    subscribers: "500k+ élèves"
+  },
+  {
+    nom: "Prof Moustakim",
+    matiere: "Mathématiques (BIOF)",
+    badge: "📐 Rigueur & Méthodes",
+    specialite: "Préparation intensive à l'Examen National, étude des fonctions ln et exponentielles, suites numériques et nombres complexes.",
+    url: "https://www.youtube.com/results?search_query=Prof+Moustakim+2BAC+BIOF+Maths",
+    subscribers: "Référence nationale"
+  },
+  {
+    nom: "Prof Ezzahraoui",
+    matiere: "Mathématiques (BIOF)",
+    badge: "📐 Pédagogie Dynamique",
+    specialite: "Explications intuitives et lumineuses sur la continuité, la dérivation, le calcul intégral et les probabilités.",
+    url: "https://www.youtube.com/results?search_query=Prof+Ezzahraoui+2BAC+Maths",
+    subscribers: "Très populaire"
+  },
+  {
+    nom: "Prof Youssef Mouhib",
+    matiere: "SVT (BIOF)",
+    badge: "🧬 Schémas Bilan & Clarté",
+    specialite: "Synthèse magistrale sur la consommation de la matière organique (ATP), la respiration, la méiose et la génétique humaine.",
+    url: "https://www.youtube.com/results?search_query=Prof+Youssef+Mouhib+SVT+2BAC+BIOF",
+    subscribers: "Spécialiste 2BAC"
+  },
+  {
+    nom: "Prof SVT Maroc",
+    matiere: "SVT (BIOF) & Concours Médecine",
+    badge: "🧬 Méthodologie & Concours",
+    specialite: "Techniques de réponse aux questions de synthèse scientifique, astuces pour les QCM des concours post-bac (FMP, ISPITS).",
+    url: "https://www.youtube.com/results?search_query=Prof+SVT+Maroc+2BAC+BIOF",
+    subscribers: "Prise en main Bac & Concours"
+  },
+  {
+    nom: "English with Simo",
+    matiere: "Anglais (National)",
+    badge: "🇬🇧 Référence Bac Maroc",
+    specialite: "Chaîne N°1 au Maroc pour le programme d'anglais du Baccalauréat : fiches de vocabulaire officiel, grammaire, et modèles de rédaction (Writing).",
+    url: "https://www.youtube.com/results?search_query=English+with+Simo+Bac+Maroc",
+    subscribers: "Leader Anglais Bac"
+  },
+  {
+    nom: "Philo Facile / Prof Rachid Rachid",
+    matiere: "Philosophie (Arabe)",
+    badge: "🧠 Méthodologie Dissertation",
+    specialite: "Maîtrise des 3 formules d'examen (Texte, Question, Citation), argumentation philosophique, مفاهيم مجزوءات الوضع البشري والمعرفة.",
+    url: "https://www.youtube.com/results?search_query=philo+facile+bac+maroc+chouab+ilmiya",
+    subscribers: "Méthodologie garantie"
+  },
+  {
+    nom: "Kezakoo Maroc",
+    matiere: "Toutes Matières (BIOF)",
+    badge: "⚡ Capsules Rapides",
+    specialite: "Vidéos de révision condensées de 5 à 10 minutes pour rafraîchir un chapitre avant un contrôle surveillé ou un devoir.",
+    url: "https://www.youtube.com/results?search_query=Kezakoo+2BAC+BIOF",
+    subscribers: "Plateforme pionnière"
+  },
+  {
+    nom: "TOP PHYSIQUE CHIMIE",
+    matiere: "Physique-Chimie (BIOF)",
+    badge: "⚗️ Séries d'exercices",
+    specialite: "Séries d'exercices progressifs corrigés pas à pas, exercices types d'ondes lumineuses, mécanique de Newton et dosages.",
+    url: "https://www.youtube.com/results?search_query=TOP+PHYSIQUE+CHIMIE+2BAC",
+    subscribers: "Pratique intensive"
+  }
+];
+
 const EXQ = {
   pc: "examen national physique chimie 2 bac sciences physiques biof avec corrige",
   svt: "examen national svt 2 bac sciences physiques biof avec corrige",
@@ -1998,6 +2168,8 @@ function tabs() {
     <button class="tab ${cur === 'ar' ? 'on' : ''}" data-k="ar">📖 Arabe (CC)</button>
     <button class="tab ${cur === 'ei' ? 'on' : ''}" data-k="ei">🕌 Éduc. Islamique (CC)</button>
     <button class="tab ${cur === 'cadre' ? 'on' : ''}" data-k="cadre">🎯 Simulateur & Cadre SP</button>
+    <button class="tab ${cur === 'concours' ? 'on' : ''}" data-k="concours" style="font-weight:800; border-color:#06b6d4; color:${cur === 'concours' ? '#fff' : '#06b6d4'}">🎓 Concours & CursusSup</button>
+    <button class="tab ${cur === 'profs' ? 'on' : ''}" data-k="profs" style="font-weight:800; border-color:#ef4444; color:${cur === 'profs' ? '#fff' : '#ef4444'}">🎬 Top Profs YouTube</button>
     <button class="tab ${cur === 'pdf' ? 'on' : ''}" data-k="pdf">📂 Mes PDF Locaux</button>
     <button class="tab ${cur === 'qcm' ? 'on' : ''}" data-k="qcm" style="font-weight:800; border-color:var(--a); color:${cur === 'qcm' ? '#fff' : 'var(--a)'}">🤖 QCM IA</button>
     <button class="tab ${cur === 'pomo' ? 'on' : ''}" data-k="pomo">⏱️ Pomodoro</button>
@@ -2079,6 +2251,33 @@ function calcSimScore() {
     mentionEl.textContent = mention;
     mentionEl.style.color = color;
   }
+}
+
+// CALCULATEUR DU SCORE DE PRÉSÉLECTION CONCOURS POST-BAC (CURSUSSUP MAROC)
+function calcConcoursScore() {
+  const regEl = $("#concours-reg");
+  const natEl = $("#concours-nat");
+  const reg = parseFloat(regEl ? regEl.value : 14) || 0;
+  const nat = parseFloat(natEl ? natEl.value : 15) || 0;
+
+  // Formule officielle CursusSup : 75% Examen National + 25% Examen Régional
+  const score = (nat * 0.75) + (reg * 0.25);
+
+  const scoreEl = $("#concours-score");
+  if (scoreEl) scoreEl.textContent = score.toFixed(2) + " / 20";
+
+  // Mettre à jour en temps réel l'admissibilité pour chaque école
+  CONCOURS_LIST.forEach((ecole, idx) => {
+    const badgeEl = document.getElementById(`concours-badge-${idx}`);
+    if (!badgeEl) return;
+    if (score >= ecole.seuil) {
+      badgeEl.innerHTML = `<span style="color:var(--ok); font-weight:800; background:rgba(16,185,129,0.14); padding:4px 10px; border-radius:8px; display:inline-block">🟢 Admissible au concours écrit (${ecole.seuil.toFixed(2)})</span>`;
+    } else if (score >= ecole.seuil - 0.75) {
+      badgeEl.innerHTML = `<span style="color:var(--warn); font-weight:800; background:rgba(245,158,11,0.14); padding:4px 10px; border-radius:8px; display:inline-block">🟡 Seuil très proche (${ecole.seuil.toFixed(2)})</span>`;
+    } else {
+      badgeEl.innerHTML = `<span style="color:var(--danger); font-weight:700; background:rgba(239,68,68,0.1); padding:4px 10px; border-radius:8px; display:inline-block">🔴 Sous le seuil indicatif (${ecole.seuil.toFixed(2)})</span>`;
+    }
+  });
 }
 
 // MAIN RENDER FUNCTION
@@ -2191,8 +2390,172 @@ function render() {
           </tr>
         </table>
       </div>
+
+      <h2>📋 Répartition officielle des points en Mathématiques (20 points – Coeff 7)</h2>
+      <div class="tw">
+        <table>
+          <tr>
+            <th>Domaine</th>
+            <th>Contenu & Notions exigibles</th>
+            <th>Poids Cadre</th>
+            <th>Durée conseillée</th>
+          </tr>
+          <tr>
+            <td><b>Analyse & Fonctions</b></td>
+            <td>Limites, continuité, T.V.I, dérivabilité, suites numériques, fonctions ln et exponentielles, primitives, calcul intégral, équations différentielles</td>
+            <td><b>11 à 12 points</b> (~55%)</td>
+            <td>~100 minutes</td>
+          </tr>
+          <tr>
+            <td><b>Nombres Complexes</b></td>
+            <td>Forme algébrique, trigonométrique, exponentielle, équations dans ℂ, transformations géométriques (translation, homothétie, rotation)</td>
+            <td><b>3 points</b> (15%)</td>
+            <td>~25 minutes</td>
+          </tr>
+          <tr>
+            <td><b>Géométrie dans l'Espace</b></td>
+            <td>Produit scalaire, produit vectoriel, équations cartésiennes de plans et sphères, distance d'un point à un plan/droite</td>
+            <td><b>3 points</b> (15%)</td>
+            <td>~25 minutes</td>
+          </tr>
+          <tr>
+            <td><b>Calcul des Probabilités</b></td>
+            <td>Dénombrement (arrangements, combinaisons), probabilités conditionnelles, variables aléatoires et loi binomiale</td>
+            <td><b>3 points</b> (15%)</td>
+            <td>~30 minutes</td>
+          </tr>
+        </table>
+      </div>
+
+      <h2>📋 Répartition officielle des points en SVT (20 points – Coeff 5)</h2>
+      <div class="tw">
+        <table>
+          <tr>
+            <th>Unité du Programme</th>
+            <th>Chapitres & Compétences évaluées</th>
+            <th>Poids indicatif</th>
+            <th>Durée conseillée</th>
+          </tr>
+          <tr>
+            <td><b>1. Énergie & ATP</b></td>
+            <td>Consommation de la matière organique, glycolyse, cycle de Krebs, chaîne respiratoire, fermentation, contraction musculaire</td>
+            <td><b>5 points</b> (25%)</td>
+            <td>~30 minutes</td>
+          </tr>
+          <tr>
+            <td><b>2. Information Génétique</b></td>
+            <td>Nature et mécanisme d'expression de l'ADN, transcription, traduction, mutations, méiose, fécondation, génétique humaine</td>
+            <td><b>5 points</b> (25%)</td>
+            <td>~30 minutes</td>
+          </tr>
+          <tr>
+            <td><b>3. Déchets & Pollution</b></td>
+            <td>Utilisation des matières organiques et inorganiques, gestion des déchets ménagers, pollutions de l'air/eau/sol, énergies renouvelables</td>
+            <td><b>5 points</b> (25%)</td>
+            <td>~30 minutes</td>
+          </tr>
+          <tr>
+            <td><b>4. Géologie & Tectonique</b></td>
+            <td>Formation des chaînes de montagnes (subduction, obduction, collision), métamorphisme, granitisation et tectonique globale</td>
+            <td><b>5 points</b> (25%)</td>
+            <td>~30 minutes</td>
+          </tr>
+        </table>
+      </div>
     `;
     calcSimScore();
+    return;
+  }
+
+  // VIEW: CONCOURS POST-BAC & SEUILS DE PRÉSÉLECTION (CURSUSSUP)
+  if (cur === "concours") {
+    A.innerHTML = `
+      <h2>🎓 Concours Post-Bac & Seuils de Présélection 2026 (CursusSup Maroc)</h2>
+      <div class="note">
+        <b>📌 Formule officielle de sélection ministérielle (Plateforme CursusSup) :</b><br>
+        Pour la présélection aux épreuves écrites des grandes écoles d'ingénieurs, de médecine et d'architecture au Maroc, le classement s'effectue automatiquement selon la pondération légale :<br>
+        <div style="font-size:16px; font-weight:800; color:var(--a); margin:10px 0; text-align:center; background:var(--c); padding:12px; border-radius:14px; border:1.5px solid var(--b-hover)">
+          Moyenne de Présélection = (Note Examen National × 0,75) + (Note Examen Régional × 0,25)
+        </div>
+        <i>💡 Règle clé :</i> Le Contrôle Continu ne compte pas dans la sélection de ces concours ! Le National compte pour <b>75%</b>. Une fois convoqué à l'épreuve écrite, seule votre note au concours (QCM) détermine votre admission finale.
+      </div>
+
+      <div class="sim-card">
+        <h3 style="margin-top:0">🧮 Simulateur de Score de Présélection Concours</h3>
+        <p style="color:var(--m); font-size:13px">Ajustez vos notes estimées pour tester instantanément votre admissibilité dans chaque école :</p>
+        
+        <div class="sim-grid">
+          <div class="sim-item">
+            <label>Note Examen Régional 1BAC (25%)</label>
+            <input type="number" id="concours-reg" value="14.00" min="0" max="20" step="0.25" oninput="calcConcoursScore()">
+          </div>
+          <div class="sim-item">
+            <label>Note Examen National 2BAC (75%)</label>
+            <input type="number" id="concours-nat" value="15.00" min="0" max="20" step="0.25" oninput="calcConcoursScore()">
+          </div>
+        </div>
+
+        <div class="sim-result">
+          <div style="font-size:13px; color:var(--m)">Votre Note Pondérée CursusSup :</div>
+          <div class="sim-score" id="concours-score">14.75 / 20</div>
+          <div style="font-size:12.5px; color:var(--t-dim); margin-top:6px">Consultez ci-dessous votre admissibilité prévisionnelle école par école 👇</div>
+        </div>
+      </div>
+
+      <h2>🏛️ Les Grandes Écoles & Seuils Observés (Filière Sciences Physiques)</h2>
+      <div class="grid">
+        ${CONCOURS_LIST.map((c, i) => `
+          <div class="card" style="padding:20px">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:10px; flex-wrap:wrap">
+              <div>
+                <span class="badge" style="background:var(--a-subtle); color:var(--a); margin-bottom:6px">${c.type}</span>
+                <h3 style="margin:4px 0">${c.nom}</h3>
+              </div>
+              <div id="concours-badge-${i}"></div>
+            </div>
+            <p style="font-size:13.5px; color:var(--t-dim); margin:10px 0 6px">${c.desc}</p>
+            <div style="background:var(--bg); border:1px solid var(--b); border-radius:12px; padding:10px 12px; margin:8px 0; font-size:12.5px">
+              <b>📝 Format des épreuves :</b> ${c.epreuves}
+            </div>
+            <div class="lk">
+              <a target="_blank" rel="noopener" href="${c.portail}">🌐 Portail officiel de candidature ↗</a>
+              <button class="btn-icon" style="border-color:var(--a); color:var(--a); font-weight:700" onclick="navigateTab('qcm')">🤖 S'entraîner en QCM</button>
+            </div>
+          </div>
+        `).join("")}
+      </div>
+    `;
+    calcConcoursScore();
+    return;
+  }
+
+  // VIEW: TOP PROFS YOUTUBE BIOF
+  if (cur === "profs") {
+    A.innerHTML = `
+      <h2>🎬 Les Meilleurs Professeurs & Chaînes YouTube (Spécial 2BAC BIOF Maroc)</h2>
+      <div class="note">
+        <b>⭐ Sélection plébiscitée par les bacheliers et inspecteurs marocains :</b><br>
+        Retrouvez ici les enseignants les plus réputés du Maroc, parfaitement alignés avec le Cadre de Référence officiel du Bac 2026. Cliquez sur n'importe quelle chaîne pour accéder instantanément à ses cours complets, résumés et corrections d'examens nationaux.
+      </div>
+
+      <div class="grid">
+        ${PROFS_YOUTUBE.map(p => `
+          <div class="card" style="padding:20px">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:10px; margin-bottom:8px">
+              <div>
+                <span class="badge" style="background:rgba(239, 68, 68, 0.1); color:#ef4444">${p.badge}</span>
+                <h3 style="margin:6px 0 2px">${p.nom}</h3>
+                <small style="color:var(--m); font-weight:600">${p.matiere} • ${p.subscribers}</small>
+              </div>
+            </div>
+            <p style="font-size:13.5px; color:var(--t-dim); line-height:1.45; margin:10px 0 14px">${p.specialite}</p>
+            <div class="lk">
+              <a class="yt" target="_blank" rel="noopener" href="${p.url}">▶ Ouvrir les vidéos & playlists YouTube ↗</a>
+            </div>
+          </div>
+        `).join("")}
+      </div>
+    `;
     return;
   }
 
