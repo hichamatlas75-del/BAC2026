@@ -1509,88 +1509,175 @@ function render() {
   // VIEW: LOCAL PDF LIBRARY
   if (cur === "pdf") {
     A.innerHTML = `
-      <h2>📂 Bibliothèque Locale de PDF (100% Hors-Ligne)</h2>
+      <h2>📂 Bibliothèque Locale d'Examens & Devoirs PDF (100% Hors-Ligne)</h2>
       <div class="note">
-        <b>💡 Comment fonctionne ce dossier ?</b><br>
-        Tous les fichiers PDF d'examens et devoirs placés dans le dossier <code>BAC- MAROC- 2026/pdf/</code> sont consultables instantanément, même sans connexion Internet !<br>
-        Vous pouvez glisser-déposer vos propres fiches et annales à tout moment dans les sous-dossiers correspondants.
+        <b>✅ 26 fichiers PDF officiels enregistrés en local !</b><br>
+        Les matières scientifiques (<b>Physique-Chimie, Mathématiques, SVT</b>) sont en <b>français (Option BIOF)</b>, l'<b>Anglais</b> avec corrigés, et la <b>Philosophie</b> en <b>arabe (الشعب العلمية)</b>.<br>
+        Tous ces documents s'ouvrent instantanément dans votre navigateur <b>sans aucune connexion Internet</b>.
       </div>
 
       <div class="sub-bar" style="margin-top:16px">
         <div class="sub-group">
-          <span style="font-weight:700">Dossier actif :</span>
-          <span style="background:var(--c); border:1px solid var(--b); padding:4px 10px; border-radius:8px; font-size:12.5px; font-family:monospace">./pdf/</span>
+          <span style="font-weight:700">Dossier racine :</span>
+          <span style="background:var(--c); border:1px solid var(--b); padding:4px 10px; border-radius:8px; font-size:12.5px; font-family:monospace">BAC- MAROC- 2026/pdf/</span>
         </div>
         <div class="sub-group">
           <a class="tab" style="text-decoration:none" href="./pdf/README.md" target="_blank">📄 Guide du dossier PDF ↗</a>
         </div>
       </div>
 
-      <h2>⚗️ Physique-Chimie (Devoirs & Nationaux en local)</h2>
+      <h2>⚗️ Physique-Chimie (Sciences Physiques BIOF – En Français)</h2>
       <div class="grid">
         <div class="card">
-          <h3>📝 Devoir Surveillé 1 (S1) – Modèle 1 (BIOF)</h3>
-          <small style="color:var(--m)">Emplacement : <code>./pdf/physique_chimie/devoirs/PC_Devoir1_S1_Modele1.pdf</code></small>
+          <h3>🏛️ National 2024 – Session Normale (BIOF)</h3>
+          <small style="color:var(--m)">Chimie (dosage, cinétique), Ondes, Nucléaire, RC/RLC, Mécanique</small>
           <div class="lk">
-            <a target="_blank" href="./pdf/physique_chimie/devoirs/PC_Devoir1_S1_Modele1.pdf">📖 Ouvrir le PDF</a>
-            <a download href="./pdf/physique_chimie/devoirs/PC_Devoir1_S1_Modele1.pdf">💾 Télécharger</a>
+            <a target="_blank" href="./pdf/physique_chimie/national/PC_National_2024_Normale_Sujet_BIOF.pdf">📄 Sujet (1,5 Mo)</a>
+            <a target="_blank" href="./pdf/physique_chimie/national/PC_National_2024_Normale_Corrige_BIOF.pdf" style="color:var(--ok); font-weight:700">✅ Corrigé Officiel (1,5 Mo)</a>
           </div>
         </div>
         <div class="card">
-          <h3>🏛️ Dossier Annales Nationales PC</h3>
-          <small style="color:var(--m)">Déposez vos PDF de sujets & corrigés dans : <code>./pdf/physique_chimie/national/</code></small>
+          <h3>🏛️ National 2024 – Session Rattrapage (BIOF)</h3>
+          <small style="color:var(--m)">Estérification, Piles, Ondes lumineuses, RL, Mouvement plan</small>
           <div class="lk">
-            <a target="_blank" href="./pdf/physique_chimie/national/">📁 Ouvrir le dossier</a>
+            <a target="_blank" href="./pdf/physique_chimie/national/PC_National_2024_Rattrapage_Sujet_BIOF.pdf">📄 Sujet (1,7 Mo)</a>
+            <a target="_blank" href="./pdf/physique_chimie/national/PC_National_2024_Rattrapage_Corrige_BIOF.pdf" style="color:var(--ok); font-weight:700">✅ Corrigé Officiel (1,3 Mo)</a>
+          </div>
+        </div>
+        <div class="card">
+          <h3>🏛️ National 2023 – Session Normale (BIOF)</h3>
+          <small style="color:var(--m)">Acide-base, Radioactivité, Circuit RLC, Satellites, Pendule</small>
+          <div class="lk">
+            <a target="_blank" href="./pdf/physique_chimie/national/PC_National_2023_Normale_Sujet_BIOF.pdf">📄 Sujet (1,4 Mo)</a>
+            <a target="_blank" href="./pdf/physique_chimie/national/PC_National_2023_Normale_Corrige_BIOF.pdf" style="color:var(--ok); font-weight:700">✅ Corrigé Officiel (1,1 Mo)</a>
+          </div>
+        </div>
+        <div class="card">
+          <h3>📝 Devoir Surveillé 1 (S1) – Modèle 1 (BIOF)</h3>
+          <small style="color:var(--m)">Ondes mécaniques, lumineuses, décroissance radioactive, cinétique</small>
+          <div class="lk">
+            <a target="_blank" href="./pdf/physique_chimie/devoirs/PC_Devoir1_S1_Modele1.pdf">📖 Ouvrir le Devoir (776 Ko)</a>
           </div>
         </div>
       </div>
 
-      <h2>📐 Mathématiques (Devoirs & Nationaux en local)</h2>
+      <h2>📐 Mathématiques (Séries Scientifiques BIOF – En Français)</h2>
       <div class="grid">
         <div class="card">
-          <h3>📝 Devoir Surveillé 1 (S1) – Modèle 1 (BIOF)</h3>
-          <small style="color:var(--m)">Emplacement : <code>./pdf/mathematiques/devoirs/Maths_Devoir1_S1_Modele1.pdf</code></small>
+          <h3>🏛️ National 2024 – Session Normale (BIOF)</h3>
+          <small style="color:var(--m)">Nombres complexes, Géométrie espace, Probabilités, Étude fonction ln</small>
           <div class="lk">
-            <a target="_blank" href="./pdf/mathematiques/devoirs/Maths_Devoir1_S1_Modele1.pdf">📖 Ouvrir le PDF</a>
-            <a download href="./pdf/mathematiques/devoirs/Maths_Devoir1_S1_Modele1.pdf">💾 Télécharger</a>
+            <a target="_blank" href="./pdf/mathematiques/national/Maths_National_2024_Normale_Sujet_BIOF.pdf">📄 Sujet (464 Ko)</a>
+            <a target="_blank" href="./pdf/mathematiques/national/Maths_National_2024_Normale_Corrige_BIOF.pdf" style="color:var(--ok); font-weight:700">✅ Corrigé Officiel (293 Ko)</a>
           </div>
         </div>
         <div class="card">
-          <h3>🏛️ Dossier Annales Nationales Maths</h3>
-          <small style="color:var(--m)">Déposez vos PDF de sujets & corrigés dans : <code>./pdf/mathematiques/national/</code></small>
+          <h3>🏛️ National 2024 – Session Rattrapage (BIOF)</h3>
+          <small style="color:var(--m)">Complexes, Suites numériques, Probabilités, Fonction exponentielle</small>
           <div class="lk">
-            <a target="_blank" href="./pdf/mathematiques/national/">📁 Ouvrir le dossier</a>
+            <a target="_blank" href="./pdf/mathematiques/national/Maths_National_2024_Rattrapage_Sujet_BIOF.pdf">📄 Sujet (423 Ko)</a>
+            <a target="_blank" href="./pdf/mathematiques/national/Maths_National_2024_Rattrapage_Corrige_BIOF.pdf" style="color:var(--ok); font-weight:700">✅ Corrigé Officiel (316 Ko)</a>
+          </div>
+        </div>
+        <div class="card">
+          <h3>🏛️ National 2023 – Session Normale (BIOF)</h3>
+          <small style="color:var(--m)">Analyse de fonction, Intégrales, Complexes, Dénombrement</small>
+          <div class="lk">
+            <a target="_blank" href="./pdf/mathematiques/national/Maths_National_2023_Normale_Sujet_BIOF.pdf">📄 Sujet (519 Ko)</a>
+            <a target="_blank" href="./pdf/mathematiques/national/Maths_National_2023_Normale_Corrige_BIOF.pdf" style="color:var(--ok); font-weight:700">✅ Corrigé Officiel (355 Ko)</a>
+          </div>
+        </div>
+        <div class="card">
+          <h3>📝 Devoir Surveillé 1 (S1) – Modèle 1 (BIOF)</h3>
+          <small style="color:var(--m)">Limites, continuité, dérivation, branches infinies, suites</small>
+          <div class="lk">
+            <a target="_blank" href="./pdf/mathematiques/devoirs/Maths_Devoir1_S1_Modele1.pdf">📖 Ouvrir le Devoir (82 Ko)</a>
           </div>
         </div>
       </div>
 
-      <h2>🧬 Sciences de la Vie et de la Terre (SVT en local)</h2>
+      <h2>🧬 Sciences de la Vie et de la Terre (Sciences Physiques BIOF – En Français)</h2>
       <div class="grid">
         <div class="card">
-          <h3>📝 Devoir Surveillé 1 (S1) – Modèle 1 (BIOF)</h3>
-          <small style="color:var(--m)">Emplacement : <code>./pdf/svt/national/SVT_Devoir1_S1_Modele1.pdf</code></small>
+          <h3>🏛️ National 2024 – Session Normale (BIOF)</h3>
+          <small style="color:var(--m)">Consommation matière organique/ATP, Information génétique, Géologie</small>
           <div class="lk">
-            <a target="_blank" href="./pdf/svt/national/SVT_Devoir1_S1_Modele1.pdf">📖 Ouvrir le PDF</a>
-            <a download href="./pdf/svt/national/SVT_Devoir1_S1_Modele1.pdf">💾 Télécharger</a>
+            <a target="_blank" href="./pdf/svt/national/SVT_National_2024_Normale_Sujet_BIOF.pdf">📄 Sujet (1,2 Mo)</a>
+            <a target="_blank" href="./pdf/svt/national/SVT_National_2024_Normale_Corrige_BIOF.pdf" style="color:var(--ok); font-weight:700">✅ Corrigé Officiel (1,1 Mo)</a>
           </div>
         </div>
         <div class="card">
-          <h3>🏛️ Dossier Annales Nationales SVT</h3>
-          <small style="color:var(--m)">Déposez vos PDF de sujets & corrigés dans : <code>./pdf/svt/national/</code></small>
+          <h3>🏛️ National 2024 – Session Rattrapage (BIOF)</h3>
+          <small style="color:var(--m)">Respiration & fermentation, Méiose & génétique, Déchets ménagers</small>
           <div class="lk">
-            <a target="_blank" href="./pdf/svt/national/">📁 Ouvrir le dossier</a>
+            <a target="_blank" href="./pdf/svt/national/SVT_National_2024_Rattrapage_Sujet_BIOF.pdf">📄 Sujet (1,2 Mo)</a>
+            <a target="_blank" href="./pdf/svt/national/SVT_National_2024_Rattrapage_Corrige_BIOF.pdf" style="color:var(--ok); font-weight:700">✅ Corrigé Officiel (1,2 Mo)</a>
+          </div>
+        </div>
+        <div class="card">
+          <h3>🏛️ National 2023 – Session Normale (BIOF)</h3>
+          <small style="color:var(--m)">Flux d'énergie, Transcription & traduction, Chaînes de montagnes</small>
+          <div class="lk">
+            <a target="_blank" href="./pdf/svt/national/SVT_National_2023_Normale_Sujet_BIOF.pdf">📄 Sujet (1,5 Mo)</a>
+            <a target="_blank" href="./pdf/svt/national/SVT_National_2023_Normale_Corrige_BIOF.pdf" style="color:var(--ok); font-weight:700">✅ Corrigé Officiel (1,0 Mo)</a>
+          </div>
+        </div>
+        <div class="card">
+          <h3>📝 Devoir Surveillé 1 (S1) – Modèle 1 (BIOF)</h3>
+          <small style="color:var(--m)">Restitution des connaissances et raisonnement scientifique</small>
+          <div class="lk">
+            <a target="_blank" href="./pdf/svt/national/SVT_Devoir1_S1_Modele1.pdf">📖 Ouvrir le Devoir (159 Ko)</a>
           </div>
         </div>
       </div>
 
-      <h2>🤖 Automatisation & Téléchargement rapide</h2>
+      <h2>🇬🇧 Anglais (Séries Scientifiques – English National Exams)</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>🏛️ National 2024 – Session Normale</h3>
+          <small style="color:var(--m)">Comprehension, Language (Vocabulary, Grammar, Functions), Writing</small>
+          <div class="lk">
+            <a target="_blank" href="./pdf/anglais/national/Anglais_National_2024_Normale_Sujet.pdf">📄 Sujet (1,6 Mo)</a>
+            <a target="_blank" href="./pdf/anglais/national/Anglais_National_2024_Normale_Corrige.pdf" style="color:var(--ok); font-weight:700">✅ Corrigé Officiel (815 Ko)</a>
+          </div>
+        </div>
+        <div class="card">
+          <h3>🏛️ National 2023 – Session Normale</h3>
+          <small style="color:var(--m)">Reading test, Language quiz & Writing topics</small>
+          <div class="lk">
+            <a target="_blank" href="./pdf/anglais/national/Anglais_National_2023_Normale_Sujet.pdf">📄 Sujet (459 Ko)</a>
+            <a target="_blank" href="./pdf/anglais/national/Anglais_National_2023_Normale_Corrige.pdf" style="color:var(--ok); font-weight:700">✅ Corrigé Officiel (204 Ko)</a>
+          </div>
+        </div>
+      </div>
+
+      <h2>🧠 Philosophie (الشعب العلمية والتقنية – باللغة العربية)</h2>
+      <div class="grid">
+        <div class="card">
+          <h3 class="ar">🏛️ الامتحان الوطني 2024 – الدورة العادية</h3>
+          <small style="color:var(--m)">السؤال الإشكالي المفتوح، القولة الفلسفية، النص للتحليل والمناقشة</small>
+          <div class="lk">
+            <a target="_blank" href="./pdf/philosophie/national/Philo_National_2024_Normale_Sujet_AR.pdf">📄 الموضوع (910 Ko)</a>
+            <a target="_blank" href="./pdf/philosophie/national/Philo_National_2024_Normale_Corrige_AR.pdf" style="color:var(--ok); font-weight:700">✅ عناصر الإجابة (2,1 Mo)</a>
+          </div>
+        </div>
+        <div class="card">
+          <h3 class="ar">🏛️ الامتحان الوطني 2023 – الدورة العادية</h3>
+          <small style="color:var(--m)">مجزوءات: الوضع البشري، المعرفة، السياسة، الأخلاق</small>
+          <div class="lk">
+            <a target="_blank" href="./pdf/philosophie/national/Philo_National_2023_Normale_Sujet_AR.pdf">📄 الموضوع (377 Ko)</a>
+            <a target="_blank" href="./pdf/philosophie/national/Philo_National_2023_Normale_Corrige_AR.pdf" style="color:var(--ok); font-weight:700">✅ عناصر الإجابة (1,4 Mo)</a>
+          </div>
+        </div>
+      </div>
+
+      <h2>💡 Comment ajouter d'autres PDF ?</h2>
       <div class="stats-card">
-        <h3 style="margin-top:0">Script de téléchargement inclus</h3>
-        <p style="font-size:13px; color:var(--m); line-height:1.45">
-          Un script automatique <code>telecharger_examens.py</code> a été placé à la racine du projet. 
-          Pour télécharger automatiquement d'autres devoirs et annales en un clic, ouvrez votre terminal dans le dossier et exécutez :
+        <p style="font-size:13px; color:var(--m); line-height:1.5">
+          Glissez simplement n'importe quel fichier PDF dans les sous-dossiers correspondants de <code>BAC- MAROC- 2026/pdf/</code> sur votre ordinateur.<br>
+          Ils apparaîtront immédiatement prêts à l'emploi. Vous pouvez également relancer à tout moment :
         </p>
-        <div class="formula-badge">python telecharger_examens.py</div>
+        <div class="formula-badge">python telecharger_tous_examens.py</div>
       </div>
     `;
     return;
