@@ -3,7 +3,7 @@
  * Support 100% Hors-Ligne, Cache résilient & Compatibilité Cloudflare Pages
  */
 
-const CACHE_NAME = 'bac-maroc-v2.4.0';
+const CACHE_NAME = 'bac-maroc-v2.5.0';
 
 const ASSETS_TO_CACHE = [
   './',
@@ -16,7 +16,8 @@ const ASSETS_TO_CACHE = [
   './icon.svg',
   './js/pdf.min.js',
   './js/pdf.worker.min.js',
-  './js/qcm_engine.js'
+  './js/qcm_engine.js',
+  './js/pdf_catalogue.js'
 ];
 
 // 1. Installation résiliente (avec suivi des redirections HTTP)

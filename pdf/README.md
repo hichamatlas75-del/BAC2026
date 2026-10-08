@@ -1,48 +1,54 @@
-# 📂 Bibliothèque Locale de PDF d'Examens (2BAC Maroc 2026)
+# 📂 Base de Données Intégrale de PDF (2BAC Maroc 2026 / 2027)
 
-Ce dossier permet de stocker tous vos fichiers PDF d'examens nationaux, devoirs surveillés et fiches de révision directement sur votre ordinateur ou smartphone pour une **consultation instantanée et 100% hors-ligne**.
+Ce dossier rassemble **plus de 365 fichiers PDF officiels et pédagogiques** (annales nationales, cours complets, fiches résumés, séries d'exercices et devoirs surveillés) issus des programmes officiels et de **Moutamadris.ma** pour la filière **Sciences Physiques (Option Français / BIOF)**.
+
+Tous ces documents sont utilisables **100% hors-ligne**, directement consultables dans votre navigateur ou convertibles instantanément en **QCM IA interactifs** dans l'application PWA.
 
 ---
 
-## 🗂️ Organisation Recommandée des Dossiers
+## 🗂️ Arborescence & Organisation par Matière et par Leçon
 
 ```text
 pdf/
-├── physique_chimie/
-│   ├── national/
-│   │   ├── PC_National_2024_Normale_Sujet.pdf
-│   │   ├── PC_National_2024_Normale_Corrige.pdf
-│   │   ├── PC_National_2024_Rattrapage_Sujet.pdf
-│   │   ├── PC_National_2024_Rattrapage_Corrige.pdf
-│   │   └── ...
-│   └── devoirs/
-│       ├── Devoir_1_S1_Modele_1.pdf
-│       └── ...
+├── catalogue_moutamadris.json       # Catalogue complet indexé de tous les cours et résumés (339 PDFs)
 │
-├── mathematiques/
-│   ├── national/
-│   │   ├── Maths_National_2024_Sujet.pdf
-│   │   └── Maths_National_2024_Corrige.pdf
-│   └── devoirs/
+├── physique_chimie/                 # 70+ documents PDF (BIOF Français)
+│   ├── cours/                       # Cours complets : Ondes, Nucléaire, RC/RL/RLC, Mécanique, Acide-Base
+│   ├── resumes/                     # Fiches résumés synthétiques de formules par chapitre
+│   ├── exercices/                   # Séries d'exercices d'entraînement par leçon
+│   ├── national/                    # Sujets et corrigés officiels du Bac National 2023-2024
+│   └── devoirs/                     # Devoirs surveillés semestriels types
 │
-├── svt/
-│   └── national/
-│       ├── SVT_National_2024_Sujet.pdf
-│       └── SVT_National_2024_Corrige.pdf
+├── mathematiques/                   # 140+ documents PDF (BIOF Français)
+│   ├── cours/                       # Limites, Dérivation, Continuité, Logarithme (ln), Exponentielle, Complexes
+│   ├── resumes/                     # 100+ fiches de synthèse de cours par leçon
+│   ├── national/                    # Annales officielles 2023-2024 (Normales & Rattrapages)
+│   └── devoirs/                     # Devoirs surveillés modèles
 │
-├── examens_blancs/
-│   ├── Examen_Blanc_Lydex_Benguerir.pdf
-│   └── Examen_Blanc_Rabat_Sale.pdf
+├── svt/                             # 45+ documents PDF (BIOF Français)
+│   ├── cours/                       # Libération d'énergie (ATP), Génétique humaine, Géologie, Pollution
+│   ├── exercices/                   # Exercices types d'application scientifique
+│   ├── national/                    # Épreuves et corrigés nationaux 2023-2024
+│   └── devoirs/                     # Contrôles continus types
 │
-└── fiches_resumes/
-    ├── Fiche_Formules_Mecanique.pdf
-    ├── Fiche_Formules_Electricite.pdf
-    └── Fiche_Chimie_Dosage_Piles.pdf
+├── anglais/                         # 95+ documents PDF (Anglais National)
+│   ├── cours/                       # Formal & Informal Education, Cultural Issues, Grammar Reference
+│   ├── resumes/                     # Fiches récapitulatives de grammaire et Writing
+│   ├── exercices/                   # Quizzes de vocabulaire, Phrasal verbs, Modals
+│   └── national/                    # Sujets et corrigés officiels nationaux
+│
+├── philosophie/                     # 18+ documents PDF (باللغة العربية)
+│   ├── cours/                       # دروس مجزوءات: الوضع البشري، المعرفة، السياسة، الأخلاق
+│   └── national/                    # الامتحانات الوطنية الرسمية مع عناصر الإجابة الرسمية
+│
+├── examens_blancs/                  # Épreuves d'entraînement des lycées d'excellence
+└── fiches_resumes/                  # Mémos et tableaux récapitulatifs
 ```
 
 ---
 
-## 🚀 Fonctionnement dans l'Application Web / PWA
+## ⚡ Fonctionnalités PWA Associées
 
-* **Accès direct** : Les fichiers PDF placés ici peuvent être ouverts directement dans le lecteur intégré de votre navigateur (Chrome, Edge, Firefox, Safari) ou visualisés depuis l'onglet **📂 Mes PDF** de l'application.
-* **Mode Hors-Ligne (Offline)** : Dès que les PDF sont enregistrés dans ce dossier, vous n'avez plus besoin d'internet pour réviser vos annales et corrigés !
+1. **Lecteur PDF Intégré** : Ouverture immédiate en un clic dans n'importe quel navigateur (Chrome, Firefox, Safari, Edge) sans lecteur tiers.
+2. **Convertisseur QCM IA** : Chaque cours, exercice ou examen PDF peut être injecté dans le moteur QCM IA pour générer automatiquement des questions interactives à choix multiples avec correction immédiate.
+3. **Mise en Cache Hors-Ligne** : Synchronisé avec le Service Worker PWA (`sw.js`) pour un accès permanent même sans réseau.
