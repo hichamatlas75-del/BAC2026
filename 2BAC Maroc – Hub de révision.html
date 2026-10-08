@@ -108,6 +108,18 @@
       border-radius: 12px;
       text-transform: uppercase;
     }
+    .badge-biof {
+      display: inline-block;
+      background: rgba(37,99,235,0.12);
+      color: var(--a);
+      border: 1px solid rgba(37,99,235,0.3);
+      font-size: 10.5px;
+      font-weight: 800;
+      padding: 1px 6px;
+      border-radius: 6px;
+      vertical-align: middle;
+      margin-left: 6px;
+    }
     .top-actions {
       display: flex;
       gap: 6px;
@@ -1309,7 +1321,11 @@ const EXQ = {
 };
 
 const SITES = [
-  ["AlloSchool (Section 2BAC SP BIOF)", "https://www.alloschool.com/course/physique-et-chimie-2eme-bac-sciences-physiques-biof"],
+  ["AlloSchool – 2ème Bac (Toutes les matières BIOF)", "https://www.alloschool.com/category/2nd-degree"],
+  ["AlloSchool – 2BAC Sciences Physiques (BIOF)", "https://www.alloschool.com/category/physical-science"],
+  ["AlloSchool – Physique-Chimie BIOF", "https://www.alloschool.com/course/physique-et-chimie-2eme-bac-sciences-physiques-biof"],
+  ["AlloSchool – Mathématiques BIOF", "https://www.alloschool.com/course/mathematiques-2eme-bac-sciences-physiques-biof"],
+  ["AlloSchool – SVT BIOF", "https://www.alloschool.com/course/sciences-de-la-vie-et-de-la-terre-svt-2eme-bac-sciences-physiques-biof"],
   ["Moutamadris (Devoirs & Nationaux)", "https://www.moutamadris.ma"],
   ["9rayti (Cours et fiches)", "https://www.9rayti.com/doros/lycee/b-sciences-physiques"],
   ["Ency-Education Maroc", "https://www.ency-education.com"],
@@ -1971,7 +1987,8 @@ function render() {
       <div class="sub-group">
         <button class="tab ${sem === 1 ? "on" : ""}" data-s="1">Semestre 1</button>
         <button class="tab ${sem === 2 ? "on" : ""}" data-s="2">Semestre 2</button>
-        <a class="tab" style="text-decoration:none" target="_blank" rel="noopener" href="${cu}">Cours complet AlloSchool ↗</a>
+        <a class="tab" style="text-decoration:none" target="_blank" rel="noopener" href="${cu}">📘 Cours complet (${d.n} BIOF 🇫🇷) ↗</a>
+        <a class="tab" style="text-decoration:none" target="_blank" rel="noopener" href="https://www.alloschool.com/category/2nd-degree">🎓 Portail 2ème Bac AlloSchool ↗</a>
       </div>
       <div class="sub-group">
         <button class="tab ${filterStatus === 'all' ? 'on' : ''}" data-f="all">Tous</button>
@@ -1995,7 +2012,7 @@ function render() {
   } else {
     html += `<div class="grid">` + all.map(({ c, i }) => {
       const isDone = !!done[cur + i];
-      const id = (c[3] && fil === "sp") ? (AS + "section/" + c[3]) : cu;
+      const id = c[3] ? (AS + "section/" + c[3]) : cu;
       const k = cur + i;
       const hasMemo = !!MEMO_DB[k];
       let ytQuery = "";
@@ -2018,8 +2035,13 @@ function render() {
             <div class="card-top">
               <input type="checkbox" class="card-chk" data-d="${k}" ${isDone ? "checked" : ""} title="Marquer comme révisé">
               <div class="card-titles">
-                <span class="ar">${h(c[1])}</span>
-                <h3>${h(c[2])}</h3>
+                ${(cur === "ph" || cur === "ar" || cur === "ei") ? `
+                  <span class="ar">${h(c[1])}</span>
+                  <h3>${h(c[2])}</h3>
+                ` : `
+                  <h3>${h(c[2])} <span class="badge-biof">BIOF 🇫🇷</span></h3>
+                  <span class="ar" style="font-size:12.5px; color:var(--m)">${h(c[1])}</span>
+                `}
               </div>
             </div>
             ${c[5] ? `
@@ -2030,7 +2052,12 @@ function render() {
           </div>
           <div class="lk">
             ${hasMemo ? `<button class="btn-memo" onclick="openMemo('${k}')">💡 Fiche & Formules</button>` : ""}
-            <a target="_blank" rel="noopener" href="${id}">📘 Cours & Exos</a>
+            ${(cur === "ph" || cur === "ar" || cur === "ei") ? `
+              <a target="_blank" rel="noopener" href="${id}">📘 الدروس والتمارين ↗</a>
+            ` : `
+              <a target="_blank" rel="noopener" href="${id}">📘 Cours (BIOF 🇫🇷) ↗</a>
+              <a target="_blank" rel="noopener" href="${id}">✏️ Exercices (BIOF 🇫🇷) ↗</a>
+            `}
             ${yt(ytQuery)}
           </div>
         </div>
