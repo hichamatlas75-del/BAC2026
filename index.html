@@ -1131,6 +1131,68 @@
       0%, 100% { opacity: 1; transform: scale(1); }
       50% { opacity: 0.92; transform: scale(1.04); }
     }
+
+    /* WHATSAPP SHARE STYLES */
+    .btn-wa {
+      background: rgba(37, 211, 102, 0.12) !important;
+      border-color: rgba(37, 211, 102, 0.45) !important;
+      color: #25d366 !important;
+      font-weight: 800 !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 6px !important;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+    }
+    .btn-wa:hover {
+      background: #25d366 !important;
+      color: #ffffff !important;
+      border-color: #25d366 !important;
+      transform: translateY(-2px) !important;
+      box-shadow: 0 4px 14px rgba(37, 211, 102, 0.42) !important;
+    }
+    @media (max-width: 680px) {
+      .wa-header-txt { display: none; }
+    }
+
+    .wa-float-btn {
+      position: fixed;
+      bottom: 22px;
+      right: 22px;
+      z-index: 995;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+      color: #ffffff;
+      border: 1.5px solid rgba(255, 255, 255, 0.45);
+      border-radius: 999px;
+      padding: 11px 18px;
+      font-family: inherit;
+      font-size: 13.5px;
+      font-weight: 800;
+      box-shadow: 0 8px 24px rgba(37, 211, 102, 0.45);
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .wa-float-btn:hover {
+      transform: translateY(-3px) scale(1.04);
+      box-shadow: 0 12px 30px rgba(37, 211, 102, 0.6);
+      background: linear-gradient(135deg, #2bf075 0%, #149c8d 100%);
+    }
+    .wa-float-btn:active {
+      transform: scale(0.97);
+    }
+    @media (max-width: 640px) {
+      .wa-float-label { display: none; }
+      .wa-float-btn {
+        padding: 13px;
+        border-radius: 50%;
+        bottom: 18px;
+        right: 18px;
+        box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
+      }
+    }
   </style>
 </head>
 <body>
@@ -1144,6 +1206,7 @@
       <button class="btn-icon" style="background:linear-gradient(135deg, rgba(37,99,235,0.1), rgba(16,185,129,0.1)); border-color:var(--a); color:var(--a); font-weight:700" onclick="navigateTab('qcm')" title="Convertisseur et Quiz QCM IA">🤖 QCM IA</button>
       <button class="btn-icon" id="btn-pomo" title="Minuteur Pomodoro">🍅 <span id="pomo-mini">25:00</span></button>
       <button class="btn-icon btn-install" id="btn-install" style="display:none">📲 Installer</button>
+      <button class="btn-icon btn-wa" onclick="shareOnWhatsApp()" title="Partager l'application sur WhatsApp avec vos camarades">💬 <span class="wa-header-txt">WhatsApp</span></button>
       <button class="btn-icon" id="btn-settings" title="Sauvegarde & Paramètres">⚙️ Sauvegarde</button>
       <button class="btn-icon" id="th" title="Changer le thème">🌓</button>
     </div>
@@ -1181,6 +1244,12 @@
 </div>
 
 <main id="app"></main>
+
+<!-- BOUTON FLOTTANT DE PARTAGE WHATSAPP -->
+<button class="wa-float-btn" id="wa-float-btn" onclick="shareOnWhatsApp()" title="Partager l'application sur WhatsApp avec tes camarades de classe">
+  <span style="font-size:16px">💬</span>
+  <span class="wa-float-label">Partager sur WhatsApp</span>
+</button>
 
 <!-- MODAL FICHE MÉMO & FORMULES -->
 <div class="modal-overlay" id="modal-memo">
@@ -2280,6 +2349,49 @@ function calcConcoursScore() {
   });
 }
 
+// PARTAGE WHATSAPP UNIVERSEL & PERSONNALISÉ
+function shareOnWhatsApp(extraMessage) {
+  const currentUrl = window.location.href.split('#')[0];
+  let msg = "";
+
+  if (extraMessage && typeof extraMessage === 'string') {
+    msg = extraMessage + "\n\n🔗 *Rejoins la plateforme gratuite ici :*\n" + currentUrl;
+  } else {
+    msg = [
+      "🎓 *2BAC Maroc 2026 – Hub de Révision (Sciences Physiques BIOF)* 🇲🇦",
+      "",
+      "Salut ! Je te partage cette super plateforme gratuite pour réviser le Bac 2026 :",
+      "• ⚗️ Tous les cours et fiches de formules du Cadre de Référence (PC, Maths, SVT)",
+      "• 🏛️ Annales nationales corrigées de 2008 à 2025 (Option BIOF)",
+      "• 🤖 Entraînement en QCM interactifs & convertisseur IA de PDF",
+      "• 🧮 Simulateur de note et mention du Bac",
+      "• 🎓 Simulateur de seuils Concours Post-Bac (CursusSup : Médecine, ENSA, ENSAM...)",
+      "• 🎬 Playlists des meilleurs profs YouTube marocains (Noureddine Physique, Prof Moustakim...)",
+      "• ⏱️ Minuteur Pomodoro & mode 100% hors-ligne !",
+      "",
+      "📲 *Clique ici pour ouvrir l'application :*",
+      currentUrl
+    ].join("\n");
+  }
+
+  const waUrl = "https://api.whatsapp.com/send?text=" + encodeURIComponent(msg);
+  window.open(waUrl, "_blank");
+}
+
+function shareSimScore() {
+  const total = $("#sim-total") ? $("#sim-total").textContent.trim() : "";
+  const mention = $("#sim-mention") ? $("#sim-mention").textContent.trim() : "";
+  const nat = $("#sim-nat") ? $("#sim-nat").textContent.trim() : "";
+  const text = `🎯 *Ma simulation Bac Maroc 2026 (Sciences Physiques BIOF) :*\n• Moyenne estimée à l'Examen National : *${nat}*\n• Moyenne générale Bac : *${total}*\n• Mention estimée : *${mention}*\n\nTeste toi aussi tes chances de mention sur le Hub 2BAC :`;
+  shareOnWhatsApp(text);
+}
+
+function shareConcoursScore() {
+  const score = $("#concours-score") ? $("#concours-score").textContent.trim() : "";
+  const text = `🎓 *Mon score de présélection Concours Post-Bac 2026 (CursusSup) :*\n• Score calculé (75% National + 25% Régional) : *${score}*\n\nVérifie ton admissibilité pour Médecine (FMP), ENSA, ENSAM et ENA sur le Hub 2BAC :`;
+  shareOnWhatsApp(text);
+}
+
 // MAIN RENDER FUNCTION
 function render() {
   tabs();
@@ -2334,6 +2446,9 @@ function render() {
           <div style="font-size:13px; color:var(--m)">Moyenne prévisionnelle à l'Examen National : <b id="sim-nat">--</b></div>
           <div class="sim-score" id="sim-total">--</div>
           <div class="sim-mention" id="sim-mention">--</div>
+          <div style="margin-top:14px">
+            <button class="btn-wa" onclick="shareSimScore()" style="padding:8px 16px; font-size:13px" title="Partager mon estimation de mention sur WhatsApp">💬 Partager ma simulation sur WhatsApp</button>
+          </div>
         </div>
       </div>
 
@@ -2499,6 +2614,9 @@ function render() {
           <div style="font-size:13px; color:var(--m)">Votre Note Pondérée CursusSup :</div>
           <div class="sim-score" id="concours-score">14.75 / 20</div>
           <div style="font-size:12.5px; color:var(--t-dim); margin-top:6px">Consultez ci-dessous votre admissibilité prévisionnelle école par école 👇</div>
+          <div style="margin-top:14px">
+            <button class="btn-wa" onclick="shareConcoursScore()" style="padding:8px 16px; font-size:13px" title="Partager mon score CursusSup sur WhatsApp">💬 Partager mon score CursusSup sur WhatsApp</button>
+          </div>
         </div>
       </div>
 
@@ -2857,6 +2975,14 @@ function render() {
       <h2>Recherches d'annales corrigées par matière</h2>
       <div class="lk">
         ${Object.entries(EXQ).map(([k, q]) => `<a target="_blank" rel="noopener" href="https://www.google.com/search?q=${encodeURIComponent(q + " pdf")}">${D[k].ic} ${D[k].n}</a>`).join("")}
+      </div>
+
+      <div class="note" style="border-color:#25d366; background:rgba(37,211,102,0.06); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-top:24px">
+        <div>
+          <b style="color:#25d366; font-size:15px">📢 Partagez le Hub 2BAC avec votre classe sur WhatsApp !</b><br>
+          <span style="font-size:13px; color:var(--t-dim)">Envoyez directement le lien de la plateforme à vos amis et groupes de révision pour le Bac 2026.</span>
+        </div>
+        <button class="btn-wa" onclick="shareOnWhatsApp()" style="padding:10px 18px; font-size:13.5px">💬 Envoyer sur WhatsApp</button>
       </div>
     `;
     return;
