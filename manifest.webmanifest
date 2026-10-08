@@ -2,7 +2,7 @@
   "name": "2BAC Maroc 2026 – Hub de Révision",
   "short_name": "2BAC 2026",
   "description": "Plateforme complète de révision pour le Baccalauréat marocain 2026 (Cours AlloSchool, Devoirs BIOF, Examens nationaux corrigés, Pomodoro, Suivi).",
-  "start_url": "./index.html",
+  "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait-primary",
