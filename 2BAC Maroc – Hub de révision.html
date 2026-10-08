@@ -732,9 +732,9 @@ btnInstall.addEventListener('click', async () => {
 // BASE DATA & ALLOSCHOOL URL CONSTANTS
 const AS = "https://www.alloschool.com/", YT = "https://www.youtube.com/results?search_query=";
 const F = {
-  sp: { m: "mathematiques-2eme-bac-sciences-physiques-biof", pc: "physique-et-chimie-2eme-bac-sciences-physiques-biof", svt: "sciences-de-la-vie-et-de-la-terre-svt-2eme-bac-sciences-physiques-biof", en: "anglais-2eme-bac-sciences-physiques", ph: "alflsfa-althania-bak-alom-fiziaiia" },
-  svt: { m: "mathematiques-2eme-bac-sciences-de-la-vie-et-de-la-terre-biof", pc: "physique-et-chimie-2eme-bac-sciences-de-la-vie-et-de-la-terre-biof", svt: "sciences-de-la-vie-et-de-la-terre-svt-2eme-bac-sciences-de-la-vie-et-de-la-terre-biof", en: "anglais-2eme-bac-sciences-de-la-vie-et-de-la-terre", ph: "alflsfa-althania-bak-alom-alhiaa-oalardh" },
-  sma: { m: "mathematiques-2eme-bac-sciences-mathematiques-a-biof", pc: "physique-et-chimie-2eme-bac-sciences-mathematiques-a-biof", svt: "sciences-de-la-vie-et-de-la-terre-svt-2eme-bac-sciences-mathematiques-a-biof", en: "anglais-2eme-bac-sciences-mathematiques-a", ph: "alflsfa-althania-bak-alom-riadhia-awa" }
+  sp: { m: "mathematiques-2eme-bac-sciences-physiques-biof", pc: "physique-et-chimie-2eme-bac-sciences-physiques-biof", svt: "sciences-de-la-vie-et-de-la-terre-svt-2eme-bac-sciences-physiques-biof", en: "anglais-2eme-bac-sciences-physiques", ph: "alflsfa-althania-bak-alom-fiziaiia", fr: "francais-2eme-bac-sciences-physiques", ar: "allgha-alarbia-althania-bak-alom-fiziaiia", ei: "altrbia-alislamia-althania-bak-alom-fiziaiia" },
+  svt: { m: "mathematiques-2eme-bac-sciences-de-la-vie-et-de-la-terre-biof", pc: "physique-et-chimie-2eme-bac-sciences-de-la-vie-et-de-la-terre-biof", svt: "sciences-de-la-vie-et-de-la-terre-svt-2eme-bac-sciences-de-la-vie-et-de-la-terre-biof", en: "anglais-2eme-bac-sciences-de-la-vie-et-de-la-terre", ph: "alflsfa-althania-bak-alom-alhiaa-oalardh", fr: "francais-2eme-bac-sciences-physiques", ar: "allgha-alarbia-althania-bak-alom-fiziaiia", ei: "altrbia-alislamia-althania-bak-alom-fiziaiia" },
+  sma: { m: "mathematiques-2eme-bac-sciences-mathematiques-a-biof", pc: "physique-et-chimie-2eme-bac-sciences-mathematiques-a-biof", svt: "sciences-de-la-vie-et-de-la-terre-svt-2eme-bac-sciences-mathematiques-a-biof", en: "anglais-2eme-bac-sciences-mathematiques-a", ph: "alflsfa-althania-bak-alom-riadhia-awa", fr: "francais-2eme-bac-sciences-physiques", ar: "allgha-alarbia-althania-bak-alom-fiziaiia", ei: "altrbia-alislamia-althania-bak-alom-fiziaiia" }
 };
 
 const U = (s, t, fr, i) => [s, t, fr, 6545, "", [["Vocabulary", i[0]], ["Functions", i[1]], ["Grammar", i[2]], ["Comprehension", i[3]], ["Writing", i[4]], ["Quiz", i[5]]]];
@@ -871,6 +871,67 @@ const D = {
     ex: [
       ["الاطار المرجعي + البرنامج","Programme et cadre de référence",2195],
       ["موحدات مع التصحيح","Examens nationaux 2009-2025",1089]
+    ]
+  },
+  fr: {
+    n: "Français", ic: "📚", coeff: 2,
+    ch: [
+      // SEMESTRE 1
+      [1, "المجزوءة 1 : كانديد (فولتير)", "Module 1 : Candide ou l'optimisme (Voltaire)", 1057],
+      [1, "المجزوءة 2 : زوج عجوز سعيد (خير الدين)", "Module 2 : Il était une fois un vieux couple heureux", 1058],
+      [1, "المعجم وأدوات اللغة", "Vocabulaire, figures de style et analyse de texte", 1056],
+      [1, "فروض الدورة 1 في القسم (مع التصحيح)", "Devoirs surveillés en classe S1 (avec corrigés)", 1059, "d"],
+      // SEMESTRE 2
+      [2, "المجزوءة 3 : الأب غوريو (بلزاك)", "Module 3 : Le Père Goriot (Honoré de Balzac)", 1060],
+      [2, "ملخصات وتحاليل الروايات", "Résumés et fiches transversales des 3 œuvres", 1062],
+      [2, "الإنشاء والتحليل الأدبي", "Production écrite et méthodologie de dissertation", 1056],
+      [2, "فروض الدورة 2 في القسم (مع التصحيح)", "Devoirs surveillés en classe S2 (avec corrigés)", 1061, "d"]
+    ],
+    ex: [
+      ["البرنامج البيداغوجي", "Programme pédagogique officiel (Français 2BAC)", 2143],
+      ["فروض الدورة الأولى", "Devoirs surveillés de classe S1", 1059],
+      ["فروض الدورة الثانية", "Devoirs surveillés de classe S2", 1061]
+    ]
+  },
+  ar: {
+    n: "Langue Arabe", ic: "📖", coeff: 2,
+    ch: [
+      // SEMESTRE 1
+      [1, "الدروس اللغوية (الإشتقاق، الاقتراض، النحت، صلة الموصول، الجملة الشرطية)", "Sciences du langage S1 (Dérivation, emprunt, condition)", 2359],
+      [1, "نصوص القراءة (الهوية والعولمة، مجتمع المعرفة، حوار الثقافات، التربية)", "Textes de lecture S1 (Identité, savoir, mondialisation)", 2366],
+      [1, "التعبير والإنشاء (مهارة وضع خطة عمل، مهارة كتابة تقرير)", "Production écrite S1 (Plan d'action, rapport)", 2373],
+      [1, "فروض المراقبة المستمرة الدورة 1 في القسم (مع التصحيح)", "Devoirs surveillés en classe S1 (Contrôles corrigés)", 2380, "d"],
+      // SEMESTRE 2
+      [2, "الدروس اللغوية (الترادف والتضاد، المشترك اللفظي، أسلوب القسم، الإيجاز)", "Sciences du langage S2 (Synonymie, serment, concision)", 2387],
+      [2, "نصوص القراءة (الثقافة وحقوق الإنسان، الفن والمجتمع، العلم والأخلاق)", "Textes de lecture S2 (Droits de l'Homme, art, éthique)", 2394],
+      [2, "التعبير والإنشاء (مهارة إعداد بطاقة حول كتاب أو شريط وثائقي)", "Production écrite S2 (Fiche de lecture, synthèse)", 2401],
+      [2, "فروض المراقبة المستمرة الدورة 2 في القسم", "Devoirs surveillés en classe S2", 2408, "d"]
+    ],
+    ex: [
+      ["البرنامج البيداغوجي", "Programme pédagogique officiel (Arabe 2BAC)", 2114],
+      ["نماذج امتحانات وفروض", "Annales et devoirs de classe", 2415],
+      ["فروض الدورة الأولى", "Contrôles surveillés S1", 2380]
+    ]
+  },
+  ei: {
+    n: "Éducation Islamique", ic: "🕌", coeff: 2,
+    ch: [
+      // SEMESTRE 1
+      [1, "مدخل التزكية : القرآن الكريم (سورة يس - الشطر 1 و 2 و 3)", "Tazkiya : Coran (Sourate Yâ-Sîn, parties 1 à 3)", 3033],
+      [1, "مدخل التزكية : العقيدة (التوحيد والحرية، الإلحاد بين الوهم والحقيقة)", "Tazkiya : Dogme (Monothéisme, foi et liberté)", 3044],
+      [1, "مدخل الاقتداء (إكمال الدين ووفاة الرسول ﷺ، التأسي بالصحابة)", "Iqtida : Modèle prophétique (Parachèvement de la religion)", 3055],
+      [1, "مدخل الاستجابة (الخصائص العامة للشريعة الإسلامية ومقاصدها)", "Istijaba : Fiqh (Caractéristiques de la Sharia)", 3066],
+      [1, "فروض المراقبة المستمرة الدورة 1 في القسم (18 نموذج مع التصحيح)", "Devoirs surveillés en classe S1 (18 modèles corrigés)", 5924, "d"],
+      // SEMESTRE 2
+      [2, "مدخل التزكية : القرآن الكريم (سورة يس - الشطر 4 و 5)", "Tazkiya : Coran (Sourate Yâ-Sîn, parties 4 et 5)", 3033],
+      [2, "مدخل القسط (حق الله: الاعتزاز بالإسلام، حق النفس: التوسط والاعتدال)", "Qist : Droits et équité (Droits d'Allah, juste milieu)", 3077],
+      [2, "مدخل الحكمة (التصور الإسلامي للحرية، الرحمة والرفق، رعاية البيئة)", "Hikma : Sagesse (Liberté en Islam, environnement)", 3088],
+      [2, "فروض المراقبة المستمرة الدورة 2 في القسم (12 نموذج مع التصحيح)", "Devoirs surveillés en classe S2 (12 modèles corrigés)", 5935, "d"]
+    ],
+    ex: [
+      ["البرنامج البيداغوجي", "Programme pédagogique officiel (Éduc. Islamique 2BAC)", 2287],
+      ["فروض الدورة الأولى (18 نموذج)", "Devoirs surveillés en classe S1 (18 modèles corrigés)", 5924],
+      ["فروض الدورة الثانية (12 نموذج)", "Devoirs surveillés en classe S2 (12 modèles corrigés)", 5935]
     ]
   }
 };
@@ -1092,6 +1153,65 @@ const MEMO_DB = {
     ],
     pieges: "Le catalyseur (acide sulfurique concentré) et le chauffage augmentent la vitesse de réaction mais NE MODIFIENT PAS le rendement final ni la composition d'équilibre !",
     pointsBac: "Nomenclature des esters (ex: éthanoate de propyle), calcul du rendement et contrôle de la vitesse."
+  },
+  // FRANÇAIS 2BAC
+  "fr0": {
+    titre: "Candide ou l'optimisme – Voltaire (Conte philosophique, 1759)",
+    def: "Conte philosophique de Voltaire dénonçant l'illusion de l'optimisme béat (leibnizien incarné par Pangloss : 'Tout va pour le mieux dans le meilleur des mondes possibles') face aux horreurs réelles du monde (guerre, tremblement de terre de Lisbonne, fanatisme, esclavage).",
+    formules: [
+      "Personnages clés : Candide (l'ingénu en quête de vérité), Pangloss (le philosophe dogmatique), Cunégonde (l'idéal déchu), Martin (le manichéen pessimiste), Cacambo (le valet pragmatique).",
+      "Évolution de la pensée : de l'illusion naïve au réalisme actif.",
+      "Conclusion morale : 'Il faut cultiver notre jardin' ⟹ agir concrètement, travailler pour éloigner de nous l'ennui, le vice et le besoin, plutôt que spéculer vainement."
+    ],
+    pieges: "Ne pas confondre satire ironique et simple comique : l'ironie de Voltaire utilise l'antiphrase, la fausse naïveté et l'accumulation pour critiquer la société.",
+    pointsBac: "Analyse d'un extrait de Candide (chapitre 1 au château, chapitre 6 autodafé, chapitre 19 le nègre de Surinam, chapitre 30 chez le derviche) et production écrite réflexive."
+  },
+  "fr1": {
+    titre: "Il était une fois un vieux couple heureux – Mohammed Khaïr-Eddine (2002)",
+    def: "Roman maghrébin d'expression française dépeignant la vie paisible et digne de Bouchaïb et sa femme dans la vallée d'Ammeln (Sud marocain), entre fidélité aux traditions berbères ancestrales et confrontation inévitable avec la modernité.",
+    formules: [
+      "Thèmes majeurs : attachement à la terre natale, mémoire collective, condition de la femme, écologie, émigration et choc des générations.",
+      "Écriture du poème : Bouchaïb transcrit la mémoire de son peuple en tifinagh/arabe, conciliant tradition et création littéraire.",
+      "Regard sur les 'Modernes' : critique de la société de consommation et de la perte des repères moraux."
+    ],
+    pieges: "L'épouse de Bouchaïb n'a pas de prénom dans le roman : elle est désignée avec respect comme 'la vieille' ou 'son épouse', symbolisant la femme traditionnelle sage.",
+    pointsBac: "Extrait portant sur le mode de vie du couple, la fête du sacrifice, la modernité ou l'amour discret qui les unit."
+  },
+  "fr4": {
+    titre: "Le Père Goriot – Honoré de Balzac (Roman réaliste, 1835)",
+    def: "Chef-d'œuvre de La Comédie Humaine explorant la cruauté sociale et l'ambition dans le Paris de la Restauration. Deux trajectoires se croisent : le martyre paternel de Jean-Joachim Goriot ruiné par ses filles, et l'apprentissage du monde par le jeune provincial Eugène de Rastignac.",
+    formules: [
+      "Lieux symboliques : Pension Vauquer (microcosme social dégradé du faubourg Saint-Marceau) versus salons aristocratiques (Mme de Beauséant).",
+      "Personnages : Rastignac (l'ambitieux partagé entre pureté et arrivisme), Vautrin (le tentateur révolté, génie du crime), Anastasie et Delphine (filles ingrates).",
+      "Épilogue : 'À nous deux maintenant !' (Défi lancé par Rastignac à Paris depuis le cimetière du Père-Lachaise)."
+    ],
+    pieges: "La passion de Goriot pour ses filles n'est pas qu'un simple amour paternel, c'est une véritable idolâtrie destructrice ('le Christ de la paternité').",
+    pointsBac: "Portrait de Goriot ou Rastignac, description de la pension Vauquer, ou confrontation avec les conseils cyniques de Vautrin."
+  },
+  // ARABE 2BAC
+  "ar0": {
+    titre: "علوم اللغة – دروس الدورة الأولى (اللغة العربية)",
+    def: "قواعد لغوية وبلاغية مقررة لمسلك العلوم التجريبية بالثانية باكالوريا.",
+    formules: [
+      "الاشتقاق : توليد كلمة من كلمة أخرى مع تناسب في المعنى واللفظ (اشتقاق اسم الفاعل، اسم المفعول، المصدر...).",
+      "الاقتراض : نقل لفظ من لغة أجنبية إلى اللغة العربية واستعماله وفق بنيتها الصرفية والصوتية.",
+      "النحت : انتزاع لفظة جديدة من كلمتين أو أكثر للتعبير عن معنى مركب (مثل: بسملة من بسم الله، حوقلة من لا حول ولا قوة إلا بالله).",
+      "جملة الصلة : الجملة التي تأتي بعد الاسم الموصول لتتم معناه، وتشتمل على ضمير يربطها بالاسم الموصول يسمى العائد."
+    ],
+    pieges: "التمييز الدقيق بين الاقتراض اللغوي (استعارة لفظ) والتعريب (صياغة اللفظ وفق الأوزان العربية).",
+    pointsBac: "استخراج الظاهرة اللغوية من النص وتحديد نوعها وتوظيفها في سياق تركيبي سليم."
+  },
+  // EDUCATION ISLAMIQUE 2BAC
+  "ei0": {
+    titre: "مدخل التزكية : سورة يس وقضايا العقيدة الكبرى",
+    def: "سورة يس مكية وتسمى 'قلب القرآن'، تعالج أصول العقيدة الإسلامية من إثبات الرسالة والوحي، ووحدانية الخالق ودلائل قدرته في الكون، والبعث والنشور بعد الموت.",
+    formules: [
+      "القيم المركزية : التوحيد، التفكر في ملكوت السماوات والأرض، اليقين بالبعث، الاستقامة، المسؤولية الفردية.",
+      "قصة أصحاب القرية : نموذج لمواجهة الدعوة بالتكذيب والاستكبار، وموقف مؤمن آل يس (حبيب النجار) في نصرة الحق وبذل النفس.",
+      "مفهوم التوحيد والحرية : التوحيد يحرر عقل الإنسان وقلبه من الخضوع لغير الله ومن الخرافة والتبعية العمياء."
+    ],
+    pieges: "حفظ واستظهار الآيات مع ضرورة ربط الآية القرآنية بالحكم الشرعي والقيمة المستفادة منها في الوضعية التقويمية.",
+    pointsBac: "الاستدلال بآيات سورة يس لحل الوضعية المشكلة، واستخراج القيم والأحكام الشرعية وصياغة الموقف الشخصي المعلل شرعياً."
   }
 };
 
@@ -1182,7 +1302,10 @@ const EXQ = {
   svt: "examen national svt 2 bac sciences physiques biof avec corrige",
   en: "2 bac national exam English Morocco scientific streams with key answer",
   ph: "امتحان وطني الفلسفة 2 باك علوم فيزيائية مع عناصر الإجابة",
-  m: "examen national mathematiques 2 bac biof sciences physiques avec corrige"
+  m: "examen national mathematiques 2 bac biof sciences physiques avec corrige",
+  fr: "devoir controle continu francais 2 bac sciences physiques avec corrige",
+  ar: "فروض المراقبة المستمرة اللغة العربية الثانية باك علوم تجريبية مع التصحيح",
+  ei: "فروض المراقبة المستمرة التربية الإسلامية الثانية باك علوم مع التصحيح"
 };
 
 const SITES = [
@@ -1350,6 +1473,9 @@ function tabs() {
     <button class="tab ${cur === 'svt' ? 'on' : ''}" data-k="svt">🧬 SVT (Coeff 5)</button>
     <button class="tab ${cur === 'en' ? 'on' : ''}" data-k="en">🇬🇧 Anglais (Coeff 2)</button>
     <button class="tab ${cur === 'ph' ? 'on' : ''}" data-k="ph">🧠 Philo (Coeff 2)</button>
+    <button class="tab ${cur === 'fr' ? 'on' : ''}" data-k="fr">📚 Français (CC)</button>
+    <button class="tab ${cur === 'ar' ? 'on' : ''}" data-k="ar">📖 Arabe (CC)</button>
+    <button class="tab ${cur === 'ei' ? 'on' : ''}" data-k="ei">🕌 Éduc. Islamique (CC)</button>
     <button class="tab ${cur === 'cadre' ? 'on' : ''}" data-k="cadre">🎯 Simulateur & Cadre SP</button>
     <button class="tab ${cur === 'pdf' ? 'on' : ''}" data-k="pdf">📂 Mes PDF Locaux</button>
     <button class="tab ${cur === 'pomo' ? 'on' : ''}" data-k="pomo">⏱️ Pomodoro</button>
@@ -1872,11 +1998,20 @@ function render() {
       const id = (c[3] && fil === "sp") ? (AS + "section/" + c[3]) : cu;
       const k = cur + i;
       const hasMemo = !!MEMO_DB[k];
-      const ytQuery = (cur === "ph")
-        ? (c[1] + " الثانية باك فلسفة")
-        : (cur === "en")
-          ? (c[2] + " 2 bac english morocco")
-          : (c[2] + " 2 bac biof maroc " + d.n);
+      let ytQuery = "";
+      if (cur === "ph") {
+        ytQuery = c[1] + " الثانية باك فلسفة";
+      } else if (cur === "en") {
+        ytQuery = c[2] + " 2 bac english morocco";
+      } else if (cur === "fr") {
+        ytQuery = c[2] + " 2 bac francais maroc";
+      } else if (cur === "ar") {
+        ytQuery = c[1] + " ثانية باك لغة عربية المغرب";
+      } else if (cur === "ei") {
+        ytQuery = c[1] + " ثانية باك تربية إسلامية المغرب";
+      } else {
+        ytQuery = c[2] + " 2 bac biof maroc " + d.n;
+      }
       return `
         <div class="card ${isDone ? "done" : ""}">
           <div>
@@ -1903,7 +2038,7 @@ function render() {
     }).join("") + `</div>`;
   }
 
-  // Cadre de référence & ressources officielles (Sections BIOF)
+  // Cadre de référence & ressources officielles (Sections BIOF & Programmes)
   if (d.ex && d.ex.length > 0) {
     html += `
       <h2>📚 Ressources officielles & Cadre de référence (${d.n})</h2>
@@ -1942,6 +2077,59 @@ function render() {
         ${Object.entries(MM).map(([n, ms]) => ms.map(m => `
           <a target="_blank" rel="noopener" href="${P}${n}-maths-2bac-sciences-physiques-BIOF-${sm}-semestre-modele-${m}.pdf">Devoir ${n} · Modèle ${m} ↗</a>
         `).join("")).join("")}
+      </div>
+    `;
+  }
+
+  // Devoirs surveillés en classe (Français, Arabe, Éducation Islamique)
+  if (cur === "fr") {
+    html += `
+      <h2>📝 Devoirs surveillés de classe (Français 2BAC) – Modèles & Corrigés</h2>
+      <div class="note">Contrôles continus de classe pour la 2ème année Bac (Candide, Le Père Goriot, analyse littéraire, production écrite) :</div>
+      <div class="lk">
+        <a target="_blank" rel="noopener" href="${AS}element/7018">Devoir 1 Modèle 1 (S1) ↗</a>
+        <a target="_blank" rel="noopener" href="${AS}element/7019">Devoir 1 Modèle 2 (S1) ↗</a>
+        <a target="_blank" rel="noopener" href="${AS}element/7020">Devoir 1 Modèle 3 (S1) ↗</a>
+        <a target="_blank" rel="noopener" href="${AS}element/7021">Devoir 1 Modèle 4 (S1) ↗</a>
+        <a target="_blank" rel="noopener" href="${AS}element/7022">Devoir 2 Modèle 1 (S1) ↗</a>
+        <a target="_blank" rel="noopener" href="${AS}element/87407">Devoir 2 Modèle 2 (S1) ↗</a>
+        <a target="_blank" rel="noopener" href="${AS}element/87418">Devoir 3 Modèle 1 (S1) ↗</a>
+        <a target="_blank" rel="noopener" href="${AS}element/7027">Devoir 1 Modèle 1 (S2) ↗</a>
+        <a target="_blank" rel="noopener" href="${AS}section/1059">Section complète devoirs S1 (Section 1059) ↗</a>
+        <a target="_blank" rel="noopener" href="${AS}section/1061">Section complète devoirs S2 (Section 1061) ↗</a>
+      </div>
+    `;
+  }
+
+  if (cur === "ar") {
+    html += `
+      <h2>📝 فروض المراقبة المستمرة في القسم (اللغة العربية) – نماذج مصححة</h2>
+      <div class="note">فروض المراقبة المستمرة لمادة اللغة العربية ثانية باك للاستعداد الجيد لفروض الفصل :</div>
+      <div class="lk">
+        <a target="_blank" rel="noopener" href="${AS}element/24141">الفرض 1 نموذج 1 (الدورة 1) ↗</a>
+        <a target="_blank" rel="noopener" href="${AS}element/24148">الفرض 1 نموذج 2 (الدورة 1) ↗</a>
+        <a target="_blank" rel="noopener" href="${AS}section/2380">جميع فروض الدورة الأولى (قسم 2380) ↗</a>
+        <a target="_blank" rel="noopener" href="${AS}section/2408">فروض الدورة الثانية (قسم 2408) ↗</a>
+        <a target="_blank" rel="noopener" href="${AS}section/2415">إمتحانات ونماذج إضافية ↗</a>
+      </div>
+    `;
+  }
+
+  if (cur === "ei") {
+    html += `
+      <h2>📝 فروض المراقبة المستمرة في القسم (التربية الإسلامية) – 30 نموذج مصحح</h2>
+      <div class="note">أكبر بنك لفروض المراقبة المستمرة في القسم مع عناصر الإجابة الرسمية (الدورة 1 والدورة 2) :</div>
+      <div class="lk">
+        <a target="_blank" rel="noopener" href="${AS}element/87798">الفرض 1 نموذج 1 (الدورة 1) ↗</a>
+        <a target="_blank" rel="noopener" href="${AS}element/87809">الفرض 1 نموذج 2 (الدورة 1) ↗</a>
+        <a target="_blank" rel="noopener" href="${AS}element/87822">الفرض 1 نموذج 3 (الدورة 1) ↗</a>
+        <a target="_blank" rel="noopener" href="${AS}element/87885">الفرض 1 نموذج 4 (الدورة 1) ↗</a>
+        <a target="_blank" rel="noopener" href="${AS}element/87896">الفرض 1 نموذج 5 (الدورة 1) ↗</a>
+        <a target="_blank" rel="noopener" href="${AS}element/88094">الفرض 1 نموذج 1 (الدورة 2) ↗</a>
+        <a target="_blank" rel="noopener" href="${AS}element/88083">تصحيح الفرض 1 نموذج 1 (الدورة 2) ✅</a>
+        <a target="_blank" rel="noopener" href="${AS}element/88105">الفرض 1 نموذج 2 (الدورة 2) ↗</a>
+        <a target="_blank" rel="noopener" href="${AS}section/5924">قسم فروض الدورة 1 (18 نموذج مع التصحيح) ↗</a>
+        <a target="_blank" rel="noopener" href="${AS}section/5935">قسم فروض الدورة 2 (12 نموذج مع التصحيح) ↗</a>
       </div>
     `;
   }
