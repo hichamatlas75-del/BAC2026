@@ -912,6 +912,63 @@ function generateQuestionsFromKeywords(text, filename) {
   return questions;
 }
 
+// Fonction utilitaire d'extraction de JSON propre
+function extractJsonArray(rawText) {
+  if (!rawText) return null;
+  let clean = rawText.replace(/```json/gi, "").replace(/```/g, "").trim();
+  try {
+    const direct = JSON.parse(clean);
+    if (Array.isArray(direct) && direct.length > 0) return direct;
+  } catch (e) {}
+
+  const firstBracket = clean.indexOf('[');
+  const lastBracket = clean.lastIndexOf(']');
+  if (firstBracket !== -1 && lastBracket !== -1 && lastBracket > firstBracket) {
+    try {
+      const extracted = JSON.parse(clean.slice(firstBracket, lastBracket + 1));
+      if (Array.isArray(extracted) && extracted.length > 0) return extracted;
+    } catch (e) {}
+  }
+  return null;
+}
+
+// Découverte dynamique des modèles Gemini actifs associés à la clé API
+async function discoverGeminiModels(cleanKey) {
+  const discovered = [];
+  for (const apiVer of ["v1beta", "v1"]) {
+    try {
+      const url = `https://generativelanguage.googleapis.com/${apiVer}/models?key=${cleanKey}`;
+      const res = await fetch(url);
+      if (res.ok) {
+        const json = await res.json();
+        if (Array.isArray(json.models)) {
+          const valid = json.models.filter(m =>
+            Array.isArray(m.supportedGenerationMethods) &&
+            m.supportedGenerationMethods.includes("generateContent")
+          ).map(m => ({
+            id: m.name.replace(/^models\//, ""),
+            apiVer
+          }));
+
+          // Trier : les modèles "flash" d'abord (du plus récent au plus ancien), puis "pro", puis les autres
+          valid.sort((a, b) => {
+            const aFlash = a.id.includes("flash") ? 1 : 0;
+            const bFlash = b.id.includes("flash") ? 1 : 0;
+            if (aFlash !== bFlash) return bFlash - aFlash;
+            return b.id.localeCompare(a.id);
+          });
+
+          discovered.push(...valid);
+          if (discovered.length > 0) break;
+        }
+      }
+    } catch (e) {
+      console.warn(`Impossible de lister les modèles en ${apiVer} :`, e.message);
+    }
+  }
+  return discovered;
+}
+
 // 7. Génération via Google Gemini API (Mode En Ligne avec détection stricte de la matière)
 async function generateQuestionsWithGemini(pdfText, apiKey, filename) {
   const cleanKey = (apiKey || "").trim().replace(/["']/g, "");
@@ -981,47 +1038,74 @@ Format JSON attendu :
 ${contextBlock}
 `;
 
-  // Essayer les modèles Gemini disponibles
-  const models = ["gemini-1.5-flash", "gemini-2.0-flash", "gemini-1.5-pro"];
+  // 1. Découverte dynamique des modèles réels activés sur le compte de l'utilisateur
+  let dynamicCandidates = [];
+  try {
+    dynamicCandidates = await discoverGeminiModels(cleanKey);
+  } catch (e) {
+    console.warn("Découverte dynamique des modèles non disponible :", e);
+  }
+
+  // 2. Modèles de repli (du plus moderne au plus ancien, testant v1beta et v1)
+  const fallbackCandidates = [
+    { id: "gemini-2.5-flash", apiVer: "v1beta" },
+    { id: "gemini-2.0-flash", apiVer: "v1beta" },
+    { id: "gemini-2.5-flash", apiVer: "v1" },
+    { id: "gemini-2.0-flash", apiVer: "v1" },
+    { id: "gemini-2.5-pro", apiVer: "v1beta" },
+    { id: "gemini-2.0-flash-lite", apiVer: "v1beta" },
+    { id: "gemini-1.5-flash-latest", apiVer: "v1beta" },
+    { id: "gemini-1.5-flash", apiVer: "v1beta" },
+    { id: "gemini-1.5-pro", apiVer: "v1beta" }
+  ];
+
+  const seen = new Set();
+  const candidates = [];
+  for (const c of [...dynamicCandidates, ...fallbackCandidates]) {
+    const key = `${c.apiVer}/${c.id}`;
+    if (!seen.has(key)) {
+      seen.add(key);
+      candidates.push(c);
+    }
+  }
+
   let lastError = null;
 
-  for (const model of models) {
+  for (const candidate of candidates) {
     try {
-      const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${cleanKey}`;
+      const url = `https://generativelanguage.googleapis.com/${candidate.apiVer}/models/${candidate.id}:generateContent?key=${cleanKey}`;
       const response = await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           contents: [{ parts: [{ text: prompt }] }],
           generationConfig: {
-            temperature: 0.2,
-            responseMimeType: "application/json"
+            temperature: 0.2
           }
         })
       });
 
       if (!response.ok) {
         const errData = await response.json().catch(() => ({}));
-        throw new Error(errData.error?.message || `Code HTTP ${response.status} sur modèle ${model}`);
+        throw new Error(errData.error?.message || `Code HTTP ${response.status} sur modèle ${candidate.id}`);
       }
 
       const data = await response.json();
       const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text;
-      if (!rawText) throw new Error("Réponse vide renvoyée par l'API Gemini.");
+      if (!rawText) throw new Error(`Réponse vide renvoyée par le modèle ${candidate.id}.`);
 
-      const cleanJson = rawText.replace(/```json/gi, "").replace(/```/g, "").trim();
-      const parsed = JSON.parse(cleanJson);
-      if (!Array.isArray(parsed) || parsed.length === 0) {
-        throw new Error("Format JSON invalide reçu de Gemini.");
+      const parsed = extractJsonArray(rawText);
+      if (!parsed || parsed.length === 0) {
+        throw new Error(`Format JSON invalide reçu de Gemini (${candidate.id}).`);
       }
       return parsed;
     } catch (err) {
       lastError = err;
-      console.warn(`Tentative avec ${model} échouée :`, err.message);
+      console.warn(`Tentative avec ${candidate.id} (${candidate.apiVer}) échouée :`, err.message);
     }
   }
 
-  throw lastError || new Error("Impossible de joindre l'API Gemini.");
+  throw lastError || new Error("Impossible de joindre l'API Google Gemini.");
 }
 
 // Fonction utilitaire de mélange des options (Fisher-Yates)
