@@ -5036,14 +5036,28 @@ async function processUploadedPdf(file) {
     if (msgEl) msgEl.textContent = "Génération du QCM pédagogique par l'IA...";
     if (barEl) barEl.style.width = "75%";
 
+    const subjKey = (typeof detectSubject === 'function') ? detectSubject(extractedText, file.name) : "physique_chimie";
+    const subjectLabels = {
+      anglais: "Anglais (English)",
+      philosophie: "Philosophie (فلسفة)",
+      mathematiques: "Mathématiques",
+      svt: "SVT",
+      francais: "Français",
+      arabe: "Langue Arabe (اللغة العربية)",
+      islamique: "Éducation Islamique (التربية الإسلامية)",
+      physique_chimie: "Physique-Chimie (BIOF)"
+    };
+    const displaySubject = subjectLabels[subjKey] || "Document Personnel";
+
     let questions = [];
     const apiKey = localStorage.getItem("gemini_api_key");
 
     if (apiKey && apiKey.trim().length > 10) {
       try {
-        questions = await generateQuestionsWithGemini(extractedText, apiKey.trim());
+        questions = await generateQuestionsWithGemini(extractedText, apiKey.trim(), file.name);
       } catch (geminiErr) {
-        console.warn("Échec Gemini, repli sur le moteur hors-ligne :", geminiErr);
+        console.warn("Échec Gemini, repli sur la banque certifiée :", geminiErr);
+        alert("⚠️ Note Gemini API : " + (geminiErr.message || "Erreur de connexion") + "\n\nLe moteur de repli certifié 2BAC (" + displaySubject + ") a pris le relais.");
         questions = generateQuestionsFromKeywords(extractedText, file.name);
       }
     } else {
@@ -5055,9 +5069,9 @@ async function processUploadedPdf(file) {
 
     const customQuiz = {
       id: "custom_" + Date.now(),
-      title: "QCM IA : " + file.name.replace(".pdf", ""),
-      subject: "Document Personnel",
-      matiereKey: "custom",
+      title: "QCM IA : " + file.name.replace(/\.pdf$/i, ""),
+      subject: displaySubject,
+      matiereKey: subjKey,
       pdfPath: "",
       questions: questions
     };
@@ -5077,7 +5091,8 @@ async function convertLocalPdfToQcm(pdfUrl, title) {
   if (statusEl) statusEl.style.display = "block";
 
   try {
-    if (msgEl) msgEl.textContent = `Extraction du fichier "${title || pdfUrl}"...`;
+    const docName = title || pdfUrl;
+    if (msgEl) msgEl.textContent = `Extraction du fichier "${docName}"...`;
     if (barEl) barEl.style.width = "40%";
 
     const extractedText = await extractTextFromPdf(pdfUrl, (page, total) => {
@@ -5088,24 +5103,38 @@ async function convertLocalPdfToQcm(pdfUrl, title) {
     if (msgEl) msgEl.textContent = "Génération du QCM par l'IA...";
     if (barEl) barEl.style.width = "85%";
 
+    const subjKey = (typeof detectSubject === 'function') ? detectSubject(extractedText, docName) : "physique_chimie";
+    const subjectLabels = {
+      anglais: "Anglais (English)",
+      philosophie: "Philosophie (فلسفة)",
+      mathematiques: "Mathématiques",
+      svt: "SVT",
+      francais: "Français",
+      arabe: "Langue Arabe (اللغة العربية)",
+      islamique: "Éducation Islamique (التربية الإسلامية)",
+      physique_chimie: "Physique-Chimie (BIOF)"
+    };
+    const displaySubject = subjectLabels[subjKey] || "Examen Officiel";
+
     let questions = [];
     const apiKey = localStorage.getItem("gemini_api_key");
     if (apiKey && apiKey.trim().length > 10) {
       try {
-        questions = await generateQuestionsWithGemini(extractedText, apiKey.trim());
+        questions = await generateQuestionsWithGemini(extractedText, apiKey.trim(), docName);
       } catch (err) {
-        questions = generateQuestionsFromKeywords(extractedText, pdfUrl);
+        console.warn("Échec Gemini, repli sur le moteur certifié :", err);
+        questions = generateQuestionsFromKeywords(extractedText, docName);
       }
     } else {
-      questions = generateQuestionsFromKeywords(extractedText, pdfUrl);
+      questions = generateQuestionsFromKeywords(extractedText, docName);
     }
 
     if (statusEl) statusEl.style.display = "none";
     startQuiz({
       id: "auto_" + Date.now(),
       title: "QCM IA : " + (title || "Examen"),
-      subject: "Examen Officiel",
-      matiereKey: "custom",
+      subject: displaySubject,
+      matiereKey: subjKey,
       pdfPath: pdfUrl,
       questions: questions
     });

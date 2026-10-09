@@ -467,14 +467,381 @@ async function extractTextFromPdf(fileOrUrl, onProgress) {
   return fullText;
 }
 
-// 5. Génération par Heuristique Intelligente (Mode Hors-Ligne)
+// 5. Détection Intelligente de la Matière (Nom de fichier + Contenu)
+function detectSubject(text, filename) {
+  const raw = ((filename || "") + " " + (text || "")).toLowerCase();
+  // Remplacer les délimiteurs usuels par des espaces pour isoler les mots-clés courts (ex: ang_2024 -> ang 2024)
+  const combined = raw.replace(/[_.\-\/\\()\[\],;:!?#]/g, " ");
+
+  // 1. Anglais (Priorité haute si le nom de fichier ou contenu évoque l'Anglais)
+  if (
+    combined.includes("anglais") || combined.includes("english") || combined.includes("grammar") ||
+    combined.includes("vocabulary") || combined.includes("reading") || combined.includes("comprehension") ||
+    combined.includes("phrasal verb") || combined.includes("passive voice") || combined.includes("reported speech") ||
+    combined.includes("conditional") || combined.includes("tenses") || combined.includes("writing") ||
+    combined.includes("ticket to english") || combined.includes("gateway to english") || combined.includes("insights into english") ||
+    /\b(eng|ang)\b/.test(combined)
+  ) {
+    return "anglais";
+  }
+
+  // 2. Philosophie
+  if (
+    combined.includes("philo") || combined.includes("philosophie") || combined.includes("فلسفة") ||
+    combined.includes("الشخص") || combined.includes("الغير") || combined.includes("النظرية") ||
+    combined.includes("التجربة") || combined.includes("الحقيقة") || combined.includes("الدولة") ||
+    combined.includes("الواجب") || combined.includes("العدالة") || combined.includes("مفهوم")
+  ) {
+    return "philosophie";
+  }
+
+  // 3. Mathématiques
+  if (
+    combined.includes("math") || combined.includes("complexe") || combined.includes("intégrale") ||
+    combined.includes("integrale") || combined.includes("primitive") || combined.includes("dérivée") ||
+    combined.includes("derivee") || combined.includes("continuité") || combined.includes("continuite") ||
+    combined.includes("suites") || combined.includes("logarithme") || combined.includes("exponentielle") ||
+    combined.includes("probabilité") || combined.includes("probabilite") || combined.includes("géométrie")
+  ) {
+    return "mathematiques";
+  }
+
+  // 4. SVT
+  if (
+    combined.includes("svt") || combined.includes("biologie") || combined.includes("géologie") ||
+    combined.includes("geologie") || combined.includes("atp") || combined.includes("krebs") ||
+    combined.includes("génétique") || combined.includes("genetique") || combined.includes("adn") ||
+    combined.includes("arn") || combined.includes("immunologie") || combined.includes("respiration") ||
+    combined.includes("mitochondrie")
+  ) {
+    return "svt";
+  }
+
+  // 5. Français
+  if (
+    combined.includes("français") || combined.includes("francais") || combined.includes("candide") ||
+    combined.includes("goriot") || combined.includes("antigone") || combined.includes("figure de style")
+  ) {
+    return "francais";
+  }
+
+  // 6. Arabe
+  if (
+    combined.includes("arabe") || combined.includes("allogha") || combined.includes("اللغة العربية") ||
+    combined.includes("مكون النصوص") || combined.includes("الدرس اللغوي")
+  ) {
+    return "arabe";
+  }
+
+  // 7. Éducation Islamique
+  if (
+    combined.includes("islamic") || combined.includes("islamique") || combined.includes("التربية الإسلامية") ||
+    combined.includes("سورة يس")
+  ) {
+    return "islamique";
+  }
+
+  // 8. Physique-Chimie
+  if (
+    combined.includes("chimie") || combined.includes("physique") || combined.includes("onde") ||
+    combined.includes("nucléaire") || combined.includes("nucleaire") || combined.includes("électricité") ||
+    combined.includes("electricite") || combined.includes("circuit") || combined.includes("rc") ||
+    combined.includes("rl") || combined.includes("rlc") || combined.includes("newton") ||
+    combined.includes("mécanique") || combined.includes("mecanique") || combined.includes("dosage") ||
+    combined.includes("acide") || combined.includes("estérification")
+  ) {
+    return "physique_chimie";
+  }
+
+  return "physique_chimie";
+}
+
+// 6. Génération par Heuristique Intelligente (Mode Hors-Ligne structuré par matière)
 function generateQuestionsFromKeywords(text, filename) {
-  const t = text.toLowerCase();
+  const subj = detectSubject(text, filename);
   const questions = [];
 
-  // Détection Physique-Chimie
-  if (t.includes("chimie") || t.includes("dosage") || t.includes("acide") || t.includes("ph") || t.includes("solution") || t.includes("réaction")) {
-    questions.push({
+  // ============================================
+  // BRANCHE ANGLAIS (2BAC MAROC)
+  // ============================================
+  if (subj === "anglais") {
+    questions.push(
+      {
+        q: "English (Passive Voice) : 'The Ministry built twenty new modern high schools in Morocco last year.' Which sentence is the correct passive voice ?",
+        options: [
+          "Twenty new modern high schools were built in Morocco last year.",
+          "Twenty new modern high schools are built in Morocco last year.",
+          "Twenty new modern high schools had been built in Morocco last year.",
+          "Twenty new modern high schools were building in Morocco last year."
+        ],
+        answer: 0,
+        exp: "Rule: Past Simple passive is formed with 'was/were + Past Participle (V3)'. 'High schools' is plural, so we must use 'were built'."
+      },
+      {
+        q: "English (Reported Speech) : 'I will prepare my engineering project tomorrow,' Karim said. Karim said that he...",
+        options: [
+          "would prepare his engineering project the following day.",
+          "will prepare his engineering project tomorrow.",
+          "would prepared his engineering project yesterday.",
+          "had prepared his engineering project next day."
+        ],
+        answer: 0,
+        exp: "Rule: In reported speech, 'will' shifts back to 'would', pronoun 'my' shifts to 'his', and time expression 'tomorrow' becomes 'the following day' or 'the next day'."
+      },
+      {
+        q: "English (Conditionals) : 'If Amine ________ more consistently, he would have achieved the highest mark in the national exam.'",
+        options: [
+          "had revised",
+          "revised",
+          "has revised",
+          "would revise"
+        ],
+        answer: 0,
+        exp: "Rule: Third Conditional (imaginary past situation): If + Past Perfect (had + V3) ... would have + V3."
+      },
+      {
+        q: "English (Phrasal Verbs) : Due to heavy rainfall, the headmaster decided to ________ the annual sport championship.",
+        options: [
+          "call off (cancel)",
+          "give up (surrender)",
+          "look after (take care of)",
+          "put on (wear)"
+        ],
+        answer: 0,
+        exp: "'Call off' means to cancel an event. It is a high-frequency phrasal verb in the Moroccan 2BAC national exam."
+      },
+      {
+        q: "English (Modals in the Past) : 'Sara got 20/20 in English and Maths. She ________ day and night for her exams.'",
+        options: [
+          "must have studied",
+          "can't have studied",
+          "should have studied",
+          "might not study"
+        ],
+        answer: 0,
+        exp: "'Must have + past participle' expresses logical certainty / deduction about a past action ('She surely studied hard')."
+      },
+      {
+        q: "English (Word Formation) : Quality education is vital for the sustainable ________ (develop) of African nations.",
+        options: [
+          "development",
+          "developing",
+          "developer",
+          "developmental"
+        ],
+        answer: 0,
+        exp: "After the adjective 'sustainable', a noun is required. The noun form of 'develop' is 'development' (suffix -ment)."
+      },
+      {
+        q: "English (Expressing Purpose) : Many Moroccan bachelors study computer science ________ acquire competitive international skills.",
+        options: [
+          "in order to",
+          "so that",
+          "because of",
+          "due to"
+        ],
+        answer: 0,
+        exp: "'In order to' and 'so as to' are followed directly by the bare infinitive ('acquire'). 'So that' requires a subject + modal."
+      },
+      {
+        q: "English (Wishes) : 'I didn't manage my revision time properly last semester.' -> 'I wish I ________ my time better.'",
+        options: [
+          "had managed",
+          "managed",
+          "would manage",
+          "have managed"
+        ],
+        answer: 0,
+        exp: "Expressing regret about past actions requires: Wish + Past Perfect (had + V3)."
+      }
+    );
+    return questions;
+  }
+
+  // ============================================
+  // BRANCHE PHILOSOPHIE (2BAC MAROC)
+  // ============================================
+  if (subj === "philosophie") {
+    questions.push(
+      {
+        q: "Philosophie (La Personne) : Selon Emmanuel Kant, la personne humaine tire sa dignité et sa valeur morale absolue du fait qu'elle est :",
+        options: [
+          "Une fin en soi dotée d'une raison pratique et d'une liberté morale",
+          "Un moyen au service de l'intérêt général de la société",
+          "Un être déterminé uniquement par ses pulsions biologiques",
+          "Un instrument économique de production"
+        ],
+        answer: 0,
+        exp: "Pour Kant (Fondements de la métaphysique des mœurs), les choses ont un prix (relatif), mais la personne possède une dignité (valeur intrinsèque et absolue) : elle doit toujours être traitée comme une fin en soi."
+      },
+      {
+        q: "Philosophie (Autrui) : Dans la philosophie phénoménologique de Jean-Paul Sartre, le regard d'autrui a pour effet de :",
+        options: [
+          "Figer ma liberté et me transformer en objet (réification)",
+          "Confirmer harmonieusement mon identité sans aucun conflit",
+          "Supprimer toute conscience de soi",
+          "Prouver scientifiquement l'inexistence du monde extérieur"
+        ],
+        answer: 0,
+        exp: "Dans 'L'Être et le Néant', Sartre montre que le regard d'autrui me dépossède de ma liberté en me figeant comme objet du monde ('Autrui est le médiateur indispensable entre moi et moi-même')."
+      },
+      {
+        q: "Philosophie (Théorie et Expérience) : Selon l'épistémologie de Karl Popper, une théorie ne peut être qualifiée de scientifique que si :",
+        options: [
+          "Elle est réfutable (falsifiable) par l'expérience",
+          "Elle a été prouvée vraie une infinité de fois",
+          "Elle fait l'unanimité de tous les chercheurs",
+          "Elle ne s'appuie sur aucune hypothèse mathématique"
+        ],
+        answer: 0,
+        exp: "Le critère de démarcation de Popper est la réfutabilité : une théorie n'est scientifique que si l'on peut concevoir une expérience capable de la mettre en défaut."
+      },
+      {
+        q: "Philosophie (L'État) : Selon Thomas Hobbes (Le Léviathan), le passage de l'état de nature à l'état civil repose sur :",
+        options: [
+          "Un pacte social où les individus cèdent leur liberté naturelle au souverain en échange de la sécurité et de la paix",
+          "L'accord naturel et spontané des hommes sans autorité supérieure",
+          "La victoire des plus faibles sur les plus forts",
+          "L'abolition de toute loi écrite"
+        ],
+        answer: 0,
+        exp: "Pour échapper à 'la guerre de tous contre tous' de l'état de nature, les hommes concluent un contrat social confiant le monopole de la violence légitime au Léviathan pour garantir la paix."
+      }
+    );
+    return questions;
+  }
+
+  // ============================================
+  // BRANCHE MATHÉMATIQUES (2BAC MAROC)
+  // ============================================
+  if (subj === "mathematiques") {
+    questions.push(
+      {
+        q: "Maths : Pour tout nombre complexe z = a + i·b non nul, le module |z| est calculé par :",
+        options: [
+          "|z| = √(a² + b²)",
+          "|z| = a² + b²",
+          "|z| = a + b",
+          "|z| = √(a² - b²)"
+        ],
+        answer: 0,
+        exp: "Le module correspond à la distance géométrique OM dans le plan complexe : |z| = √(a² + b²)."
+      },
+      {
+        q: "Maths : La dérivée de la fonction f(x) = ln(u(x)) pour une fonction u strictement positive et dérivable est :",
+        options: [
+          "f'(x) = u'(x) / u(x)",
+          "f'(x) = 1 / u(x)",
+          "f'(x) = u(x) / u'(x)",
+          "f'(x) = u'(x) · ln(u(x))"
+        ],
+        answer: 0,
+        exp: "La règle de composition pour le logarithme népérien donne (ln(u))' = u' / u."
+      },
+      {
+        q: "Maths : Si une suite (uₙ) est croissante et majorée par un réel M, alors la suite :",
+        options: [
+          "Converge vers une limite finie ℓ ≤ M",
+          "Diverge vers +∞",
+          "Oscille sans limite",
+          "Est strictement égale à M pour tout n"
+        ],
+        answer: 0,
+        exp: "Théorème de convergence monotone : toute suite croissante et majorée est convergente. Toute suite décroissante et minorée est convergente."
+      },
+      {
+        q: "Maths : La formule d'intégration par parties pour deux fonctions u et v dérivables est :",
+        options: [
+          "∫ u·v' dx = [u·v] - ∫ u'·v dx",
+          "∫ u·v' dx = [u·v] + ∫ u'·v dx",
+          "∫ u·v' dx = [u'·v'] - ∫ u·v dx",
+          "∫ u·v' dx = (∫ u dx) · (∫ v' dx)"
+        ],
+        answer: 0,
+        exp: "Formule standard du programme : ∫ u·v' = [u·v] - ∫ u'·v, issue de la dérivée du produit (uv)' = u'v + uv'."
+      }
+    );
+    return questions;
+  }
+
+  // ============================================
+  // BRANCHE SVT (2BAC MAROC)
+  // ============================================
+  if (subj === "svt") {
+    questions.push(
+      {
+        q: "SVT : Au cours du cycle de Krebs qui se déroule dans la matrice mitochondriale :",
+        options: [
+          "L'acétyl-CoA subit une dégradation complète avec libération de CO₂ et production de composés réduits (NADH, FADH₂)",
+          "Le glucose est directement transformé en glycogène",
+          "Aucune molécule d'ATP n'est produite",
+          "L'oxygène est directement consommé"
+        ],
+        answer: 0,
+        exp: "Le cycle de Krebs oxyde complètement le groupement acétyle en CO₂, réduit les transporteurs NAD⁺ en NADH,H⁺ et FAD en FADH₂, et produit 1 ATP (ou GTP) par tour."
+      },
+      {
+        q: "SVT : Le bilan énergétique global de la respiration cellulaire complète d'une molécule de glucose est de :",
+        options: [
+          "36 ou 38 molécules d'ATP",
+          "2 molécules d'ATP uniquement",
+          "12 molécules d'ATP",
+          "100 molécules d'ATP"
+        ],
+        answer: 0,
+        exp: "La glycolyse (2 ATP + 2 NADH), le cycle de Krebs (2 ATP + 8 NADH + 2 FADH₂) et la phosphorylation oxydative produisent au total 36 ou 38 ATP."
+      },
+      {
+        q: "SVT (Génétique) : Le brassage interchromosomique a lieu pendant :",
+        options: [
+          "L'anaphase I de la méiose, par séparation aléatoire des chromosomes homologues",
+          "La prophase I de la méiose, par crossing-over",
+          "La télophase II de la méiose",
+          "La mitose somatique"
+        ],
+        answer: 0,
+        exp: "Le brassage interchromosomique résulte de la disjonction indépendante et aléatoire des paires de chromosomes homologues lors de l'anaphase I."
+      }
+    );
+    return questions;
+  }
+
+  // ============================================
+  // BRANCHE FRANÇAIS (2BAC MAROC)
+  // ============================================
+  if (subj === "francais") {
+    questions.push(
+      {
+        q: "Français (Candide de Voltaire) : Quelle doctrine philosophique Voltaire tourne-t-il en dérision à travers le personnage de Pangloss ?",
+        options: [
+          "L'optimisme providentiel de Leibniz ('tout est pour le mieux dans le meilleur des mondes possibles')",
+          "L'existentialisme moderne",
+          "Le rationalisme cartésien pur",
+          "Le stoïcisme antique"
+        ],
+        answer: 0,
+        exp: "Voltaire critique vivement la théodicée leibnizienne représentée caricaturalement par Pangloss face aux catastrophes réelles (tremblement de terre de Lisbonne, guerres)."
+      },
+      {
+        q: "Français (Figures de style) : Dans la phrase 'C'est un roc ! c'est un pic ! c'est un cap !', quelle figure de style est employée ?",
+        options: [
+          "Une gradation ascendante (et métaphores)",
+          "Une antithèse",
+          "Un oxymore",
+          "Une litote"
+        ],
+        answer: 0,
+        exp: "L'énumération de termes d'intensité croissante (roc -> pic -> cap) constitue une gradation ascendante."
+      }
+    );
+    return questions;
+  }
+
+  // ============================================
+  // BRANCHE PHYSIQUE - CHIMIE (BIOF)
+  // ============================================
+  questions.push(
+    {
       q: "Chimie : Lors d'un dosage acido-basique, comment est défini le point d'équivalence E ?",
       options: [
         "Le point où les réactifs titrant et titré sont mélangés en proportions stœchiométriques",
@@ -484,8 +851,8 @@ function generateQuestionsFromKeywords(text, filename) {
       ],
       answer: 0,
       exp: "À l'équivalence, la quantité de matière du réactif titrant apporté est égale à celle du réactif titré initialement présent selon les coefficients stœchiométriques."
-    });
-    questions.push({
+    },
+    {
       q: "Chimie : Pour un couple acide/base HA/A⁻, la relation entre le pH, le pKa et les concentrations à l'équilibre est :",
       options: [
         "pH = pKa + log([A⁻] / [HA])",
@@ -495,11 +862,8 @@ function generateQuestionsFromKeywords(text, filename) {
       ],
       answer: 0,
       exp: "C'est la formule d'Henderson-Hasselbalch du programme : pH = pKa + log([Base]/[Acide]). À la demi-équivalence, [Base] = [Acide], donc pH = pKa."
-    });
-  }
-
-  if (t.includes("onde") || t.includes("diffraction") || t.includes("fréquence") || t.includes("célérité") || t.includes("période")) {
-    questions.push({
+    },
+    {
       q: "Physique (Ondes) : La relation fondamentale entre la longueur d'onde λ, la célérité v et la fréquence N est :",
       options: [
         "λ = v / N = v · T",
@@ -509,8 +873,8 @@ function generateQuestionsFromKeywords(text, filename) {
       ],
       answer: 0,
       exp: "Une onde parcourt la distance λ pendant une période temporelle T, d'où λ = v · T = v / N."
-    });
-    questions.push({
+    },
+    {
       q: "Physique (Ondes) : Lorsque la lumière traverse une fente étroite de largeur a, quel phénomène se produit si la largeur a est de l'ordre de la longueur d'onde λ ?",
       options: [
         "La diffraction de la lumière avec un demi-angle θ = λ / a",
@@ -520,11 +884,8 @@ function generateQuestionsFromKeywords(text, filename) {
       ],
       answer: 0,
       exp: "La diffraction se manifeste d'autant plus nettement que l'ouverture a est petite, avec θ = λ / a (en radians)."
-    });
-  }
-
-  if (t.includes("rc") || t.includes("rl") || t.includes("rlc") || t.includes("condensateur") || t.includes("bobine")) {
-    questions.push({
+    },
+    {
       q: "Physique (Électricité) : L'énergie électromagnétique emmagasinée dans un condensateur de capacité C sous tension u_C est :",
       options: [
         "E_e = (1/2) · C · u_C²",
@@ -534,11 +895,8 @@ function generateQuestionsFromKeywords(text, filename) {
       ],
       answer: 0,
       exp: "L'énergie emmagasinée dans le condensateur est E_e = (1/2) C u_C² = (1/2) q² / C (en Joules)."
-    });
-  }
-
-  if (t.includes("mécanique") || t.includes("newton") || t.includes("chute") || t.includes("accélération") || t.includes("force")) {
-    questions.push({
+    },
+    {
       q: "Physique (Mécanique) : La deuxième loi de Newton pour un corps de masse m constante dans un référentiel galiléen s'écrit :",
       options: [
         "∑ F_ext = m · a_G",
@@ -548,146 +906,122 @@ function generateQuestionsFromKeywords(text, filename) {
       ],
       answer: 0,
       exp: "La somme vectorielle des forces extérieures est égale au produit de la masse m par le vecteur accélération a_G du centre d'inertie : ∑ F = m · a."
-    });
-  }
-
-  // Détection Mathématiques
-  if (t.includes("complexe") || t.includes("argument") || t.includes("module") || t.includes("mathematique") || t.includes("intégrale") || t.includes("limite")) {
-    questions.push({
-      q: "Maths : Pour tout nombre complexe z = a + i·b non nul, le module |z| est calculé par :",
-      options: [
-        "|z| = √(a² + b²)",
-        "|z| = a² + b²",
-        "|z| = a + b",
-        "|z| = √(a² - b²)"
-      ],
-      answer: 0,
-      exp: "Le module correspond à la distance géométrique OM dans le plan complexe : |z| = √(a² + b²)."
-    });
-    questions.push({
-      q: "Maths : La dérivée de la fonction f(x) = ln(u(x)) pour une fonction u strictement positive et dérivable est :",
-      options: [
-        "f'(x) = u'(x) / u(x)",
-        "f'(x) = 1 / u(x)",
-        "f'(x) = u(x) / u'(x)",
-        "f'(x) = u'(x) · ln(u(x))"
-      ],
-      answer: 0,
-      exp: "La règle de composition pour le logarithme népérien donne (ln(u))' = u' / u."
-    });
-    questions.push({
-      q: "Maths : Si une suite (uₙ) est croissante et majorée par un réel M, alors la suite :",
-      options: [
-        "Converge vers une limite finie ℓ ≤ M",
-        "Diverge vers +∞",
-        "Oscille sans limite",
-        "Est strictement égale à M pour tout n"
-      ],
-      answer: 0,
-      exp: "Théorème de convergence monotone : toute suite croissante et majorée est convergente. Toute suite décroissante et minorée est convergente."
-    });
-  }
-
-  // Détection SVT
-  if (t.includes("atp") || t.includes("krebs") || t.includes("respiration") || t.includes("cellule") || t.includes("génétique") || t.includes("adn")) {
-    questions.push({
-      q: "SVT : Au cours du cycle de Krebs qui se déroule dans la matrice mitochondriale :",
-      options: [
-        "L'acétyl-CoA subit une dégradation complète avec libération de CO₂ et production de composés réduits (NADH, FADH₂)",
-        "Le glucose est directement transformé en glycogène",
-        "Aucune molécule d'ATP n'est produite",
-        "L'oxygène est directement consommé"
-      ],
-      answer: 0,
-      exp: "Le cycle de Krebs oxyde complètement le groupement acétyle en CO₂, réduit les transporteurs NAD⁺ en NADH,H⁺ et FAD en FADH₂, et produit 1 ATP (ou GTP) par tour."
-    });
-  }
-
-  // Si aucune question spécifique n'a été déclenchée, fournir un ensemble d'évaluation général Bac SP
-  if (questions.length === 0) {
-    questions.push(
-      {
-        q: "Bac SP (Méthodologie) : Quelle est la démarche scientifique rigoureuse pour résoudre un problème de mécanique au Bac ?",
-        options: [
-          "1. Préciser le système, 2. Définir le référentiel galiléen, 3. Bilan des forces, 4. Appliquer la 2ème loi de Newton",
-          "Calculer directement sans préciser de système ni de référentiel",
-          "Appliquer uniquement les formules sans schéma ni projection",
-          "Considérer toujours les frottements comme nuls"
-        ],
-        answer: 0,
-        exp: "Le barème officiel de correction exige impérativement le système d'étude, le référentiel galiléen et l'inventaire complet des forces avant toute projection."
-      },
-      {
-        q: "Bac SP (Unités fondamentales) : Dans le Système International (SI), quelles sont les unités respectives de la constante radioactive λ et de la constante de temps τ ?",
-        options: [
-          "λ en s⁻¹ (seconde moins un) et τ en s (seconde)",
-          "λ en secondes et τ en Hertz",
-          "λ en Bequerel et τ en Farad",
-          "λ et τ sont sans dimension"
-        ],
-        answer: 0,
-        exp: "La constante radioactive λ a la dimension de l'inverse d'un temps (s⁻¹), tandis que la constante de temps τ est une durée exprimée en secondes (s)."
-      }
-    );
-  }
+    }
+  );
 
   return questions;
 }
 
-// 6. Génération via Google Gemini API (Mode En Ligne si clé disponible)
-async function generateQuestionsWithGemini(pdfText, apiKey) {
-  const prompt = `Tu es un inspecteur et professeur agrégé spécialiste du Baccalauréat marocain (2ème année Baccalauréat Sciences Physiques - Option BIOF).
-À partir du texte d'examen ci-dessous, génère un QCM d'entraînement de 6 à 8 questions pertinentes au format JSON STRICT.
-RÈGLES IMPORTANTES :
-- Les questions de Physique, Chimie, Maths et SVT doivent être rédigées en Français (Option BIOF).
-- Les questions de Philosophie doivent être en Arabe.
-- Les questions d'Anglais en Anglais.
-- Chaque question doit proposer 4 choix (options 0, 1, 2, 3) avec une seule bonne réponse ('answer': index entier 0 à 3).
-- Fournir une justification détaillée ('exp') avec formules mathématiques et rappel du cadre de référence.
-- RENVOIE UNIQUEMENT DU JSON PUR, SANS MARKDOWN NI BALISES \`\`\`json.
+// 7. Génération via Google Gemini API (Mode En Ligne avec détection stricte de la matière)
+async function generateQuestionsWithGemini(pdfText, apiKey, filename) {
+  const cleanKey = (apiKey || "").trim().replace(/["']/g, "");
+  if (!cleanKey) throw new Error("Clé API Google Gemini non configurée.");
 
-Format attendu :
+  const detectedSubj = detectSubject(pdfText, filename);
+
+  let subjInstruction = "";
+  if (detectedSubj === "anglais") {
+    subjInstruction = `
+ATTENTION CRITIQUE : Ce document est une épreuve ou un cours d'ANGLAIS (English).
+Tu es un inspecteur et professeur agrégé d'ANGLAIS au Baccalauréat marocain (2BAC).
+TU DOIS STRICTEMENT GÉNÉRER UN QCM D'ANGLAIS (6 à 8 questions) :
+- Les questions ('q') DOIVENT ÊTRE EN ANGLAIS (Grammar, Vocabulary, Phrasal verbs, Passive voice, Reported speech, Conditionals, Reading comprehension, Functions).
+- Les 4 choix ('options') DOIVENT ÊTRE EN ANGLAIS.
+- Les explications ('exp') DOIVENT ÊTRE EN ANGLAIS (ou en Français expliquant la règle d'anglais).
+INTERDICTION FORMELLE DE GÉNÉRER DES QUESTIONS DE PHYSIQUE, CHIMIE OU MATHÉMATIQUES !`;
+  } else if (detectedSubj === "philosophie") {
+    subjInstruction = `
+ATTENTION : Ce document concerne la PHILOSOPHIE au Baccalauréat marocain (2BAC).
+Tu es un inspecteur de PHILOSOPHIE. Génère strictement un QCM de Philosophie (6 à 8 questions) sur les notions du programme (La Personne, Autrui, Théorie et Expérience, La Vérité, L'État, La Morale). INTERDICTION de générer de la physique !`;
+  } else if (detectedSubj === "mathematiques") {
+    subjInstruction = `
+ATTENTION : Ce document concerne les MATHÉMATIQUES au Baccalauréat marocain (2BAC BIOF).
+Tu es un inspecteur de MATHÉMATIQUES. Génère strictement un QCM de Mathématiques (Limites, Dérivation, Suites, Complexes, Intégrales, Probabilités). INTERDICTION de générer de la physique !`;
+  } else if (detectedSubj === "svt") {
+    subjInstruction = `
+ATTENTION : Ce document concerne les SVT (Sciences de la Vie et de la Terre) au Baccalauréat marocain (2BAC BIOF).
+Tu es un inspecteur de SVT. Génère strictement un QCM de SVT (ATP, Respiration, Krebs, Information génétique, Immunologie, Géologie). INTERDICTION de générer de la physique !`;
+  } else if (detectedSubj === "francais") {
+    subjInstruction = `
+ATTENTION : Ce document concerne le FRANÇAIS au Baccalauréat marocain (2BAC).
+Génère strictement un QCM de Français (Candide, Le Père Goriot, figures de style, compréhension littéraire).`;
+  } else {
+    subjInstruction = `
+Tu es un inspecteur du Baccalauréat marocain.
+Identifie d'abord la matière du document fourni et génère un QCM strictement adapté à CETTE matière !`;
+  }
+
+  // Traitement du texte extrait (supporte aussi les PDF scannés / images avec peu de texte)
+  const textClean = (pdfText || "").trim();
+  let contextBlock = "";
+  if (textClean.length < 80) {
+    contextBlock = `\nREMARQUE : Le fichier PDF est un document scanné dont le titre est : "${filename || 'Document'}". Utilise ce titre de document et le Cadre de Référence officiel du Bac marocain pour cette matière pour concevoir un QCM d'entraînement de haute valeur pédagogique.`;
+  } else {
+    contextBlock = `\nExtrait du document :\n${textClean.slice(0, 15000)}`;
+  }
+
+  const prompt = `Tu es un professeur agrégé et inspecteur du Baccalauréat marocain (2BAC).
+${subjInstruction}
+
+À partir du document ci-dessous, génère un QCM d'entraînement de 6 à 8 questions pertinentes au format JSON STRICT.
+RÈGLES IMPORTANTES :
+- Chaque question doit proposer 4 choix (options 0, 1, 2, 3) avec une seule bonne réponse ('answer': index entier 0 à 3).
+- Fournir une justification détaillée ('exp') avec rappel de la règle ou formule.
+- RENVOIE UNIQUEMENT DU JSON PUR, SANS BALISES MARKDOWN \`\`\`json.
+
+Format JSON attendu :
 [
   {
     "q": "Texte précis de la question ?",
     "options": ["Choix A", "Choix B", "Choix C", "Choix D"],
     "answer": 0,
-    "exp": "Explication et rappel de cours pédagogique..."
+    "exp": "Explication pédagogique claire..."
   }
 ]
-
-Extrait du document :
-${pdfText.slice(0, 14000)}
+${contextBlock}
 `;
 
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
-  const response = await fetch(url, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      contents: [{ parts: [{ text: prompt }] }],
-      generationConfig: {
-        temperature: 0.2,
-        responseMimeType: "application/json"
+  // Essayer les modèles Gemini disponibles
+  const models = ["gemini-1.5-flash", "gemini-2.0-flash", "gemini-1.5-pro"];
+  let lastError = null;
+
+  for (const model of models) {
+    try {
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${cleanKey}`;
+      const response = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: prompt }] }],
+          generationConfig: {
+            temperature: 0.2,
+            responseMimeType: "application/json"
+          }
+        })
+      });
+
+      if (!response.ok) {
+        const errData = await response.json().catch(() => ({}));
+        throw new Error(errData.error?.message || `Code HTTP ${response.status} sur modèle ${model}`);
       }
-    })
-  });
 
-  if (!response.ok) {
-    const errData = await response.json().catch(() => ({}));
-    throw new Error(errData.error?.message || `Erreur API Gemini (${response.status})`);
+      const data = await response.json();
+      const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+      if (!rawText) throw new Error("Réponse vide renvoyée par l'API Gemini.");
+
+      const cleanJson = rawText.replace(/```json/gi, "").replace(/```/g, "").trim();
+      const parsed = JSON.parse(cleanJson);
+      if (!Array.isArray(parsed) || parsed.length === 0) {
+        throw new Error("Format JSON invalide reçu de Gemini.");
+      }
+      return parsed;
+    } catch (err) {
+      lastError = err;
+      console.warn(`Tentative avec ${model} échouée :`, err.message);
+    }
   }
 
-  const data = await response.json();
-  const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text;
-  if (!rawText) throw new Error("Réponse vide de l'IA Gemini.");
-
-  const cleanJson = rawText.replace(/```json/gi, "").replace(/```/g, "").trim();
-  const parsed = JSON.parse(cleanJson);
-  if (!Array.isArray(parsed) || parsed.length === 0) {
-    throw new Error("Format JSON non conforme reçu de l'API.");
-  }
-  return parsed;
+  throw lastError || new Error("Impossible de joindre l'API Gemini.");
 }
 
 // Fonction utilitaire de mélange des options (Fisher-Yates)
@@ -972,12 +1306,15 @@ function launchPdfQcm(quizKey) {
 }
 
 // Exposer globalement
+window.detectSubject = detectSubject;
 window.QCM_ENGINE = {
   PRESET_QCM_DB,
   QcmPlayerState,
+  detectSubject,
   extractTextFromPdf,
   generateQuestionsFromKeywords,
   generateQuestionsWithGemini,
   startQuiz,
   launchPdfQcm
 };
+
