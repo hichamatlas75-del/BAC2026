@@ -217,6 +217,56 @@
       flex-wrap: wrap;
       margin-bottom: 10px;
     }
+    .top-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .btn-burger {
+      display: inline-flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      width: 42px;
+      height: 42px;
+      padding: 9px;
+      border-radius: 12px;
+      border: 1.5px solid var(--b);
+      background: var(--c);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+      flex-shrink: 0;
+    }
+    .btn-burger:hover {
+      border-color: var(--a);
+      transform: scale(1.05);
+      box-shadow: 0 4px 14px var(--a-subtle);
+    }
+    .btn-burger:active { transform: scale(0.95); }
+    .burger-bar {
+      display: block;
+      width: 20px;
+      height: 2.2px;
+      border-radius: 999px;
+      background: var(--t);
+      transition: all 0.25s ease;
+    }
+    .btn-burger:hover .burger-bar {
+      background: var(--a);
+    }
+    .btn-pomo-compact {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.12), rgba(239, 68, 68, 0.12)) !important;
+      border-color: rgba(245, 158, 11, 0.4) !important;
+      color: #ea580c !important;
+      font-weight: 800;
+    }
+    :root[data-theme="dark"] .btn-pomo-compact {
+      color: #fbbf24 !important;
+    }
     .brand {
       display: flex;
       align-items: center;
@@ -1536,84 +1586,353 @@
       .btn-header-lbl { display: none; }
     }
 
-    /* BARRE D'ACCÈS RAPIDE : PDF CLASSÉS & ASSISTANTS IA */
-    .quick-tools-bar {
-      background: var(--c);
+    /* ============================================================
+       SMART BURGER DRAWER (MENU INTELLIGENT DE RÉVISION)
+       ============================================================ */
+    .drawer-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .drawer-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .drawer-menu {
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 380px;
+      max-width: calc(100vw - 32px);
+      background: var(--c-solid);
+      background-image: 
+        radial-gradient(circle at 10% 8%, var(--bg-mesh-1) 0%, transparent 40%),
+        radial-gradient(circle at 90% 92%, var(--bg-mesh-2) 0%, transparent 40%);
+      z-index: 1001;
+      transform: translateX(-105%);
+      transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      border-right: 1.5px solid var(--b);
+      box-shadow: 20px 0 50px rgba(0, 0, 0, 0.35);
+      box-sizing: border-box;
+    }
+    .drawer-menu.active {
+      transform: translateX(0);
+    }
+
+    .drawer-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 20px;
       border-bottom: 1.5px solid var(--b);
-      padding: 8px 18px;
+      background: var(--header-bg);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
     }
-    .quick-tools-inner {
-      max-width: 1200px;
-      margin: 0 auto;
+    .drawer-brand {
       display: flex;
-      gap: 10px;
       align-items: center;
-      flex-wrap: wrap;
+      gap: 12px;
     }
-    .quick-tool-btn {
-      flex: 1;
-      min-width: 220px;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 9px 15px;
-      border-radius: 14px;
-      border: 1.5px solid var(--b);
-      background: var(--bg);
+    .drawer-logo {
+      font-size: 26px;
+      filter: drop-shadow(0 2px 6px rgba(99, 102, 241, 0.4));
+    }
+    .drawer-title {
+      font-size: 16.5px;
+      font-weight: 900;
+      margin: 0;
+      background: var(--grad-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.3px;
+      line-height: 1.2;
+    }
+    .drawer-subtitle {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--m);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .drawer-close {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      border: 1px solid var(--b);
+      background: var(--c);
       color: var(--t);
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+    .drawer-close:hover {
+      background: var(--danger);
+      color: #fff;
+      border-color: var(--danger);
+      transform: scale(1.06);
+    }
+
+    .drawer-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      scrollbar-width: thin;
+    }
+    .drawer-body::-webkit-scrollbar {
+      width: 6px;
+    }
+    .drawer-body::-webkit-scrollbar-thumb {
+      background: var(--b);
+      border-radius: 4px;
+    }
+
+    .drawer-filiere-box {
+      background: var(--c);
+      border: 1px solid var(--b);
+      border-radius: 14px;
+      padding: 10px 12px;
+    }
+    .drawer-filiere-label {
+      display: block;
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--a);
+      margin-bottom: 5px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .drawer-select {
+      width: 100%;
+      padding: 8px 12px;
+      border-radius: 10px;
+      font-weight: 700;
       font-size: 13px;
+    }
+
+    .drawer-search-box {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--c);
+      border: 1.5px solid var(--b);
+      border-radius: 12px;
+      padding: 0 12px;
+      transition: border-color 0.2s;
+    }
+    .drawer-search-box:focus-within {
+      border-color: var(--a);
+      box-shadow: 0 0 0 3px var(--a-subtle);
+    }
+    .drawer-search-box input {
+      width: 100%;
+      border: none;
+      background: transparent;
+      padding: 9px 4px;
+      font-size: 13px;
+      box-shadow: none;
+      color: var(--t);
+    }
+    .drawer-search-box input:focus {
+      box-shadow: none;
+    }
+
+    .drawer-section {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .drawer-sec-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 2px 4px;
+    }
+    .drawer-sec-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .drawer-sec-title {
+      font-size: 11.5px;
+      font-weight: 800;
+      color: var(--m);
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+    }
+    .drawer-sec-badge {
+      font-size: 10px;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 6px;
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--ok);
+    }
+    .drawer-sec-badge.cc {
+      background: rgba(99, 102, 241, 0.15);
+      color: var(--a);
+    }
+
+    .drawer-nav-list {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .drawer-item {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 9px 11px;
+      border-radius: 13px;
+      border: 1.5px solid transparent;
+      background: var(--c);
+      color: var(--t);
       text-decoration: none;
       cursor: pointer;
       font-family: inherit;
-      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+      text-align: left;
+      transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-sizing: border-box;
     }
-    .quick-tool-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+    .drawer-item:hover {
+      background: var(--c-solid);
+      border-color: var(--b-hover);
+      transform: translateX(4px);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
     }
-    .quick-tool-pdf {
-      border-color: rgba(168, 85, 247, 0.5);
-      background: linear-gradient(135deg, rgba(168, 85, 247, 0.12), rgba(236, 72, 153, 0.08));
+    .drawer-item.active {
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.16), rgba(236, 72, 153, 0.12));
+      border-color: var(--a);
+      box-shadow: 0 4px 16px var(--a-subtle);
     }
-    .quick-tool-pdf:hover {
-      border-color: #a855f7;
-      box-shadow: 0 6px 22px rgba(168, 85, 247, 0.3);
+    .drawer-item.active .d-item-text strong {
+      color: var(--a);
     }
-    .quick-tool-gemini {
-      border-color: rgba(59, 130, 246, 0.5);
-      background: linear-gradient(135deg, rgba(59, 130, 246, 0.12), rgba(139, 92, 246, 0.08));
+    .d-item-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 17px;
+      flex-shrink: 0;
     }
-    .quick-tool-gemini:hover {
-      border-color: #3b82f6;
-      box-shadow: 0 6px 22px rgba(59, 130, 246, 0.3);
-    }
-    .quick-tool-nlm {
-      border-color: rgba(16, 185, 129, 0.5);
-      background: linear-gradient(135deg, rgba(16, 185, 129, 0.12), rgba(6, 182, 212, 0.08));
-    }
-    .quick-tool-nlm:hover {
-      border-color: #10b981;
-      box-shadow: 0 6px 22px rgba(16, 185, 129, 0.3);
-    }
-    .qt-icon {
-      font-size: 22px;
-      line-height: 1;
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
-    }
-    .qt-text {
+    .d-item-text {
+      flex: 1;
       display: flex;
       flex-direction: column;
       line-height: 1.25;
-      text-align: left;
+      min-width: 0;
     }
-    .qt-sub {
+    .d-item-text strong {
+      font-size: 13.5px;
+      font-weight: 700;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: var(--t);
+    }
+    .d-item-text small {
       font-size: 11px;
+      color: var(--m);
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-top: 1.5px;
+    }
+    .d-item-coeff {
+      font-size: 10.5px;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 7px;
+      background: var(--b);
+      color: var(--t-dim);
+      flex-shrink: 0;
+    }
+    .d-item-tag-hot {
+      font-size: 10px;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 6px;
+      background: var(--grad-sunset);
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .d-item-tag-num {
+      font-size: 10px;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 6px;
+      background: var(--grad-violet);
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .d-item-ext {
+      font-size: 13px;
+      color: var(--m);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .drawer-footer {
+      padding: 12px 18px;
+      border-top: 1.5px solid var(--b);
+      background: var(--header-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+    .drawer-footer-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11.5px;
       color: var(--m);
       font-weight: 600;
     }
+    .drawer-footer-pomo {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(245, 158, 11, 0.12);
+      color: #f59e0b;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-weight: 700;
+    }
+
+    .tab-burger-trigger {
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.14), rgba(168, 85, 247, 0.14)) !important;
+      border-color: var(--a) !important;
+      color: var(--a) !important;
+      font-weight: 800 !important;
+    }
+    .tab-burger-trigger:hover {
+      background: var(--grad-primary) !important;
+      color: #fff !important;
+      border-color: transparent !important;
+    }
+
     .tab.on[data-k="pdf"] {
       background: linear-gradient(135deg, #a855f7, #ec4899) !important;
       box-shadow: 0 6px 20px rgba(168, 85, 247, 0.45) !important;
@@ -1692,18 +2011,19 @@
 
 <header>
   <div class="top-bar">
-    <a href="#" class="brand" onclick="navigateTab('pc'); return false;">
-      <h1>🎓 2BAC Maroc <span class="tag-sp">Sciences Physiques</span></h1>
-    </a>
+    <div class="top-left">
+      <button id="btn-burger" class="btn-burger" aria-label="Ouvrir le menu de révision" aria-expanded="false" title="Menu de révision & Outils (Toutes les matières)">
+        <span class="burger-bar"></span>
+        <span class="burger-bar"></span>
+        <span class="burger-bar"></span>
+      </button>
+      <a href="#" class="brand" onclick="navigateTab('pc'); return false;">
+        <h1>🎓 2BAC Maroc <span class="tag-sp" id="header-fil-badge">Sciences Physiques</span></h1>
+      </a>
+    </div>
     <div class="top-actions">
-      <button class="btn-icon btn-pdf-quick" onclick="navigateTab('pdf')" title="Accéder directement aux 625+ PDF classés (Cours, Résumés & Annales 2008-2024)">📂 <span class="btn-header-lbl">PDF Classés (625+)</span></button>
-      <a href="https://gemini.google.com/" target="_blank" rel="noopener" class="btn-icon btn-gemini" title="Google Gemini : Posez vos questions sur les cours et exercices">✨ <span class="btn-header-lbl">Gemini</span></a>
-      <a href="https://notebooklm.google.com/" target="_blank" rel="noopener" class="btn-icon btn-notebooklm" title="Google NotebookLM : Importez vos PDF pour créer des guides d'étude et podcasts audio">📓 <span class="btn-header-lbl">NotebookLM</span></a>
-      <button class="btn-icon" style="background:linear-gradient(135deg, rgba(37,99,235,0.1), rgba(16,185,129,0.1)); border-color:var(--a); color:var(--a); font-weight:700" onclick="navigateTab('qcm')" title="Convertisseur et Quiz QCM IA">🤖 QCM IA</button>
-      <button class="btn-icon" id="btn-pomo" title="Minuteur Pomodoro">🍅 <span id="pomo-mini">25:00</span></button>
-      <button class="btn-icon btn-install" id="btn-install" style="display:none">📲 Installer</button>
-      <button class="btn-icon btn-wa" onclick="shareOnWhatsApp()" title="Partager l'application sur WhatsApp avec vos camarades">💬 <span class="wa-header-txt">WhatsApp</span></button>
-      <button class="btn-icon" id="btn-settings" title="Sauvegarde & Paramètres">⚙️ Sauvegarde</button>
+      <button class="btn-icon btn-pomo-compact" id="btn-pomo" title="Minuteur Pomodoro">🍅 <span id="pomo-mini">25:00</span></button>
+      <button class="btn-icon btn-install" id="btn-install" style="display:none" title="Installer l'application">📲 <span class="btn-header-lbl">Installer</span></button>
       <button class="btn-icon" id="th" title="Changer le thème">🌓</button>
     </div>
   </div>
@@ -1733,33 +2053,6 @@
     <div class="cd-unit cd-unit-hours"><span class="cd-val" id="cd-hours">--</span><span class="cd-lbl">Heures</span></div>
     <div class="cd-unit cd-unit-mins"><span class="cd-val" id="cd-mins">--</span><span class="cd-lbl">Min</span></div>
     <div class="cd-unit cd-unit-secs"><span class="cd-val" id="cd-secs">--</span><span class="cd-lbl">Sec</span></div>
-  </div>
-</div>
-
-<!-- BARRE D'ACCÈS RAPIDE : PDF CLASSÉS & ASSISTANTS IA -->
-<div class="quick-tools-bar">
-  <div class="quick-tools-inner">
-    <button class="quick-tool-btn quick-tool-pdf" onclick="navigateTab('pdf')" title="Accéder aux 625+ PDF classés par matière et par session">
-      <span class="qt-icon">📂</span>
-      <span class="qt-text">
-        <strong style="color:var(--t)">625+ Fichiers PDF Classés</strong>
-        <span class="qt-sub">Annales 2008-2024, Cours & Résumés</span>
-      </span>
-    </button>
-    <a href="https://gemini.google.com/" target="_blank" rel="noopener" class="quick-tool-btn quick-tool-gemini" title="Poser une question sur un cours ou exercice à Google Gemini">
-      <span class="qt-icon">✨</span>
-      <span class="qt-text">
-        <strong style="color:var(--t)">Google Gemini</strong>
-        <span class="qt-sub">Explications & Résolution pas à pas ↗</span>
-      </span>
-    </a>
-    <a href="https://notebooklm.google.com/" target="_blank" rel="noopener" class="quick-tool-btn quick-tool-nlm" title="Importer vos sujets et cours PDF dans NotebookLM pour générer des synthèses et podcasts audio">
-      <span class="qt-icon">📓</span>
-      <span class="qt-text">
-        <strong style="color:var(--t)">Google NotebookLM</strong>
-        <span class="qt-sub">Podcasts audio & Fiches d'étude IA ↗</span>
-      </span>
-    </a>
   </div>
 </div>
 
@@ -1806,6 +2099,270 @@
     </div>
   </div>
 </div>
+
+<!-- SMART BURGER DRAWER (OFF-CANVAS) -->
+<div class="drawer-overlay" id="drawer-overlay" aria-hidden="true"></div>
+<aside class="drawer-menu" id="drawer-menu" role="dialog" aria-modal="true" aria-label="Menu principal de révision" aria-hidden="true">
+  <div class="drawer-header">
+    <div class="drawer-brand">
+      <span class="drawer-logo">🎓</span>
+      <div>
+        <h2 class="drawer-title">2BAC Maroc 2026</h2>
+        <span class="drawer-subtitle" id="drawer-fil-badge">Sciences Physiques (BIOF)</span>
+      </div>
+    </div>
+    <button class="drawer-close" id="drawer-close" aria-label="Fermer le menu" title="Fermer le menu (Échap)">✕</button>
+  </div>
+
+  <div class="drawer-body">
+    <!-- FILIERE SELECTOR IN DRAWER -->
+    <div class="drawer-filiere-box">
+      <label for="drawer-fil-select" class="drawer-filiere-label">🎯 Ma Filière du Bac :</label>
+      <select id="drawer-fil-select" class="drawer-select">
+        <option value="sp">🧪 Sciences Physiques (Principale)</option>
+        <option value="svt">🧬 SVT</option>
+        <option value="sma">📐 Sc. Maths A</option>
+      </select>
+    </div>
+
+    <!-- RECHERCHE RAPIDE DANS LE MENU -->
+    <div class="drawer-search-box">
+      <span style="font-size:14px; opacity:0.7">🔍</span>
+      <input type="text" id="drawer-search-input" placeholder="Filtrer les matières et outils…" autocomplete="off">
+    </div>
+
+    <!-- SECTION 1: MATIERES DU NATIONAL -->
+    <div class="drawer-section">
+      <div class="drawer-sec-header">
+        <div class="drawer-sec-title-wrap">
+          <span style="font-size:14px">🇲🇦</span>
+          <span class="drawer-sec-title">Matières Examen National</span>
+        </div>
+        <span class="drawer-sec-badge">Juin 2026</span>
+      </div>
+      <div class="drawer-nav-list">
+        <button class="drawer-item" data-k="pc" title="Physique - Chimie">
+          <span class="d-item-icon" style="background:rgba(167,139,250,0.15); color:var(--col-pc)">⚗️</span>
+          <span class="d-item-text">
+            <strong>Physique - Chimie</strong>
+            <small>Ondes, Nucléaire, Électricité, Mécanique, Chimie</small>
+          </span>
+          <span class="d-item-coeff" id="d-coeff-pc">Coeff 7</span>
+        </button>
+        <button class="drawer-item" data-k="m" title="Mathématiques">
+          <span class="d-item-icon" style="background:rgba(56,189,248,0.15); color:var(--col-m)">📐</span>
+          <span class="d-item-text">
+            <strong>Mathématiques</strong>
+            <small>Limites, Dérivées, Suites, Complexes, Intégrales</small>
+          </span>
+          <span class="d-item-coeff" id="d-coeff-m">Coeff 7</span>
+        </button>
+        <button class="drawer-item" data-k="svt" title="Sciences de la Vie et de la Terre">
+          <span class="d-item-icon" style="background:rgba(52,211,153,0.15); color:var(--col-svt)">🧬</span>
+          <span class="d-item-text">
+            <strong>SVT</strong>
+            <small>ATP, Information génétique, Écologie, Géologie</small>
+          </span>
+          <span class="d-item-coeff" id="d-coeff-svt">Coeff 5</span>
+        </button>
+        <button class="drawer-item" data-k="en" title="Langue Anglaise">
+          <span class="d-item-icon" style="background:rgba(251,113,133,0.15); color:var(--col-en)">🇬🇧</span>
+          <span class="d-item-text">
+            <strong>Langue Anglaise</strong>
+            <small>Grammar, Vocabulary, Reading & Writing</small>
+          </span>
+          <span class="d-item-coeff">Coeff 2</span>
+        </button>
+        <button class="drawer-item" data-k="ph" title="Philosophie">
+          <span class="d-item-icon" style="background:rgba(192,132,252,0.15); color:var(--col-ph)">🧠</span>
+          <span class="d-item-text">
+            <strong>Philosophie</strong>
+            <small>Le Sujet, La Culture, La Raison & le Réel, La Morale</small>
+          </span>
+          <span class="d-item-coeff">Coeff 2</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- SECTION 2: MATIERES DU CONTROLE CONTINU -->
+    <div class="drawer-section">
+      <div class="drawer-sec-header">
+        <div class="drawer-sec-title-wrap">
+          <span style="font-size:14px">📝</span>
+          <span class="drawer-sec-title">Contrôle Continu (CC)</span>
+        </div>
+        <span class="drawer-sec-badge cc">CC 25%</span>
+      </div>
+      <div class="drawer-nav-list">
+        <button class="drawer-item" data-k="fr" title="Français">
+          <span class="d-item-icon" style="background:rgba(96,165,250,0.15); color:var(--col-fr)">📚</span>
+          <span class="d-item-text">
+            <strong>Français</strong>
+            <small>Candide, Le Père Goriot, Méthodologie</small>
+          </span>
+        </button>
+        <button class="drawer-item" data-k="ar" title="Langue Arabe">
+          <span class="d-item-icon" style="background:rgba(251,191,36,0.15); color:var(--col-ar)">📖</span>
+          <span class="d-item-text">
+            <strong>Langue Arabe</strong>
+            <small>Textes, Poésie, Notions linguistiques</small>
+          </span>
+        </button>
+        <button class="drawer-item" data-k="ei" title="Éducation Islamique">
+          <span class="d-item-icon" style="background:rgba(45,212,191,0.15); color:var(--col-ei)">🕌</span>
+          <span class="d-item-text">
+            <strong>Éducation Islamique</strong>
+            <small>Sourates, Croyance, Jurisprudence & Valeurs</small>
+          </span>
+        </button>
+      </div>
+    </div>
+
+    <!-- SECTION 3: OUTILS D'ENTRAINEMENT & REVISION IA -->
+    <div class="drawer-section">
+      <div class="drawer-sec-header">
+        <div class="drawer-sec-title-wrap">
+          <span style="font-size:14px">⚡</span>
+          <span class="drawer-sec-title">Entraînement & IA</span>
+        </div>
+        <span class="drawer-sec-badge" style="background:linear-gradient(135deg,rgba(236,72,153,0.18),rgba(139,92,246,0.18)); color:var(--col-qcm)">Interactif</span>
+      </div>
+      <div class="drawer-nav-list">
+        <button class="drawer-item" data-k="qcm" title="Moteur QCM IA & Quiz Interactifs">
+          <span class="d-item-icon" style="background:linear-gradient(135deg,rgba(236,72,153,0.2),rgba(139,92,246,0.2)); color:#ec4899">🤖</span>
+          <span class="d-item-text">
+            <strong>Moteur QCM IA & Quiz</strong>
+            <small>Quiz par chapitre et convertisseur de PDF instantané</small>
+          </span>
+          <span class="d-item-tag-hot">IA</span>
+        </button>
+        <button class="drawer-item" data-k="pdf" title="Bibliothèque PDF Classée (625+ Fichiers)">
+          <span class="d-item-icon" style="background:rgba(168,85,247,0.18); color:#a855f7">📂</span>
+          <span class="d-item-text">
+            <strong>Bibliothèque PDF Classée</strong>
+            <small>625+ Annales 2008-2024, Cours et Résumés classés</small>
+          </span>
+          <span class="d-item-tag-num">625+</span>
+        </button>
+        <button class="drawer-item" data-k="pomo" title="Chronomètre Pomodoro Focus">
+          <span class="d-item-icon" style="background:rgba(245,158,11,0.18); color:#f59e0b">⏱️</span>
+          <span class="d-item-text">
+            <strong>Minuteur Pomodoro Focus</strong>
+            <small>Sessions 25/5 min pour structurer ses révisions</small>
+          </span>
+        </button>
+        <button class="drawer-item" data-k="stats" title="Bilan de Progression Global">
+          <span class="d-item-icon" style="background:linear-gradient(135deg,rgba(16,185,129,0.18),rgba(6,182,212,0.18)); color:#10b981">📊</span>
+          <span class="d-item-text">
+            <strong>Bilan de Progression Global</strong>
+            <small>Pourcentages d'avancement et chapitres validés</small>
+          </span>
+        </button>
+      </div>
+    </div>
+
+    <!-- SECTION 4: ORIENTATION & SIMULATEURS -->
+    <div class="drawer-section">
+      <div class="drawer-sec-header">
+        <div class="drawer-sec-title-wrap">
+          <span style="font-size:14px">🎯</span>
+          <span class="drawer-sec-title">Simulateurs & Après-Bac</span>
+        </div>
+      </div>
+      <div class="drawer-nav-list">
+        <button class="drawer-item" data-k="cadre" title="Simulateur de Note Bac 2026">
+          <span class="d-item-icon" style="background:linear-gradient(135deg,rgba(139,92,246,0.2),rgba(236,72,153,0.2)); color:#8b5cf6">🎯</span>
+          <span class="d-item-text">
+            <strong>Simulateur de Note Bac 2026</strong>
+            <small>Calcul de mention avec coefficients exacts par filière</small>
+          </span>
+        </button>
+        <button class="drawer-item" data-k="concours" title="Concours Post-Bac & CursusSup">
+          <span class="d-item-icon" style="background:rgba(6,182,212,0.18); color:#06b6d4">🎓</span>
+          <span class="d-item-text">
+            <strong>Concours Post-Bac & CursusSup</strong>
+            <small>FMP, ENSA, ENSAM, CPGE, ENA, Seuils et Inscriptions</small>
+          </span>
+        </button>
+        <button class="drawer-item" data-k="profs" title="Top Profs & Chaînes YouTube">
+          <span class="d-item-icon" style="background:rgba(239,68,68,0.18); color:#ef4444">🎬</span>
+          <span class="d-item-text">
+            <strong>Top Profs & Chaînes YouTube</strong>
+            <small>Les meilleurs enseignants marocains recommandés</small>
+          </span>
+        </button>
+      </div>
+    </div>
+
+    <!-- SECTION 5: ASSISTANTS IA EXTERNES & SOURCES -->
+    <div class="drawer-section">
+      <div class="drawer-sec-header">
+        <div class="drawer-sec-title-wrap">
+          <span style="font-size:14px">✨</span>
+          <span class="drawer-sec-title">Assistants IA & Ressources</span>
+        </div>
+      </div>
+      <div class="drawer-nav-list">
+        <a href="https://gemini.google.com/" target="_blank" rel="noopener" class="drawer-item" title="Google Gemini">
+          <span class="d-item-icon" style="background:rgba(59,130,246,0.15); color:#3b82f6">✨</span>
+          <span class="d-item-text">
+            <strong>Google Gemini</strong>
+            <small>Explications pas à pas, résolution d'exercices ↗</small>
+          </span>
+          <span class="d-item-ext">↗</span>
+        </a>
+        <a href="https://notebooklm.google.com/" target="_blank" rel="noopener" class="drawer-item" title="Google NotebookLM">
+          <span class="d-item-icon" style="background:rgba(16,185,129,0.15); color:#10b981">📓</span>
+          <span class="d-item-text">
+            <strong>Google NotebookLM</strong>
+            <small>Podcasts audio & synthèses interactives de vos PDF ↗</small>
+          </span>
+          <span class="d-item-ext">↗</span>
+        </a>
+        <button class="drawer-item" data-k="x" title="Sources & Références Officielles">
+          <span class="d-item-icon" style="background:rgba(129,140,248,0.15); color:var(--a)">🌐</span>
+          <span class="d-item-text">
+            <strong>Sources & Références Officielles</strong>
+            <small>Moutamadris, Alloschool, Men.gov.ma</small>
+          </span>
+        </button>
+      </div>
+    </div>
+
+    <!-- SECTION 6: GESTION & PARAMÈTRES -->
+    <div class="drawer-section">
+      <div class="drawer-sec-header">
+        <div class="drawer-sec-title-wrap">
+          <span style="font-size:14px">⚙️</span>
+          <span class="drawer-sec-title">Paramètres & Outils</span>
+        </div>
+      </div>
+      <div class="drawer-nav-list">
+        <button class="drawer-item" id="btn-drawer-settings" title="Sauvegarde & Paramètres">
+          <span class="d-item-icon" style="background:rgba(148,163,184,0.15); color:var(--t)">⚙️</span>
+          <span class="d-item-text">
+            <strong>Sauvegarde & Restauration</strong>
+            <small>Exporter ou importer votre progression (fichier JSON)</small>
+          </span>
+        </button>
+        <button class="drawer-item" onclick="shareOnWhatsApp()" title="Partager sur WhatsApp">
+          <span class="d-item-icon" style="background:rgba(37,211,102,0.18); color:#25D366">💬</span>
+          <span class="d-item-text">
+            <strong>Partager sur WhatsApp</strong>
+            <small>Inviter des camarades de classe à réviser</small>
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="drawer-footer">
+    <div class="drawer-footer-info">
+      <span>2BAC Maroc BIOF • 2026</span>
+      <span class="drawer-footer-pomo">⏱️ Focus: <b id="drawer-pomo-val">25:00</b></span>
+    </div>
+  </div>
+</aside>
 
 <!-- Scripts PDF.js & Moteur QCM IA & Catalogue Moutamadris -->
 <script src="./js/pdf.min.js"></script>
@@ -2687,9 +3244,12 @@ function updatePomoDisplay() {
   const m = String(Math.floor(pomoTimeLeft / 60)).padStart(2, '0');
   const s = String(pomoTimeLeft % 60).padStart(2, '0');
   const str = `${m}:${s}`;
-  $("#pomo-mini").textContent = str;
+  const mini = $("#pomo-mini");
+  if (mini) mini.textContent = str;
   const bigDisp = document.getElementById("pomo-big-disp");
   if (bigDisp) bigDisp.textContent = str;
+  const dVal = document.getElementById("drawer-pomo-val");
+  if (dVal) dVal.textContent = str;
 }
 
 function startPomo() {
@@ -2752,34 +3312,155 @@ function setPomoMode(mode) {
 
 $("#btn-pomo").onclick = () => navigateTab("pomo");
 
+// SMART BURGER DRAWER LOGIC
+function openDrawer() {
+  const overlay = $("#drawer-overlay");
+  const menu = $("#drawer-menu");
+  const burgerBtn = $("#btn-burger");
+  if (overlay && menu) {
+    overlay.classList.add("active");
+    menu.classList.add("active");
+    menu.setAttribute("aria-hidden", "false");
+    if (burgerBtn) burgerBtn.setAttribute("aria-expanded", "true");
+    document.body.style.overflow = "hidden";
+    highlightActiveDrawerItem();
+    setTimeout(() => {
+      const dSearch = $("#drawer-search-input");
+      if (dSearch) dSearch.focus();
+    }, 200);
+  }
+}
+
+function closeDrawer() {
+  const overlay = $("#drawer-overlay");
+  const menu = $("#drawer-menu");
+  const burgerBtn = $("#btn-burger");
+  if (overlay && menu) {
+    overlay.classList.remove("active");
+    menu.classList.remove("active");
+    menu.setAttribute("aria-hidden", "true");
+    if (burgerBtn) burgerBtn.setAttribute("aria-expanded", "false");
+    document.body.style.overflow = "";
+    const dSearch = $("#drawer-search-input");
+    if (dSearch && dSearch.value) {
+      dSearch.value = "";
+      filterDrawerItems("");
+    }
+  }
+}
+
+function toggleDrawer() {
+  const menu = $("#drawer-menu");
+  if (menu && menu.classList.contains("active")) {
+    closeDrawer();
+  } else {
+    openDrawer();
+  }
+}
+
+function highlightActiveDrawerItem() {
+  document.querySelectorAll(".drawer-item[data-k]").forEach(item => {
+    if (item.dataset.k === cur) {
+      item.classList.add("active");
+    } else {
+      item.classList.remove("active");
+    }
+  });
+}
+
+function filterDrawerItems(query) {
+  const q = (query || "").trim().toLowerCase();
+  const sections = document.querySelectorAll(".drawer-section");
+  sections.forEach(sec => {
+    let hasVisibleItem = false;
+    const items = sec.querySelectorAll(".drawer-item");
+    items.forEach(item => {
+      const text = item.textContent.toLowerCase();
+      if (!q || text.includes(q)) {
+        item.style.display = "";
+        hasVisibleItem = true;
+      } else {
+        item.style.display = "none";
+      }
+    });
+    sec.style.display = (!q || hasVisibleItem) ? "" : "none";
+  });
+}
+
+function updateFiliereBadges() {
+  const filNames = {
+    sp: { short: "Sciences Physiques", full: "Sciences Physiques (BIOF)" },
+    svt: { short: "SVT", full: "Sciences de la Vie et de la Terre (BIOF)" },
+    sma: { short: "Sc. Maths A", full: "Sciences Mathématiques A (BIOF)" }
+  };
+  const info = filNames[fil] || filNames.sp;
+  const hBadge = $("#header-fil-badge");
+  if (hBadge) hBadge.textContent = info.short;
+  const dBadge = $("#drawer-fil-badge");
+  if (dBadge) dBadge.textContent = info.full;
+  const dSel = $("#drawer-fil-select");
+  if (dSel && dSel.value !== fil) dSel.value = fil;
+  const hSel = $("#fil");
+  if (hSel && hSel.value !== fil) hSel.value = fil;
+
+  // Coefficients dynamiques par filière
+  let cPC = 7, cM = 7, cSVT = 5;
+  if (fil === "svt") { cPC = 5; cM = 7; cSVT = 7; }
+  else if (fil === "sma") { cPC = 7; cM = 9; cSVT = 3; }
+
+  const coeffPCEl = document.getElementById("d-coeff-pc");
+  if (coeffPCEl) coeffPCEl.textContent = `Coeff ${cPC}`;
+  const coeffMEl = document.getElementById("d-coeff-m");
+  if (coeffMEl) coeffMEl.textContent = `Coeff ${cM}`;
+  const coeffSVTEl = document.getElementById("d-coeff-svt");
+  if (coeffSVTEl) coeffSVTEl.textContent = `Coeff ${cSVT}`;
+}
+
 // TABS NAVIGATION
+const SECONDARY_TABS = {
+  fr: { label: "📚 Français (CC)" },
+  ar: { label: "📖 Arabe (CC)" },
+  ei: { label: "🕌 Éduc. Islamique (CC)" },
+  cadre: { label: "🎯 Simulateur & Cadre SP" },
+  concours: { label: "🎓 Concours & CursusSup" },
+  profs: { label: "🎬 Top Profs YouTube" },
+  pdf: { label: "📂 Bibliothèque PDF (625+)" },
+  qcm: { label: "🤖 QCM IA" },
+  pomo: { label: "⏱️ Pomodoro" },
+  stats: { label: "📊 Bilan" },
+  x: { label: "🌐 Sources" }
+};
+
 function navigateTab(tabKey) {
   cur = tabKey;
   st("cur_tab", cur);
+  closeDrawer();
   render();
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 function tabs() {
   const tabsContainer = $("#tabs");
   let html = `
-    <button class="tab ${cur === 'pc' ? 'on' : ''}" data-k="pc">⚗️ Physique-Chimie (Coeff 7)</button>
-    <button class="tab ${cur === 'm' ? 'on' : ''}" data-k="m">📐 Maths (Coeff 7)</button>
-    <button class="tab ${cur === 'svt' ? 'on' : ''}" data-k="svt">🧬 SVT (Coeff 5)</button>
-    <button class="tab ${cur === 'en' ? 'on' : ''}" data-k="en">🇬🇧 Anglais (Coeff 2)</button>
-    <button class="tab ${cur === 'ph' ? 'on' : ''}" data-k="ph">🧠 Philo (Coeff 2)</button>
-    <button class="tab ${cur === 'fr' ? 'on' : ''}" data-k="fr">📚 Français (CC)</button>
-    <button class="tab ${cur === 'ar' ? 'on' : ''}" data-k="ar">📖 Arabe (CC)</button>
-    <button class="tab ${cur === 'ei' ? 'on' : ''}" data-k="ei">🕌 Éduc. Islamique (CC)</button>
-    <button class="tab ${cur === 'cadre' ? 'on' : ''}" data-k="cadre">🎯 Simulateur & Cadre SP</button>
-    <button class="tab ${cur === 'concours' ? 'on' : ''}" data-k="concours" style="font-weight:800; border-color:#06b6d4; color:${cur === 'concours' ? '#fff' : '#06b6d4'}">🎓 Concours & CursusSup</button>
-    <button class="tab ${cur === 'profs' ? 'on' : ''}" data-k="profs" style="font-weight:800; border-color:#ef4444; color:${cur === 'profs' ? '#fff' : '#ef4444'}">🎬 Top Profs YouTube</button>
-    <button class="tab ${cur === 'pdf' ? 'on' : ''}" data-k="pdf" style="font-weight:800; border-color:#a855f7; color:${cur === 'pdf' ? '#fff' : '#c084fc'}">📂 Bibliothèque PDF (625+ Classés)</button>
-    <button class="tab ${cur === 'qcm' ? 'on' : ''}" data-k="qcm" style="font-weight:800; border-color:var(--a); color:${cur === 'qcm' ? '#fff' : 'var(--a)'}">🤖 QCM IA</button>
-    <button class="tab ${cur === 'pomo' ? 'on' : ''}" data-k="pomo">⏱️ Pomodoro</button>
-    <button class="tab ${cur === 'stats' ? 'on' : ''}" data-k="stats">📊 Bilan</button>
-    <button class="tab ${cur === 'x' ? 'on' : ''}" data-k="x">🌐 Sources</button>
+    <button class="tab ${cur === 'pc' ? 'on' : ''}" data-k="pc">⚗️ Physique-Chimie</button>
+    <button class="tab ${cur === 'm' ? 'on' : ''}" data-k="m">📐 Maths</button>
+    <button class="tab ${cur === 'svt' ? 'on' : ''}" data-k="svt">🧬 SVT</button>
+    <button class="tab ${cur === 'en' ? 'on' : ''}" data-k="en">🇬🇧 Anglais</button>
+    <button class="tab ${cur === 'ph' ? 'on' : ''}" data-k="ph">🧠 Philo</button>
   `;
+
+  if (SECONDARY_TABS[cur]) {
+    html += `
+      <button class="tab on" data-k="${cur}">${SECONDARY_TABS[cur].label}</button>
+    `;
+  }
+
+  html += `
+    <button class="tab tab-burger-trigger" onclick="openDrawer()" title="Ouvrir le menu complet pour voir toutes les matières, simulateurs et outils">☰ Tous les outils…</button>
+  `;
+
   tabsContainer.innerHTML = html;
+  highlightActiveDrawerItem();
 }
 
 function yt(q) {
@@ -3270,6 +3951,7 @@ window.togglePomo = togglePomo;
 
 // MAIN RENDER FUNCTION
 function render() {
+  updateFiliereBadges();
   tabs();
   const A = $("#app");
 
@@ -4206,11 +4888,54 @@ $("#fil").onchange = e => {
   render();
 };
 
+const dFilSel = $("#drawer-fil-select");
+if (dFilSel) {
+  dFilSel.value = fil;
+  dFilSel.onchange = e => {
+    fil = e.target.value;
+    st("fil", fil);
+    render();
+  };
+}
+
+// BURGER DRAWER LISTENERS
+const btnBurger = $("#btn-burger");
+if (btnBurger) btnBurger.onclick = () => toggleDrawer();
+
+const drawerClose = $("#drawer-close");
+if (drawerClose) drawerClose.onclick = () => closeDrawer();
+
+const drawerOverlay = $("#drawer-overlay");
+if (drawerOverlay) drawerOverlay.onclick = () => closeDrawer();
+
+const dSearch = $("#drawer-search-input");
+if (dSearch) {
+  dSearch.oninput = () => filterDrawerItems(dSearch.value);
+}
+
 // SETTINGS & BACKUP MODAL
 const modal = $("#modal-settings");
-$("#btn-settings").onclick = () => modal.style.display = "flex";
+const openSettingsModal = () => {
+  closeDrawer();
+  modal.style.display = "flex";
+};
+const btnSettings = $("#btn-settings");
+if (btnSettings) btnSettings.onclick = openSettingsModal;
+const btnDrawerSettings = $("#btn-drawer-settings");
+if (btnDrawerSettings) btnDrawerSettings.onclick = openSettingsModal;
+
 $("#modal-close").onclick = () => modal.style.display = "none";
 modal.onclick = e => { if (e.target === modal) modal.style.display = "none"; };
+
+// KEYBOARD ACCESSIBILITY (ESC TO CLOSE DRAWER & MODALS)
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") {
+    closeDrawer();
+    const memo = $("#modal-memo");
+    if (memo) memo.style.display = "none";
+    if (modal) modal.style.display = "none";
+  }
+});
 
 // EXPORT JSON
 $("#btn-export").onclick = () => {
