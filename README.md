@@ -47,7 +47,6 @@ python telecharger_examens.py
 ```text
 BAC2026/
 ├── index.html                   # Application principale PWA enrichie
-├── 2BAC Maroc – Hub de révision.html
 ├── manifest.webmanifest         # Configuration PWA
 ├── sw.js                        # Service Worker (Cache hors-ligne)
 ├── icon.svg / icon-192.png / icon-512.png

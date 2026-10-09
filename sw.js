@@ -1,9 +1,9 @@
 /**
- * 2BAC Maroc 2026 - Service Worker PWA (v2.7.1)
+ * 2BAC Maroc 2026 - Service Worker PWA (v2.7.2)
  * Support 100% Hors-Ligne, Cache résilient & Compatibilité Cloudflare Pages
  */
 
-const CACHE_NAME = 'bac-maroc-v2.7.1';
+const CACHE_NAME = 'bac-maroc-v2.7.2';
 
 const ASSETS_TO_CACHE = [
   './',
@@ -63,13 +63,15 @@ self.addEventListener('fetch', (event) => {
   if (url.origin === location.origin) {
     event.respondWith(
       (async () => {
-        // A. Correspondance exacte dans le cache
-        let cached = await caches.match(event.request);
+        // A. Correspondance dans le cache (ignorer les query strings comme ?v=2.7.1)
+        let cached = await caches.match(event.request, { ignoreSearch: true });
         if (cached) return cached;
 
         // B. Gestion canonique de la racine / et index.html
         if (url.pathname === '/' || url.pathname === '/index.html' || url.pathname.endsWith('/')) {
-          cached = (await caches.match('./')) || (await caches.match('./index.html')) || (await caches.match('/'));
+          cached = (await caches.match('./', { ignoreSearch: true })) || 
+                   (await caches.match('./index.html', { ignoreSearch: true })) || 
+                   (await caches.match('/', { ignoreSearch: true }));
           if (cached) return cached;
         }
 
@@ -84,7 +86,8 @@ self.addEventListener('fetch', (event) => {
         } catch (err) {
           // D. Fallback hors-ligne pour la navigation
           if (event.request.mode === 'navigate') {
-            const fallback = (await caches.match('./')) || (await caches.match('./index.html'));
+            const fallback = (await caches.match('./', { ignoreSearch: true })) || 
+                             (await caches.match('./index.html', { ignoreSearch: true }));
             if (fallback) return fallback;
           }
           throw err;

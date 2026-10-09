@@ -690,9 +690,42 @@ ${pdfText.slice(0, 14000)}
   return parsed;
 }
 
+// Fonction utilitaire de mélange des options (Fisher-Yates)
+function shuffleQuestionOptions(question) {
+  if (!question || !Array.isArray(question.options) || question.options.length <= 1) {
+    return { ...question };
+  }
+  const pairs = question.options.map((opt, i) => ({
+    opt,
+    isCorrect: (i === question.answer)
+  }));
+  for (let i = pairs.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    const temp = pairs[i];
+    pairs[i] = pairs[j];
+    pairs[j] = temp;
+  }
+  const newAnswer = pairs.findIndex(p => p.isCorrect);
+  return {
+    ...question,
+    options: pairs.map(p => p.opt),
+    answer: newAnswer >= 0 ? newAnswer : 0
+  };
+}
+
+function prepareQuiz(quizData) {
+  if (!quizData) return null;
+  const questions = (quizData.questions || []).map(q => shuffleQuestionOptions(q));
+  return {
+    ...quizData,
+    questions
+  };
+}
+
 // 7. Lancement d'un QCM
 function startQuiz(quizData) {
-  QcmPlayerState.activeQuiz = quizData;
+  const prepared = prepareQuiz(quizData);
+  QcmPlayerState.activeQuiz = prepared;
   QcmPlayerState.currentIndex = 0;
   QcmPlayerState.score = 0;
   QcmPlayerState.userAnswers = [];
@@ -709,6 +742,22 @@ function startQuiz(quizData) {
       timerEl.textContent = `${m}:${s}`;
     }
   }, 1000);
+
+  // Basculer sur l'onglet QCM si nécessaire
+  if (typeof cur !== 'undefined' && cur !== 'qcm') {
+    cur = 'qcm';
+    if (typeof st === 'function') st('cur_tab', 'qcm');
+    if (typeof tabs === 'function') tabs();
+  }
+
+  // S'assurer que le conteneur #qcm-player-wrapper est présent dans le DOM
+  let container = document.getElementById("qcm-player-wrapper");
+  if (!container) {
+    const appEl = document.getElementById("app");
+    if (appEl) {
+      appEl.innerHTML = `<div id="qcm-player-wrapper"></div>`;
+    }
+  }
 
   renderQcmPlayer();
 }
@@ -916,12 +965,7 @@ function renderQcmResults(container) {
 // 13. Fonction globale pour lancer directement un QCM depuis la bibliothèque PDF
 function launchPdfQcm(quizKey) {
   if (PRESET_QCM_DB[quizKey]) {
-    if (typeof navigateTab === 'function') {
-      navigateTab('qcm');
-    }
-    setTimeout(() => {
-      startQuiz(PRESET_QCM_DB[quizKey]);
-    }, 50);
+    startQuiz(PRESET_QCM_DB[quizKey]);
   } else {
     alert("QCM non configuré pour ce sujet spécifique.");
   }

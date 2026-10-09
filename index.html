@@ -1725,8 +1725,8 @@
 <div class="cd-banner" id="countdown">
   <div class="cd-title">
     <span style="font-size:17px">⏳</span>
-    <span>Examen National Bac 2027 (Session Normale) :</span>
-    <span class="badge-biof" style="margin-left:4px; font-size:11px; font-weight:800; background:linear-gradient(135deg,rgba(16,185,129,0.15),rgba(6,182,212,0.15)); color:var(--ok); border-color:rgba(16,185,129,0.3)">🇲🇦 Session Juin 2027</span>
+    <span>Examen National Bac 2026 (Session Normale) :</span>
+    <span class="badge-biof" style="margin-left:4px; font-size:11px; font-weight:800; background:linear-gradient(135deg,rgba(16,185,129,0.15),rgba(6,182,212,0.15)); color:var(--ok); border-color:rgba(16,185,129,0.3)">🇲🇦 Session Juin 2026</span>
   </div>
   <div class="cd-boxes">
     <div class="cd-unit cd-unit-days"><span class="cd-val" id="cd-days">--</span><span class="cd-lbl">Jours</span></div>
@@ -2632,9 +2632,9 @@ $("#th").onclick = () => {
   applyTheme(current === "dark" ? "light" : "dark");
 };
 
-// COUNTDOWN BAC 2027 (MAROC)
-// Examen National Unifié du Baccalauréat 2027 (Session Normale - Début officiel le Mardi 8 Juin 2027 à 08h00)
-const targetBacDate = new Date("2027-06-08T08:00:00").getTime();
+// COUNTDOWN BAC 2026 (MAROC)
+// Examen National Unifié du Baccalauréat 2026 (Session Normale - Début officiel le Mardi 9 Juin 2026 à 08h00)
+const targetBacDate = new Date("2026-06-09T08:00:00").getTime();
 function updateCountdown() {
   const now = new Date().getTime();
   const diff = targetBacDate - now;
@@ -2726,6 +2726,14 @@ function pausePomo() {
   if (btnStart) btnStart.textContent = "▶️ Reprendre";
 }
 
+function togglePomo() {
+  if (pomoRunning) {
+    pausePomo();
+  } else {
+    startPomo();
+  }
+}
+
 function resetPomo() {
   pausePomo();
   if (pomoMode === "focus") pomoTimeLeft = 25 * 60;
@@ -2815,17 +2823,34 @@ $("#modal-memo").onclick = e => { if (e.target === $("#modal-memo")) $("#modal-m
 
 // SIMULATOR CALCULATION
 function calcSimScore() {
-  const r = parseFloat($("#sim-reg").value) || 0;
-  const cc = parseFloat($("#sim-cc").value) || 0;
-  const pc = parseFloat($("#sim-pc").value) || 0;
-  const m = parseFloat($("#sim-m").value) || 0;
-  const svt = parseFloat($("#sim-svt").value) || 0;
-  const en = parseFloat($("#sim-en").value) || 0;
-  const ph = parseFloat($("#sim-ph").value) || 0;
+  const rEl = $("#sim-reg");
+  const ccEl = $("#sim-cc");
+  const pcEl = $("#sim-pc");
+  const mEl = $("#sim-m");
+  const svtEl = $("#sim-svt");
+  const enEl = $("#sim-en");
+  const phEl = $("#sim-ph");
 
-  // National total coeff = 7 + 7 + 5 + 2 + 2 = 23
-  const natScore = (pc * 7 + m * 7 + svt * 5 + en * 2 + ph * 2) / 23;
-  // Bac final = 25% Régional + 25% CC + 50% National
+  const r = parseFloat(rEl ? rEl.value : 14) || 0;
+  const cc = parseFloat(ccEl ? ccEl.value : 15) || 0;
+  const pc = parseFloat(pcEl ? pcEl.value : 16) || 0;
+  const m = parseFloat(mEl ? mEl.value : 15.5) || 0;
+  const svt = parseFloat(svtEl ? svtEl.value : 14.5) || 0;
+  const en = parseFloat(enEl ? enEl.value : 16) || 0;
+  const ph = parseFloat(phEl ? phEl.value : 13) || 0;
+
+  // Sauvegarde locale de la simulation
+  st("sim_notes", JSON.stringify({ r, cc, pc, m, svt, en, ph }));
+
+  // Coefficients adaptés par filière officielle
+  let coeffPC = 7, coeffM = 7, coeffSVT = 5, coeffEN = 2, coeffPH = 2;
+  if (fil === "svt") {
+    coeffPC = 5; coeffM = 7; coeffSVT = 7;
+  } else if (fil === "sma") {
+    coeffPC = 7; coeffM = 9; coeffSVT = 3;
+  }
+  const totalCoeff = coeffPC + coeffM + coeffSVT + coeffEN + coeffPH;
+  const natScore = (pc * coeffPC + m * coeffM + svt * coeffSVT + en * coeffEN + ph * coeffPH) / totalCoeff;
   const total = (r * 0.25) + (cc * 0.25) + (natScore * 0.50);
 
   const totalEl = $("#sim-total");
@@ -2877,7 +2902,10 @@ function calcConcoursScore() {
 
 // PARTAGE WHATSAPP UNIVERSEL & PERSONNALISÉ
 function shareOnWhatsApp(extraMessage) {
-  const currentUrl = window.location.href.split('#')[0];
+  let currentUrl = window.location.href.split('#')[0];
+  if (window.location.protocol === 'file:') {
+    currentUrl = "https://bac-maroc-2026.pages.dev/";
+  }
   let msg = "";
 
   if (extraMessage && typeof extraMessage === 'string') {
@@ -2918,291 +2946,9 @@ function shareConcoursScore() {
   shareOnWhatsApp(text);
 }
 
-// MAIN RENDER FUNCTION
-function render() {
-  tabs();
-  const A = $("#app");
-
-  // VIEW: CADRE SP & SIMULATEUR
-  if (cur === "cadre") {
-    A.innerHTML = `
-      <h2>🎯 Cadre de référence officiel & Simulateur de Note (Filière Sciences Physiques)</h2>
-      
-      <div class="note">
-        <b>Répartition officielle des coefficients 2BAC SP :</b> Physique-Chimie (<b>7</b>), Mathématiques (<b>7</b>), SVT (<b>5</b>), Anglais (<b>2</b>), Philosophie (<b>2</b>).<br>
-        Le National représente <b>50%</b> de la note globale du Baccalauréat, le Régional <b>25%</b> et le Contrôle Continu <b>25%</b>.
-      </div>
-
-      <div class="sim-card">
-        <h3 style="margin-top:0">🧮 Simulateur de Moyenne & Mention Bac 2026</h3>
-        <p style="color:var(--m); font-size:13px">Saisissez vos notes réelles ou prévisionnelles pour tester vos chances de décrocher une mention :</p>
-        
-        <div class="sim-grid">
-          <div class="sim-item">
-            <label>Régional 1BAC (25%)</label>
-            <input type="number" id="sim-reg" value="14.00" min="0" max="20" step="0.25" oninput="calcSimScore()">
-          </div>
-          <div class="sim-item">
-            <label>Contrôle Continu 2BAC (25%)</label>
-            <input type="number" id="sim-cc" value="15.00" min="0" max="20" step="0.25" oninput="calcSimScore()">
-          </div>
-          <div class="sim-item">
-            <label>Physique-Chimie (Coeff 7)</label>
-            <input type="number" id="sim-pc" value="16.00" min="0" max="20" step="0.25" oninput="calcSimScore()">
-          </div>
-          <div class="sim-item">
-            <label>Mathématiques (Coeff 7)</label>
-            <input type="number" id="sim-m" value="15.50" min="0" max="20" step="0.25" oninput="calcSimScore()">
-          </div>
-          <div class="sim-item">
-            <label>SVT (Coeff 5)</label>
-            <input type="number" id="sim-svt" value="14.50" min="0" max="20" step="0.25" oninput="calcSimScore()">
-          </div>
-          <div class="sim-item">
-            <label>Anglais (Coeff 2)</label>
-            <input type="number" id="sim-en" value="16.00" min="0" max="20" step="0.25" oninput="calcSimScore()">
-          </div>
-          <div class="sim-item">
-            <label>Philosophie (Coeff 2)</label>
-            <input type="number" id="sim-ph" value="13.00" min="0" max="20" step="0.25" oninput="calcSimScore()">
-          </div>
-        </div>
-
-        <div class="sim-result">
-          <div style="font-size:13px; color:var(--m)">Moyenne prévisionnelle à l'Examen National : <b id="sim-nat">--</b></div>
-          <div class="sim-score" id="sim-total">--</div>
-          <div class="sim-mention" id="sim-mention">--</div>
-          <div style="margin-top:14px">
-            <button class="btn-wa" onclick="shareSimScore()" style="padding:8px 16px; font-size:13px" title="Partager mon estimation de mention sur WhatsApp">💬 Partager ma simulation sur WhatsApp</button>
-          </div>
-        </div>
-      </div>
-
-      <h2>🏛️ Examens Blancs d'Excellence avec Corrections (Maroc)</h2>
-      <div class="grid">
-        ${EXAM_BLANCS.map(eb => `
-          <div class="card">
-            <h3>${eb.titre}</h3>
-            <div class="lk">
-              <a target="_blank" rel="noopener" href="${eb.url}">📄 Ouvrir le sujet & corrigé ↗</a>
-            </div>
-          </div>
-        `).join("")}
-      </div>
-
-      <h2>📋 Répartition des points au National en Physique-Chimie (20 points)</h2>
-      <div class="tw">
-        <table>
-          <tr>
-            <th>Domaine</th>
-            <th>Chapitres inclus</th>
-            <th>Poids moyen</th>
-            <th>Durée conseillée</th>
-          </tr>
-          <tr>
-            <td><b>Chimie Générale & Organique</b></td>
-            <td>Cinétique, Équilibres, Acide-Base, Piles, Électrolyse, Estérification</td>
-            <td><b>7 points</b> (35%)</td>
-            <td>~65 minutes</td>
-          </tr>
-          <tr>
-            <td><b>Physique : Ondes</b></td>
-            <td>Ondes mécaniques, lumineuses, diffraction, dispersion</td>
-            <td><b>2,5 à 3 points</b></td>
-            <td>~25 minutes</td>
-          </tr>
-          <tr>
-            <td><b>Physique : Nucléaire</b></td>
-            <td>Décroissance radioactive, énergie de liaison, fission/fusion</td>
-            <td><b>2 à 2,5 points</b></td>
-            <td>~25 minutes</td>
-          </tr>
-          <tr>
-            <td><b>Physique : Électricité</b></td>
-            <td>Dipôles RC, RL, RLC libre, Modulation d'amplitude</td>
-            <td><b>4,5 à 5 points</b></td>
-            <td>~45 minutes</td>
-          </tr>
-          <tr>
-            <td><b>Physique : Mécanique</b></td>
-            <td>Lois de Newton, Chute, Projectile, Satellites, Oscillations, Énergie</td>
-            <td><b>5 à 5,5 points</b></td>
-            <td>~50 minutes</td>
-          </tr>
-        </table>
-      </div>
-
-      <h2>📋 Répartition officielle des points en Mathématiques (20 points – Coeff 7)</h2>
-      <div class="tw">
-        <table>
-          <tr>
-            <th>Domaine</th>
-            <th>Contenu & Notions exigibles</th>
-            <th>Poids Cadre</th>
-            <th>Durée conseillée</th>
-          </tr>
-          <tr>
-            <td><b>Analyse & Fonctions</b></td>
-            <td>Limites, continuité, T.V.I, dérivabilité, suites numériques, fonctions ln et exponentielles, primitives, calcul intégral, équations différentielles</td>
-            <td><b>11 à 12 points</b> (~55%)</td>
-            <td>~100 minutes</td>
-          </tr>
-          <tr>
-            <td><b>Nombres Complexes</b></td>
-            <td>Forme algébrique, trigonométrique, exponentielle, équations dans ℂ, transformations géométriques (translation, homothétie, rotation)</td>
-            <td><b>3 points</b> (15%)</td>
-            <td>~25 minutes</td>
-          </tr>
-          <tr>
-            <td><b>Géométrie dans l'Espace</b></td>
-            <td>Produit scalaire, produit vectoriel, équations cartésiennes de plans et sphères, distance d'un point à un plan/droite</td>
-            <td><b>3 points</b> (15%)</td>
-            <td>~25 minutes</td>
-          </tr>
-          <tr>
-            <td><b>Calcul des Probabilités</b></td>
-            <td>Dénombrement (arrangements, combinaisons), probabilités conditionnelles, variables aléatoires et loi binomiale</td>
-            <td><b>3 points</b> (15%)</td>
-            <td>~30 minutes</td>
-          </tr>
-        </table>
-      </div>
-
-      <h2>📋 Répartition officielle des points en SVT (20 points – Coeff 5)</h2>
-      <div class="tw">
-        <table>
-          <tr>
-            <th>Unité du Programme</th>
-            <th>Chapitres & Compétences évaluées</th>
-            <th>Poids indicatif</th>
-            <th>Durée conseillée</th>
-          </tr>
-          <tr>
-            <td><b>1. Énergie & ATP</b></td>
-            <td>Consommation de la matière organique, glycolyse, cycle de Krebs, chaîne respiratoire, fermentation, contraction musculaire</td>
-            <td><b>5 points</b> (25%)</td>
-            <td>~30 minutes</td>
-          </tr>
-          <tr>
-            <td><b>2. Information Génétique</b></td>
-            <td>Nature et mécanisme d'expression de l'ADN, transcription, traduction, mutations, méiose, fécondation, génétique humaine</td>
-            <td><b>5 points</b> (25%)</td>
-            <td>~30 minutes</td>
-          </tr>
-          <tr>
-            <td><b>3. Déchets & Pollution</b></td>
-            <td>Utilisation des matières organiques et inorganiques, gestion des déchets ménagers, pollutions de l'air/eau/sol, énergies renouvelables</td>
-            <td><b>5 points</b> (25%)</td>
-            <td>~30 minutes</td>
-          </tr>
-          <tr>
-            <td><b>4. Géologie & Tectonique</b></td>
-            <td>Formation des chaînes de montagnes (subduction, obduction, collision), métamorphisme, granitisation et tectonique globale</td>
-            <td><b>5 points</b> (25%)</td>
-            <td>~30 minutes</td>
-          </tr>
-        </table>
-      </div>
-    `;
-    calcSimScore();
-    return;
-  }
-
-  // VIEW: CONCOURS POST-BAC & SEUILS DE PRÉSÉLECTION (CURSUSSUP)
-  if (cur === "concours") {
-    A.innerHTML = `
-      <h2>🎓 Concours Post-Bac & Seuils de Présélection 2026 (CursusSup Maroc)</h2>
-      <div class="note">
-        <b>📌 Formule officielle de sélection ministérielle (Plateforme CursusSup) :</b><br>
-        Pour la présélection aux épreuves écrites des grandes écoles d'ingénieurs, de médecine et d'architecture au Maroc, le classement s'effectue automatiquement selon la pondération légale :<br>
-        <div style="font-size:16px; font-weight:800; color:var(--a); margin:10px 0; text-align:center; background:var(--c); padding:12px; border-radius:14px; border:1.5px solid var(--b-hover)">
-          Moyenne de Présélection = (Note Examen National × 0,75) + (Note Examen Régional × 0,25)
-        </div>
-        <i>💡 Règle clé :</i> Le Contrôle Continu ne compte pas dans la sélection de ces concours ! Le National compte pour <b>75%</b>. Une fois convoqué à l'épreuve écrite, seule votre note au concours (QCM) détermine votre admission finale.
-      </div>
-
-      <div class="sim-card">
-        <h3 style="margin-top:0">🧮 Simulateur de Score de Présélection Concours</h3>
-        <p style="color:var(--m); font-size:13px">Ajustez vos notes estimées pour tester instantanément votre admissibilité dans chaque école :</p>
-        
-        <div class="sim-grid">
-          <div class="sim-item">
-            <label>Note Examen Régional 1BAC (25%)</label>
-            <input type="number" id="concours-reg" value="14.00" min="0" max="20" step="0.25" oninput="calcConcoursScore()">
-          </div>
-          <div class="sim-item">
-            <label>Note Examen National 2BAC (75%)</label>
-            <input type="number" id="concours-nat" value="15.00" min="0" max="20" step="0.25" oninput="calcConcoursScore()">
-          </div>
-        </div>
-
-        <div class="sim-result">
-          <div style="font-size:13px; color:var(--m)">Votre Note Pondérée CursusSup :</div>
-          <div class="sim-score" id="concours-score">14.75 / 20</div>
-          <div style="font-size:12.5px; color:var(--t-dim); margin-top:6px">Consultez ci-dessous votre admissibilité prévisionnelle école par école 👇</div>
-          <div style="margin-top:14px">
-            <button class="btn-wa" onclick="shareConcoursScore()" style="padding:8px 16px; font-size:13px" title="Partager mon score CursusSup sur WhatsApp">💬 Partager mon score CursusSup sur WhatsApp</button>
-          </div>
-        </div>
-      </div>
-
-      <h2>🏛️ Les Grandes Écoles & Seuils Observés (Filière Sciences Physiques)</h2>
-      <div class="grid">
-        ${CONCOURS_LIST.map((c, i) => `
-          <div class="card" style="padding:20px">
-            <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:10px; flex-wrap:wrap">
-              <div>
-                <span class="badge" style="background:var(--a-subtle); color:var(--a); margin-bottom:6px">${c.type}</span>
-                <h3 style="margin:4px 0">${c.nom}</h3>
-              </div>
-              <div id="concours-badge-${i}"></div>
-            </div>
-            <p style="font-size:13.5px; color:var(--t-dim); margin:10px 0 6px">${c.desc}</p>
-            <div style="background:var(--bg); border:1px solid var(--b); border-radius:12px; padding:10px 12px; margin:8px 0; font-size:12.5px">
-              <b>📝 Format des épreuves :</b> ${c.epreuves}
-            </div>
-            <div class="lk">
-              <a target="_blank" rel="noopener" href="${c.portail}">🌐 Portail officiel de candidature ↗</a>
-              <button class="btn-icon" style="border-color:var(--a); color:var(--a); font-weight:700" onclick="navigateTab('qcm')">🤖 S'entraîner en QCM</button>
-            </div>
-          </div>
-        `).join("")}
-      </div>
-    `;
-    calcConcoursScore();
-    return;
-  }
-
-  // VIEW: TOP PROFS YOUTUBE BIOF
-  if (cur === "profs") {
-    A.innerHTML = `
-      <h2>🎬 Les Meilleurs Professeurs & Chaînes YouTube (Spécial 2BAC BIOF Maroc)</h2>
-      <div class="note">
-        <b>⭐ Sélection plébiscitée par les bacheliers et inspecteurs marocains :</b><br>
-        Retrouvez ici les enseignants les plus réputés du Maroc, parfaitement alignés avec le Cadre de Référence officiel du Bac 2026. Cliquez sur n'importe quelle chaîne pour accéder instantanément à ses cours complets, résumés et corrections d'examens nationaux.
-      </div>
-
-      <div class="grid">
-        ${PROFS_YOUTUBE.map(p => `
-          <div class="card" style="padding:20px">
-            <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:10px; margin-bottom:8px">
-              <div>
-                <span class="badge" style="background:rgba(239, 68, 68, 0.1); color:#ef4444">${p.badge}</span>
-                <h3 style="margin:6px 0 2px">${p.nom}</h3>
-                <small style="color:var(--m); font-weight:600">${p.matiere} • ${p.subscribers}</small>
-              </div>
-            </div>
-            <p style="font-size:13.5px; color:var(--t-dim); line-height:1.45; margin:10px 0 14px">${p.specialite}</p>
-            <div class="lk">
-              <a class="yt" target="_blank" rel="noopener" href="${p.url}">▶ Ouvrir les vidéos & playlists YouTube ↗</a>
-            </div>
-          </div>
-        `).join("")}
-      </div>
-    `;
-    return;
-  }
-
+// ========================================================
+// CATALOGUE PDF & FILTRAGE DYNAMIQUE (TOP-LEVEL SCOPE)
+// ========================================================
 const NATIONAL_EXAMS_PDF = [
   // PC
   { matiere: "physique_chimie", categorie: "national", titre: "🏛️ PC National 2024 – Session Normale (Sujet BIOF)", fichier: "./pdf/physique_chimie/national/PC_National_2024_Normale_Sujet_BIOF.pdf", taille_ko: 1540 },
@@ -3512,6 +3258,316 @@ function renderPdfCatalogueGrid() {
   }
 }
 
+
+// Exposer globalement pour les attributs HTML onclick/oninput
+window.setPdfFilterMatiere = setPdfFilterMatiere;
+window.setPdfFilterType = setPdfFilterType;
+window.setPdfFilterYear = setPdfFilterYear;
+window.resetAllPdfFilters = resetAllPdfFilters;
+window.filterPdfCatalogue = filterPdfCatalogue;
+window.showMorePdfItems = showMorePdfItems;
+window.togglePomo = togglePomo;
+
+// MAIN RENDER FUNCTION
+function render() {
+  tabs();
+  const A = $("#app");
+
+  // VIEW: CADRE SP & SIMULATEUR
+  if (cur === "cadre") {
+    let savedNotes = {};
+    try { savedNotes = JSON.parse(st("sim_notes") || "{}"); } catch(e) { savedNotes = {}; }
+    const sR = (savedNotes.r !== undefined) ? savedNotes.r : 14.00;
+    const sCC = (savedNotes.cc !== undefined) ? savedNotes.cc : 15.00;
+    const sPC = (savedNotes.pc !== undefined) ? savedNotes.pc : 16.00;
+    const sM = (savedNotes.m !== undefined) ? savedNotes.m : 15.50;
+    const sSVT = (savedNotes.svt !== undefined) ? savedNotes.svt : 14.50;
+    const sEN = (savedNotes.en !== undefined) ? savedNotes.en : 16.00;
+    const sPH = (savedNotes.ph !== undefined) ? savedNotes.ph : 13.00;
+
+    let coeffPC = 7, coeffM = 7, coeffSVT = 5;
+    let filLabel = "Sciences Physiques (SP)";
+    if (fil === "svt") { coeffPC = 5; coeffM = 7; coeffSVT = 7; filLabel = "SVT"; }
+    else if (fil === "sma") { coeffPC = 7; coeffM = 9; coeffSVT = 3; filLabel = "Sciences Mathématiques A"; }
+
+    A.innerHTML = `
+      <h2>🎯 Cadre de référence officiel & Simulateur de Note (${filLabel})</h2>
+      
+      <div class="note">
+        <b>Répartition officielle des coefficients (${filLabel}) :</b> Physique-Chimie (<b>${coeffPC}</b>), Mathématiques (<b>${coeffM}</b>), SVT (<b>${coeffSVT}</b>), Anglais (<b>2</b>), Philosophie (<b>2</b>).<br>
+        Le National représente <b>50%</b> de la note globale du Baccalauréat, le Régional <b>25%</b> et le Contrôle Continu <b>25%</b>.
+      </div>
+
+      <div class="sim-card">
+        <h3 style="margin-top:0">🧮 Simulateur de Moyenne & Mention Bac 2026</h3>
+        <p style="color:var(--m); font-size:13px">Saisissez vos notes réelles ou prévisionnelles pour tester vos chances de décrocher une mention :</p>
+        
+        <div class="sim-grid">
+          <div class="sim-item">
+            <label>Régional 1BAC (25%)</label>
+            <input type="number" id="sim-reg" value="${sR}" min="0" max="20" step="0.25" oninput="calcSimScore()">
+          </div>
+          <div class="sim-item">
+            <label>Contrôle Continu 2BAC (25%)</label>
+            <input type="number" id="sim-cc" value="${sCC}" min="0" max="20" step="0.25" oninput="calcSimScore()">
+          </div>
+          <div class="sim-item">
+            <label>Physique-Chimie (Coeff ${coeffPC})</label>
+            <input type="number" id="sim-pc" value="${sPC}" min="0" max="20" step="0.25" oninput="calcSimScore()">
+          </div>
+          <div class="sim-item">
+            <label>Mathématiques (Coeff ${coeffM})</label>
+            <input type="number" id="sim-m" value="${sM}" min="0" max="20" step="0.25" oninput="calcSimScore()">
+          </div>
+          <div class="sim-item">
+            <label>SVT (Coeff ${coeffSVT})</label>
+            <input type="number" id="sim-svt" value="${sSVT}" min="0" max="20" step="0.25" oninput="calcSimScore()">
+          </div>
+          <div class="sim-item">
+            <label>Anglais (Coeff 2)</label>
+            <input type="number" id="sim-en" value="${sEN}" min="0" max="20" step="0.25" oninput="calcSimScore()">
+          </div>
+          <div class="sim-item">
+            <label>Philosophie (Coeff 2)</label>
+            <input type="number" id="sim-ph" value="${sPH}" min="0" max="20" step="0.25" oninput="calcSimScore()">
+          </div>
+        </div>
+
+        <div class="sim-result">
+          <div style="font-size:13px; color:var(--m)">Moyenne prévisionnelle à l'Examen National : <b id="sim-nat">--</b></div>
+          <div class="sim-score" id="sim-total">--</div>
+          <div class="sim-mention" id="sim-mention">--</div>
+          <div style="margin-top:14px">
+            <button class="btn-wa" onclick="shareSimScore()" style="padding:8px 16px; font-size:13px" title="Partager mon estimation de mention sur WhatsApp">💬 Partager ma simulation sur WhatsApp</button>
+          </div>
+        </div>
+      </div>
+
+      <h2>🏛️ Examens Blancs d'Excellence avec Corrections (Maroc)</h2>
+      <div class="grid">
+        ${EXAM_BLANCS.map(eb => `
+          <div class="card">
+            <h3>${eb.titre}</h3>
+            <div class="lk">
+              <a target="_blank" rel="noopener" href="${eb.url}">📄 Ouvrir le sujet & corrigé ↗</a>
+            </div>
+          </div>
+        `).join("")}
+      </div>
+
+      <h2>📋 Répartition des points au National en Physique-Chimie (20 points)</h2>
+      <div class="tw">
+        <table>
+          <tr>
+            <th>Domaine</th>
+            <th>Chapitres inclus</th>
+            <th>Poids moyen</th>
+            <th>Durée conseillée</th>
+          </tr>
+          <tr>
+            <td><b>Chimie Générale & Organique</b></td>
+            <td>Cinétique, Équilibres, Acide-Base, Piles, Électrolyse, Estérification</td>
+            <td><b>7 points</b> (35%)</td>
+            <td>~65 minutes</td>
+          </tr>
+          <tr>
+            <td><b>Physique : Ondes</b></td>
+            <td>Ondes mécaniques, lumineuses, diffraction, dispersion</td>
+            <td><b>2,5 à 3 points</b></td>
+            <td>~25 minutes</td>
+          </tr>
+          <tr>
+            <td><b>Physique : Nucléaire</b></td>
+            <td>Décroissance radioactive, énergie de liaison, fission/fusion</td>
+            <td><b>2 à 2,5 points</b></td>
+            <td>~25 minutes</td>
+          </tr>
+          <tr>
+            <td><b>Physique : Électricité</b></td>
+            <td>Dipôles RC, RL, RLC libre, Modulation d'amplitude</td>
+            <td><b>4,5 à 5 points</b></td>
+            <td>~45 minutes</td>
+          </tr>
+          <tr>
+            <td><b>Physique : Mécanique</b></td>
+            <td>Lois de Newton, Chute, Projectile, Satellites, Oscillations, Énergie</td>
+            <td><b>5 à 5,5 points</b></td>
+            <td>~50 minutes</td>
+          </tr>
+        </table>
+      </div>
+
+      <h2>📋 Répartition officielle des points en Mathématiques (20 points – Coeff 7)</h2>
+      <div class="tw">
+        <table>
+          <tr>
+            <th>Domaine</th>
+            <th>Contenu & Notions exigibles</th>
+            <th>Poids Cadre</th>
+            <th>Durée conseillée</th>
+          </tr>
+          <tr>
+            <td><b>Analyse & Fonctions</b></td>
+            <td>Limites, continuité, T.V.I, dérivabilité, suites numériques, fonctions ln et exponentielles, primitives, calcul intégral, équations différentielles</td>
+            <td><b>11 à 12 points</b> (~55%)</td>
+            <td>~100 minutes</td>
+          </tr>
+          <tr>
+            <td><b>Nombres Complexes</b></td>
+            <td>Forme algébrique, trigonométrique, exponentielle, équations dans ℂ, transformations géométriques (translation, homothétie, rotation)</td>
+            <td><b>3 points</b> (15%)</td>
+            <td>~25 minutes</td>
+          </tr>
+          <tr>
+            <td><b>Géométrie dans l'Espace</b></td>
+            <td>Produit scalaire, produit vectoriel, équations cartésiennes de plans et sphères, distance d'un point à un plan/droite</td>
+            <td><b>3 points</b> (15%)</td>
+            <td>~25 minutes</td>
+          </tr>
+          <tr>
+            <td><b>Calcul des Probabilités</b></td>
+            <td>Dénombrement (arrangements, combinaisons), probabilités conditionnelles, variables aléatoires et loi binomiale</td>
+            <td><b>3 points</b> (15%)</td>
+            <td>~30 minutes</td>
+          </tr>
+        </table>
+      </div>
+
+      <h2>📋 Répartition officielle des points en SVT (20 points – Coeff 5)</h2>
+      <div class="tw">
+        <table>
+          <tr>
+            <th>Unité du Programme</th>
+            <th>Chapitres & Compétences évaluées</th>
+            <th>Poids indicatif</th>
+            <th>Durée conseillée</th>
+          </tr>
+          <tr>
+            <td><b>1. Énergie & ATP</b></td>
+            <td>Consommation de la matière organique, glycolyse, cycle de Krebs, chaîne respiratoire, fermentation, contraction musculaire</td>
+            <td><b>5 points</b> (25%)</td>
+            <td>~30 minutes</td>
+          </tr>
+          <tr>
+            <td><b>2. Information Génétique</b></td>
+            <td>Nature et mécanisme d'expression de l'ADN, transcription, traduction, mutations, méiose, fécondation, génétique humaine</td>
+            <td><b>5 points</b> (25%)</td>
+            <td>~30 minutes</td>
+          </tr>
+          <tr>
+            <td><b>3. Déchets & Pollution</b></td>
+            <td>Utilisation des matières organiques et inorganiques, gestion des déchets ménagers, pollutions de l'air/eau/sol, énergies renouvelables</td>
+            <td><b>5 points</b> (25%)</td>
+            <td>~30 minutes</td>
+          </tr>
+          <tr>
+            <td><b>4. Géologie & Tectonique</b></td>
+            <td>Formation des chaînes de montagnes (subduction, obduction, collision), métamorphisme, granitisation et tectonique globale</td>
+            <td><b>5 points</b> (25%)</td>
+            <td>~30 minutes</td>
+          </tr>
+        </table>
+      </div>
+    `;
+    calcSimScore();
+    return;
+  }
+
+  // VIEW: CONCOURS POST-BAC & SEUILS DE PRÉSÉLECTION (CURSUSSUP)
+  if (cur === "concours") {
+    A.innerHTML = `
+      <h2>🎓 Concours Post-Bac & Seuils de Présélection 2026 (CursusSup Maroc)</h2>
+      <div class="note">
+        <b>📌 Formule officielle de sélection ministérielle (Plateforme CursusSup) :</b><br>
+        Pour la présélection aux épreuves écrites des grandes écoles d'ingénieurs, de médecine et d'architecture au Maroc, le classement s'effectue automatiquement selon la pondération légale :<br>
+        <div style="font-size:16px; font-weight:800; color:var(--a); margin:10px 0; text-align:center; background:var(--c); padding:12px; border-radius:14px; border:1.5px solid var(--b-hover)">
+          Moyenne de Présélection = (Note Examen National × 0,75) + (Note Examen Régional × 0,25)
+        </div>
+        <i>💡 Règle clé :</i> Le Contrôle Continu ne compte pas dans la sélection de ces concours ! Le National compte pour <b>75%</b>. Une fois convoqué à l'épreuve écrite, seule votre note au concours (QCM) détermine votre admission finale.
+      </div>
+
+      <div class="sim-card">
+        <h3 style="margin-top:0">🧮 Simulateur de Score de Présélection Concours</h3>
+        <p style="color:var(--m); font-size:13px">Ajustez vos notes estimées pour tester instantanément votre admissibilité dans chaque école :</p>
+        
+        <div class="sim-grid">
+          <div class="sim-item">
+            <label>Note Examen Régional 1BAC (25%)</label>
+            <input type="number" id="concours-reg" value="14.00" min="0" max="20" step="0.25" oninput="calcConcoursScore()">
+          </div>
+          <div class="sim-item">
+            <label>Note Examen National 2BAC (75%)</label>
+            <input type="number" id="concours-nat" value="15.00" min="0" max="20" step="0.25" oninput="calcConcoursScore()">
+          </div>
+        </div>
+
+        <div class="sim-result">
+          <div style="font-size:13px; color:var(--m)">Votre Note Pondérée CursusSup :</div>
+          <div class="sim-score" id="concours-score">14.75 / 20</div>
+          <div style="font-size:12.5px; color:var(--t-dim); margin-top:6px">Consultez ci-dessous votre admissibilité prévisionnelle école par école 👇</div>
+          <div style="margin-top:14px">
+            <button class="btn-wa" onclick="shareConcoursScore()" style="padding:8px 16px; font-size:13px" title="Partager mon score CursusSup sur WhatsApp">💬 Partager mon score CursusSup sur WhatsApp</button>
+          </div>
+        </div>
+      </div>
+
+      <h2>🏛️ Les Grandes Écoles & Seuils Observés (Filière Sciences Physiques)</h2>
+      <div class="grid">
+        ${CONCOURS_LIST.map((c, i) => `
+          <div class="card" style="padding:20px">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:10px; flex-wrap:wrap">
+              <div>
+                <span class="badge" style="background:var(--a-subtle); color:var(--a); margin-bottom:6px">${c.type}</span>
+                <h3 style="margin:4px 0">${c.nom}</h3>
+              </div>
+              <div id="concours-badge-${i}"></div>
+            </div>
+            <p style="font-size:13.5px; color:var(--t-dim); margin:10px 0 6px">${c.desc}</p>
+            <div style="background:var(--bg); border:1px solid var(--b); border-radius:12px; padding:10px 12px; margin:8px 0; font-size:12.5px">
+              <b>📝 Format des épreuves :</b> ${c.epreuves}
+            </div>
+            <div class="lk">
+              <a target="_blank" rel="noopener" href="${c.portail}">🌐 Portail officiel de candidature ↗</a>
+              <button class="btn-icon" style="border-color:var(--a); color:var(--a); font-weight:700" onclick="navigateTab('qcm')">🤖 S'entraîner en QCM</button>
+            </div>
+          </div>
+        `).join("")}
+      </div>
+    `;
+    calcConcoursScore();
+    return;
+  }
+
+  // VIEW: TOP PROFS YOUTUBE BIOF
+  if (cur === "profs") {
+    A.innerHTML = `
+      <h2>🎬 Les Meilleurs Professeurs & Chaînes YouTube (Spécial 2BAC BIOF Maroc)</h2>
+      <div class="note">
+        <b>⭐ Sélection plébiscitée par les bacheliers et inspecteurs marocains :</b><br>
+        Retrouvez ici les enseignants les plus réputés du Maroc, parfaitement alignés avec le Cadre de Référence officiel du Bac 2026. Cliquez sur n'importe quelle chaîne pour accéder instantanément à ses cours complets, résumés et corrections d'examens nationaux.
+      </div>
+
+      <div class="grid">
+        ${PROFS_YOUTUBE.map(p => `
+          <div class="card" style="padding:20px">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:10px; margin-bottom:8px">
+              <div>
+                <span class="badge" style="background:rgba(239, 68, 68, 0.1); color:#ef4444">${p.badge}</span>
+                <h3 style="margin:6px 0 2px">${p.nom}</h3>
+                <small style="color:var(--m); font-weight:600">${p.matiere} • ${p.subscribers}</small>
+              </div>
+            </div>
+            <p style="font-size:13.5px; color:var(--t-dim); line-height:1.45; margin:10px 0 14px">${p.specialite}</p>
+            <div class="lk">
+              <a class="yt" target="_blank" rel="noopener" href="${p.url}">▶ Ouvrir les vidéos & playlists YouTube ↗</a>
+            </div>
+          </div>
+        `).join("")}
+      </div>
+    `;
+    return;
+  }
+
   // VIEW: LOCAL PDF LIBRARY (365+ COURS, RESUMES & ANNALES MOUTAMADRIS)
   if (cur === "pdf") {
     A.innerHTML = `
@@ -3796,7 +3852,7 @@ function renderPdfCatalogueGrid() {
         </div>
         <div class="pomo-display" id="pomo-big-disp">${m}:${s}</div>
         <div class="pomo-controls">
-          <button class="btn-main" id="pomo-btn-start" onclick="${pomoRunning ? 'pausePomo()' : 'startPomo()'}">${pomoRunning ? '⏸️ Pause' : '▶️ Démarrer'}</button>
+          <button class="btn-main" id="pomo-btn-start" onclick="togglePomo()">${pomoRunning ? '⏸️ Pause' : '▶️ Démarrer'}</button>
           <button class="btn-sec" onclick="resetPomo()">🔄 Réinitialiser</button>
         </div>
         <div class="pomo-stats">
